@@ -1,2 +1,5 @@
 # Archivos temporales
 planificacion/.~lock.planificacion.ods#
+
+# Caché de pytest
+__pycache__
