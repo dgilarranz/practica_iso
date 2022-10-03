@@ -9,6 +9,8 @@ packages = [{include = "app", from = "src"}]
 [tool.poetry.dependencies]
 python = "^3.9"
 web3 = "^5.31.0"
+cryptography = "^38.0.1"
+mock = "^4.0.3"
 
 
 [tool.poetry.group.dev.dependencies]
