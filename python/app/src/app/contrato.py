@@ -51,8 +51,7 @@ class Contrato:
             return True
 
     def consultar_ip(self, hash_usuario):
-        return self.contrato.functions.getIp(hash_usuario).call({'from': self.owner}
-        )
+        return self.contrato.functions.getIp(hash_usuario).call({'from': self.owner})
         
 
 
