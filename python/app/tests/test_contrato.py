@@ -1,6 +1,7 @@
 from unittest.mock import patch
 from app.contrato import Contrato
 from app.excepciones import NoWeb3Connection
+from cryptography.hazmat.primitives.asymmetric.padding import OAEP
 import pytest
 
 @patch ('app.contrato.Contrato.TEST_NET_URL', 'http://url_incorrecta.com')

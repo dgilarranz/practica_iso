@@ -1,6 +1,9 @@
 from app.usuario import Usuario
 from app.setup import inicializar_usuario, obtener_ip, cifrar_ip
 from app.contrato import Contrato
+from cryptography.hazmat.primitives.asymmetric.padding import OAEP
+from cryptography.hazmat.primitives.asymmetric.padding import MGF1
+from cryptography.hazmat.primitives.hashes import SHA256
 import binascii
 
 def main():
@@ -15,7 +18,7 @@ def main():
     print("Cifrando dirección IP")
     ip_cifrada = cifrar_ip(user)
     print("\t\t\t[COMPLETADO]")
-    print("\n---> IP Cifrada {ip}\n".format(ip = binascii.hexlify(ip_cifrada).decode('utf-8')))
+    print("\n---> IP Cifrada: {ip}\n".format(ip = binascii.hexlify(ip_cifrada).decode('utf-8')))
 
     print("Creando contrato...")
     contract = Contrato()
@@ -34,5 +37,16 @@ def main():
     )
     print("\t\t\t[COMPLETADO]")
     print("\n---> Respuesta: {}\n".format(respuesta))
+
+    print("Desencriptando resultado...")
+    ip_descifrada = user.priv_key.decrypt(
+        bytes.fromhex(respuesta),
+        OAEP(
+            mgf=MGF1(SHA256()),
+            algorithm=SHA256(),
+            label=None
+        )
+    )
+    print("\t\t\t[COMPLETADO -> IP descifrada: {ip}]".format(ip = ip_descifrada.decode('utf-8')))
 
 main()
