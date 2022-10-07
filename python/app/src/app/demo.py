@@ -10,6 +10,7 @@ def main():
     print("Creando usuario...")
     user = inicializar_usuario()
     print("\t\t\t[COMPLETADO]")
+    print("\n---> Hash Identificador: {hash}\n".format(hash = binascii.hexlify(user.hash).decode('utf-8')))
 
     print("Obtieniendo IP del usuario...")
     ip = obtener_ip()
