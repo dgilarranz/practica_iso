@@ -80,13 +80,14 @@ def deleteRow(): #borrar filas
     conn.close()
 
 if __name__ == "__main__":
+    pass
     #createTable() #ejecuto y luego hago ctrl+shift+P para buscar las bases de datos
     #insertRow() #cada vez que vuelvo a hacer una insercción tengo que darle al play en la bbdd (abajo a la izqda)
     #readRows()
-    lista = [
-        ( , ,),
-        (, , )
-        ]
+    #lista = [
+     #   ( , ,),
+      #  (, , )
+      #  ]
     #insertRows(lista) #ejecutar la lista antes de hacer el insert. 
     #readOrdered()
     #search()

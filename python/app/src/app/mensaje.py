@@ -1,23 +1,10 @@
-import time
-from webbrowser import get
+from datetime import datetime
 
-def id_mensaje():
-
-
-def time_stamp():
-    inicio = time.time()
-    #medir tiempo de envio de un mensaje. Meter metodo de enviar mensaje
-    fin = time.time()
-    tiempo_envio = fin - inicio
-    print(tiempo_envio)
-
-def ID_chat():
-    get
-
-def TTL(self, use_cached=True):
-    data_ttl_text = self._get_stream_metadata(use_cached).get("dataTtl")
-    return int(data_ttl_text) 
-    
-
-def Texto():
+class Mensaje:
+    def __init__(self, texto, id_chat,ttl=None):
+        self.texto=texto
+        self.ttl= ttl
+        self.timestamp= datetime.now()
+        self.id_mensaje
+        self.id_chat= id_chat
 
