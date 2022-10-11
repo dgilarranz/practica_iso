@@ -1,27 +1,31 @@
 import sqlite3 as sql
+from app.contacto import Contacto
 
+
+RUTA_BBDD = "resources/database.db"
+CONSULTAS_CREATE = [
+    "CREATE TABLE Contacto(hash text, pub_key text, ip text, PRIMARY KEY (hash))",
+    "CREATE TABLE Chat(id_chat text, PRIMARY KEY (id_chat))",
+    """
+        CREATE TABLE Mensaje(id_mensaje text, texto text, id_chat text, TTL text, Timestamp text, 
+        PRIMARY KEY (id_mensaje), FOREIGN KEY (id_chat) REFERENCES Chat(id_chat))
+    """
+]
 def createDB (): 
-    conn = sql.connect("usuario.db") 
-    conn.commit()
+    conn = sql.connect(RUTA_BBDD)
+    createTables(conn)
     conn.close()
 
-def createTable ():
-    conn = sql.connect("usuario.db")
+def createTables(conn):
     cursor = conn.cursor() #nos proporciona el objeto de la conexión
-    cursor.execute( 
-        """CREATE TABLE usuario ( 
-            hash blob,
-            pub_key blob,
-            priv_key blob
-            )"""
-    )
+    for consulta in CONSULTAS_CREATE:
+        cursor.execute(consulta)
     conn.commit()
-    conn.close()
 
-def insertRow(hash,pub_key,priv_key): #meter una fila
-    conn = sql.connect("usuario.db")
+def insertar_contacto(contacto): #meter una fila
+    conn = sql.connect(RUTA_BBDD)
     cursor = conn.cursor() #nos proporciona el objeto de la conexión
-    instruccion = f"INSERT INTO usuario VALUES ('{hash}', {pub_key}, {priv_key})"
+    instruccion = f"INSERT INTO Contacto VALUES ('{contacto.hash}', {contacto.k_pub}, {contacto.direccion_ip})"
     cursor.execute(instruccion)
     conn.commit()
     conn.close()

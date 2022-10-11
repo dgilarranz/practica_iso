@@ -1,20 +1,51 @@
+from importlib.resources import path
+import resource
 import sqlite3 as sql
 import pytest
+from app.crud import createDB
+from unittest.mock import patch
+import os
+from app.contacto import Contacto
+from app.crud import insertar_contacto
 
 @pytest.fixture
-
 def crear_datos_para_test():
     conn = sql.connect("resources/pruebas.db") #cambiar nombre de la bbdd con el nombre de cristina
     cursor = conn.cursor() #nos proporciona el objeto de la conexión
-    cursor.execute( #otra vez depende de cristina
-        """CREATE TABLE usuario ( 
-            hash blob,
-            pub_key blob,
-            priv_key blob,
-            PRIMARY KEY(hash)
-            )"""
-    )
-    instruccion = f"INSERT INTO usuario VALUES ({hash}, {pub_key}, {priv_key})".format(hash=b"0xa",pub_key=b"0xb",priv_key=b"0xc")
-    cursor.execute(instruccion)
+    cursor.execute("CREATE TABLE Contacto(hash text, pub_key text, ip text, PRIMARY KEY (hash))")
+    cursor.execute("CREATE TABLE Chat(id_chat text, PRIMARY KEY (id_chat))")
+    cursor.execute("CREATE TABLE Mensaje(id_mensaje text, texto text, id_chat text, TTL text, Timestamp text, PRIMARY KEY (id_mensaje), FOREIGN KEY (id_chat) REFERENCES Chat(id_chat))")
+
+    cursor.execute("INSERT INTO TABLE Contacto VALUES ('contacto_prueba', 'pub_key_prueba','1.1.1.1')")
+    #hacer para chat y mensaje
+
     conn.commit()
     conn.close()
+
+@patch("app.crud.RUTA_BBDD", "resources/pruebaCreacion.db")
+def test_crear_base_de_datos():
+    createDB()
+    conn = sql.connect("resources/pruebaCreacion.db") 
+    consulta = f"SELECT count (*) from sqlite_master WHERE type = 'table';"
+    cursor = conn.cursor()
+    cursor.execute(consulta)
+    resultado = cursor.fetchone()
+    #print(resultado)
+    assert resultado[0] == 3
+    os.remove("resources/pruebaCreacion.db")
+
+@patch("app.crud.RUTA_BBDD", "resources/prueba.db")
+def test_insertar_contacto():
+    contacto = contacto(kpub="kpub_prueba",direccion_ip="IP_prueba",hash="hash_prueba")
+    insertar_contacto(contacto)
+    conn = sql.connect("resources/prueba.db") 
+    consulta = f"SELECT ip from Contacto WHERE hash = 'hash_prueba';"
+    cursor = conn.cursor()
+    cursor.execute(consulta)
+    resultado = cursor.fetchone()
+    assert resultado[0] == contacto.direccion_ip
+
+
+
+    
+
