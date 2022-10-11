@@ -25,22 +25,24 @@ def createTables(conn):
 def insertar_contacto(contacto): #meter una fila
     conn = sql.connect(RUTA_BBDD)
     cursor = conn.cursor() #nos proporciona el objeto de la conexión
-    instruccion = f"INSERT INTO Contacto VALUES ('{contacto.hash}', {contacto.k_pub}, {contacto.direccion_ip})"
+    instruccion = f"INSERT INTO Contacto VALUES ('{contacto.hash}', '{contacto.k_pub}', '{contacto.direccion_ip}')"
     cursor.execute(instruccion)
     conn.commit()
     conn.close()
 
-def readRows (): #leer filas 
-    conn = sql.connect("usuario.db")
+def leer_contacto(hash_contacto): #leer filas 
+    conn = sql.connect(RUTA_BBDD)
     cursor = conn.cursor() #nos proporciona el objeto de la conexión
-    instruccion = f"SELECT * from  usuario"
+    instruccion = f"SELECT * from Contacto WHERE Contacto.hash = '{hash_contacto}'"
     cursor.execute(instruccion)
-    datos = cursor.fetchall() #nos devuelve todos los datos seleccionados
+    datos = cursor.fetchone() #nos devuelve todos los datos seleccionados
+    #print(datos)
     conn.commit()
     conn.close()
-    print(datos)
+    return Contacto(hash=datos[0],k_pub=datos[1],direccion_ip=datos[2])
 
-def insertRows (list): #meter varias filas
+
+def insert_Rows (list): #meter varias filas
     conn = sql.connect("usuario.db")
     cursor = conn.cursor() #nos proporciona el objeto de la conexión
     instruccion = f"INSERT INTO usuario VALUES (?,?)"
