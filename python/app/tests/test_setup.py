@@ -6,6 +6,7 @@ from cryptography.hazmat.primitives.hashes import SHA256
 from app.setup import inicializar_usuario
 from app.setup import obtener_ip
 from app.setup import cifrar_ip
+from app.setup import obtener_ip_privada
 
 def test_inicializar_usuario():
     usuario = inicializar_usuario()
@@ -28,17 +29,22 @@ def test_obtener_ip(mock_requests):
 
     assert obtener_ip() == ip_prueba
 
-@patch ('app.setup.obtener_ip')
-def test_cifrar_ip(mock_obtener_ip):
-    # Mockeamos la respuesta de la función obtener_ip()
+def test_cifrar_ip():
     ip_prueba = '128.53.23.94'
-    mock_obtener_ip.return_value = ip_prueba
 
     # Obtenemos la ip cifrada
     user = inicializar_usuario()
-    ip_cifrada = cifrar_ip(user)
+    ip_cifrada = cifrar_ip(user, ip_prueba)
 
     # Verificamos que al desencriptar la ip, obtenemos la misma
     assert user.priv_key.decrypt(ip_cifrada, OAEP(mgf=MGF1(SHA256()), algorithm=SHA256(), label=None))
 
-    
+@patch('socket.socket.getsockname')
+def test_obtener_ip_privada(mock_getsockname):
+    # Mockeamos la respuesta de la función getsockname para que sea la ip de prueba
+    ip_prueba = '1.1.1.1'
+    mock_getsockname.return_value = ['1.1.1.1']
+
+    # Verificamos que se obtiene la IP privada
+    assert obtener_ip_privada() == ip_prueba
+
