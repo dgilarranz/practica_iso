@@ -1,8 +1,7 @@
 from cryptography.hazmat.primitives.asymmetric.rsa import RSAPublicKey
 from cryptography.hazmat.primitives.asymmetric.rsa import RSAPrivateKey
 #from python.app.src.app.mensaje import mensaje
-import mensaje
-from simplecrypt import encrypt, decrypt 
+from app.mensaje import Mensaje
 
 class Usuario:
     def __init__(self, hash, pub_key, priv_key):

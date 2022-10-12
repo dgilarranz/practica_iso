@@ -3,6 +3,8 @@ import json
 from cryptography.hazmat.primitives import serialization 
 import binascii
 
+FICHERO_CONFIG = "resources/config.json"
+
 def guardar_usuario(usuario: Usuario) -> None:
     user_json = {}
     user_json['hash'] = binascii.hexlify(usuario.hash).decode('UTF-8')
@@ -25,10 +27,30 @@ def guardar_usuario(usuario: Usuario) -> None:
 
     user_json['priv_key'] = priv_key_string
 
-    fichero = open('resources/config.json','w') 
+    fichero = open(FICHERO_CONFIG,'w') 
     user_string = json.dumps(user_json)
     #print(user_json)
     fichero.write(user_string) 
     fichero.close() 
 
+def leer_usuario() -> Usuario:
+    # Abrimos el fichero en modo lectura
+    f = open(FICHERO_CONFIG, "r")
+
+    # Leemos el fichero y lo guardamos en una estructura json
+    json_contents = json.load(f)
+
+    # Obtenemos los atributos del usuario
+    user_hash = binascii.unhexlify(json_contents['hash'].encode('utf-8'))
+    pub_key = serialization.load_pem_public_key(
+        binascii.unhexlify(json_contents['pub_key'].encode('utf-8'))
+    )
+    priv_key = serialization.load_pem_private_key(
+        binascii.unhexlify(json_contents['priv_key'].encode('utf-8')),
+        None
+    )
+
+    # Devolvemos un objeto usuario con los atributos leídos
+    return Usuario(user_hash, pub_key, priv_key)
+    
     
