@@ -1,6 +1,7 @@
 import asyncio
 from asyncore import write
 from dis import findlinestarts
+from sqlite3 import connect
 from sys import stderr
 from xmlrpc.client import Boolean
 
@@ -10,6 +11,7 @@ class ConnectionManager():
         self.port = port
         self.last_port = port
         self.timeout = 5
+        self.retry_time = 5
 
         # Separadores y códigos para los mensajes
         # formato petición: HASH_USUARIO{hash_message_separator}MENSAJE{end_message}
@@ -56,25 +58,48 @@ class ConnectionManager():
         writer.close()
 
     async def send_message(self, ip: str, port: int, contact_hash: str, message: str) -> Boolean:
-        # Establecemos una conexión con el destino
-        reader, writer = await asyncio.open_connection(ip, port)
+        # Abrimos la conexión, si hay errores se intenta hasta lograrse
+        connected = False
+        while not connected:
+            try:
+                # Establecemos una conexión con el destino
+                reader, writer = await asyncio.open_connection(ip, port)
+                connected = True
+            except Exception:
+                print("Error abriendo la conexión")
+                await asyncio.sleep(self.retry_time)
 
         # Enviamos el mensaje
         data = f'{contact_hash}{self.hash_message_separator}{message}{self.end_message}'
         writer.write(data.encode('utf-8'))
         await writer.drain()
 
-        # Esperamos a recibir el código de confirmación
+        # Esperamos a recibir el código de confirmación, intentando enviar el mensaje hasta conseguirlo
         response = ''
-        try:
-            response = await asyncio.wait_for(
-                reader.readuntil(self.end_message.encode('utf-8')), 
-                timeout=self.timeout
-            )
-        except asyncio.TimeoutError:
-            print("Error: Timeout expirado esperando la respuesta", stderr)
-        finally:
-            writer.close()
-            await writer.wait_closed()
+        sent = False
+        while not sent:
+            try:
+                response = await asyncio.wait_for(
+                    reader.readuntil(self.end_message.encode('utf-8')), 
+                    timeout=self.timeout
+                )
+                sent = True
+            except asyncio.TimeoutError:
+                print("Error: Timeout expirado esperando la respuesta", stderr)
+                await asyncio.sleep(self.retry_time)
+
+        writer.close()
+        await writer.wait_closed()
         
         return response.decode('utf-8').strip(self.end_message) == self.message_delivered_code
+    
+    def get_messages(self, hash: str) -> list[str]:
+        # Obtenemos los mensajes (si no hay mensajes -> lista vacía)
+        messages = []
+        if hash in self.messages.keys():
+            # Si había mensajes asociados al hash, vaciamos la cola de mensajes
+            messages = self.messages[hash]
+            self.messages[hash] = []
+        
+        # Devolvemos los mensajes obtenidos
+        return messages

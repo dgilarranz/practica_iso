@@ -55,3 +55,9 @@ async def test_enviar_mensaje() -> None:
 
     # Esperamos a que se libere el puerto
     await asyncio.sleep(10)
+
+def test_get_messages():
+    # Mockeamos el diccionario de mensajes
+    cm = ConnectionManager()
+    with patch.object(cm, 'messages', {'hash_prueba': ['mensaje']}):
+        assert cm.get_messages('hash_prueba')[0] == 'mensaje'
