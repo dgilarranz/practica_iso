@@ -7,7 +7,7 @@ from app.sockets import ConnectionManager
 from app.usuario import Usuario
 from app.setup import inicializar_usuario, obtener_ip, cifrar_ip, obtener_ip_privada
 from app.contrato import Contrato
-from app.cyphersuite import hash_to_string, string_to_hash, pub_key_to_string, string_to_pub_key, priv_key_to_string, string_to_priv_key
+from app.cyphersuite import hash_to_string, string_to_hash, pub_key_to_string, string_to_pub_key, priv_key_to_string, string_to_priv_key, cifrar_mensaje
 from cryptography.hazmat.primitives.asymmetric.padding import OAEP
 from cryptography.hazmat.primitives.asymmetric.padding import MGF1
 from cryptography.hazmat.primitives.hashes import SHA256
@@ -92,7 +92,7 @@ async def main():
             print(m.to_json())
         
         # Guardamos el mensaje en la BBDD
-        insertar_mensaje(cifrar_mensaje(mensaje))
+        insertar_mensaje(cifrar_mensaje(mensaje, chat.pub_key))
 
     # Paramos el servidor
     cm_task.cancel()
