@@ -1,5 +1,4 @@
 from multiprocessing.connection import wait
-from tkinter.ttk import Separator
 from unittest.mock import patch
 from app.sockets import ConnectionManager
 import asyncio
