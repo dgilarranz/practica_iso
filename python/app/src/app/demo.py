@@ -41,9 +41,12 @@ async def main():
 
     # Recuperamos el chat de la Base de Datos
     print("Cargando Chat...")
+    chat = leer_chat(open("resources/demo_chat.txt").read().strip())
+    
+    # Iniciamos el servicio de esucha
     cm = ConnectionManager()
     cm_task = asyncio.create_task(cm.start_service())
-    chat = leer_chat(open("resources/demo_chat.txt").read().strip())
+    await asyncio.sleep(1)
     chat.cm = cm
     
     # Obtenemos la info del contacto y lo añadimos al chat
