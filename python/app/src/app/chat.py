@@ -64,7 +64,7 @@ class Chat:
     # Devuelve la lista de mensajes leídos
     def read_new_messages(self) -> list[Mensaje]:
         # Obtenemos los mensajes nuevos para nuestro chat
-        encrypted_messages = self.cm.get_messages(binascii.hexlify(self.id_chat).decode('utf-8'))
+        encrypted_messages = self.cm.get_messages(hash_to_string(self.id_chat))
         decrypted_messages = []
 
         for message in encrypted_messages:
