@@ -10,14 +10,13 @@ from app.mensaje import Mensaje
 from app.sockets import ConnectionManager
 import binascii
 
-CM = ConnectionManager()
-
 class Chat:
-    def __init__(self, id_chat, pub_key: rsa.RSAPublicKey, priv_key: rsa.RSAPrivateKey):
+    def __init__(self, id_chat, pub_key: rsa.RSAPublicKey, priv_key: rsa.RSAPrivateKey, cm: ConnectionManager = None):
         self.id_chat= id_chat
         self.miembros=set()
         self.pub_key = pub_key
         self.priv_key = priv_key
+        self.cm = cm
 
 
     def addMiembro(self,contacto):
@@ -47,8 +46,8 @@ class Chat:
         pending_tasks = set()
         sent_messages = 0
         for m in self.miembros:
-            task = asyncio.create_task(CM.send_message(
-                ip=m.direccion_ip, port=CM.port,
+            task = asyncio.create_task(self.cm.send_message(
+                ip=m.direccion_ip, port=self.cm.port,
                 contact_hash=m.hash, message=mensaje_cifrado
             ))
             pending_tasks.add(task)
@@ -64,7 +63,7 @@ class Chat:
     # Devuelve la lista de mensajes leídos
     def read_new_messages(self) -> list[Mensaje]:
         # Obtenemos los mensajes nuevos para nuestro chat
-        encrypted_messages = CM.get_messages(binascii.hexlify(self.id_chat).decode('utf-8'))
+        encrypted_messages = self.cm.get_messages(binascii.hexlify(self.id_chat).decode('utf-8'))
         decrypted_messages = []
 
         for message in encrypted_messages:

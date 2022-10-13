@@ -3,6 +3,7 @@ from ssl import HAS_TLSv1
 from time import sleep
 from app.contacto import Contacto
 from app.mensaje import Mensaje
+from app.sockets import ConnectionManager
 from app.usuario import Usuario
 from app.setup import inicializar_usuario, obtener_ip, cifrar_ip, obtener_ip_privada
 from app.contrato import Contrato
@@ -40,7 +41,9 @@ async def main():
 
     # Recuperamos el chat de la Base de Datos
     print("Cargando Chat...")
+    cm = ConnectionManager()
     chat = leer_chat(open("resources/demo_chat.txt").read().strip())
+    chat.cm = cm
     
     # Obtenemos la info del contacto y lo añadimos al chat
     hash_contacto = open("resources/hash_contacto.txt").read().strip()
