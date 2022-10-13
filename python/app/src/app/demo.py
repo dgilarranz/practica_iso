@@ -45,16 +45,14 @@ async def main():
     # Obtenemos la info del contacto y lo añadimos al chat
     hash_contacto = open("resources/hash_contacto.txt").read().strip()
     priv_key_contacto = string_to_priv_key(open("resources/priv_key_contacto.txt").read().strip())
-    ip_contacto = hash_to_string(
-        priv_key_contacto.decrypt(
-            ciphertext=binascii.unhexlify(contract.consultar_ip(hash_contacto).encode('utf-8')),
-            padding=OAEP(
-                mgf=MGF1(SHA256()),
-                algorithm=SHA256(),
-                label=None
-            )
+    ip_contacto = priv_key_contacto.decrypt(
+        ciphertext=binascii.unhexlify(contract.consultar_ip(hash_contacto)),
+        padding=OAEP(
+            mgf=MGF1(SHA256()),
+            algorithm=SHA256(),
+            label=None
         )
-    )
+    ).decode('utf-8')
     chat.addMiembro(Contacto(chat.pub_key, ip_contacto, string_to_hash(hash_contacto)))
     print("\t\t\t[COMPLETADO]")
 
