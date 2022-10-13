@@ -42,6 +42,7 @@ async def main():
     # Recuperamos el chat de la Base de Datos
     print("Cargando Chat...")
     cm = ConnectionManager()
+    cm_task = asyncio.create_task(cm.start_service())
     chat = leer_chat(open("resources/demo_chat.txt").read().strip())
     chat.cm = cm
     
@@ -86,5 +87,8 @@ async def main():
         # Mostramos el mensaje leído
         for m in mensajes:
             print(m.to_json())
+
+    # Paramos el servidor
+    cm_task.cancel()
 
 asyncio.run(main())
