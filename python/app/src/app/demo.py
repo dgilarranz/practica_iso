@@ -90,6 +90,9 @@ async def main():
         # Mostramos el mensaje leído
         for m in mensajes:
             print(m.to_json())
+        
+        # Guardamos el mensaje en la BBDD
+        insertar_mensaje(cifrar_mensaje(mensaje))
 
     # Paramos el servidor
     cm_task.cancel()
