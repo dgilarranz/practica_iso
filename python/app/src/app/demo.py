@@ -39,25 +39,40 @@ async def main():
     print("\t\t\t[COMPLETADO]")
 
     # Recuperamos el chat de la Base de Datos
+    print("Cargando Chat...")
     chat = leer_chat(open("resources/demo_chat.txt").read())
     
     # Obtenemos la info del contacto y lo añadimos al chat
     hash_contacto = open("resources/hash_contacto.txt").read()
-    ip_contacto = contract.consultar_ip(hash_contacto)
+    priv_key_contacto = string_to_priv_key(open("resources/priv_key_contacto.txt").read())
+    ip_contacto = hash_to_string(
+        priv_key_contacto.decrypt(
+            ciphertext=contract.consultar_ip(hash_contacto),
+            padding=OAEP(
+                mgf=MGF1(SHA256()),
+                algorithm=SHA256(),
+                label=None
+            )
+        )
+    )
     chat.addMiembro(Contacto(chat.pub_key, ip_contacto, string_to_hash(hash_contacto)))
+    print("\t\t\t[COMPLETADO]")
 
     # Si somos el usuario A y no es la primera ejecución, enviamos un mensaje al usuario B
     if (sys.argv[1] == "user_a"):
         # Creamos un mensaje
+        print("Enviando Mensaje...")
         message = Mensaje("texto_prueba", hash_to_string(chat.id_chat))
 
         # Enviamos el mensaje
         await chat.send_message(message)
+        print("\t\t\t[COMPLETADO]")
 
     else:
         # Si no, esperamos a recibir un mensaje y lo mostramos
         read = False
         mensajes = []
+        print("Esperando Mensaje...")
         while not read:
             # Verificamos si hay algún mensaje nuevo
             mensajes = chat.read_new_messages()
@@ -65,9 +80,10 @@ async def main():
 
             # Esperamos 1 segundo
             sleep(1)
-        
+        print("\t\t\t[COMPLETADO]")
+
         # Mostramos el mensaje leído
         for m in mensajes:
             print(m.to_json())
 
-asyncio.run(main)
+asyncio.run(main())
