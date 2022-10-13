@@ -10,6 +10,9 @@ async def test_crear_puerto_escucha() -> None:
     port = 54321
     cm = ConnectionManager(port)
     server_task = asyncio.create_task(cm.start_service())
+    
+    # Esperamos a que arranque el servidor
+    await asyncio.sleep(1)
 
     reader, writer = await asyncio.open_connection('127.0.0.1', port)
     
