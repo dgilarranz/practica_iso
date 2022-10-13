@@ -6,6 +6,7 @@ from cryptography.hazmat.primitives.asymmetric import rsa
 from cryptography.hazmat.primitives.asymmetric.padding import OAEP
 from cryptography.hazmat.primitives.asymmetric.padding import MGF1
 from cryptography.hazmat.primitives.hashes import SHA256
+from app.cyphersuite import hash_to_string
 from app.mensaje import Mensaje
 from app.sockets import ConnectionManager
 import binascii
@@ -48,7 +49,7 @@ class Chat:
         for m in self.miembros:
             task = asyncio.create_task(self.cm.send_message(
                 ip=m.direccion_ip, port=self.cm.port,
-                contact_hash=m.hash, message=mensaje_cifrado
+                contact_hash=hash_to_string(self.id_chat), message=mensaje_cifrado
             ))
             pending_tasks.add(task)
 

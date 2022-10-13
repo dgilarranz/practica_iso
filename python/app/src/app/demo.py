@@ -84,7 +84,7 @@ async def main():
             read = len(mensajes) > 0
 
             # Esperamos 1 segundo
-            sleep(1)
+            await asyncio.sleep(1)
         print("\t\t\t[COMPLETADO]")
 
         # Mostramos el mensaje leído
