@@ -17,6 +17,8 @@ RUTA_BBDD = "resources/database.db"
 CONSULTAS_CREATE = [
     "CREATE TABLE Contacto(hash text, pub_key text, ip text, PRIMARY KEY (hash))",
     "CREATE TABLE Chat(id_chat text, PRIMARY KEY (id_chat))",
+    "CREATE TABLE ChatContacto (id_chat text NOT NULL , hash_contacto text NULL,PRIMARY KEY (id_chat,hash_contacto) FOREIGN KEY (id_chat) REFERENCES Chat(id_chat), FOREIGN KEY (hash_contacto) REFERENCES Contacto(hash))",
+    "CREATE INDEX indice_id_chat ON ChatContacto(id_chat)",
     "CREATE TABLE Mensaje(mensaje_cifrado text, PRIMARY KEY (mensaje_cifrado))"
 ]
 def createDB (): 
@@ -37,6 +39,15 @@ def insertar_contacto(contacto): #meter una fila
     cursor.execute(instruccion)
     conn.commit()
     conn.close()
+
+def addContactoChat(id_chat,hash_contacto):
+    conn = sql.connect(RUTA_BBDD)
+    cursor = conn.cursor()  # nos proporciona el objeto de la conexión
+    instruccion = f"INSERT INTO ChatContacto VALUES ('{id_chat}','{hash_contacto}')"
+    cursor.execute(instruccion)
+    conn.commit()
+    conn.close()
+
 
 def leer_contacto(hash_contacto): #leer filas 
     conn = sql.connect(RUTA_BBDD)
