@@ -98,7 +98,7 @@ class ConnectionManager():
         messages = []
         if hash in self.messages.keys():
             # Si había mensajes asociados al hash, vaciamos la cola de mensajes
-            messages = self.messages[hash]
+            messages = self.messages[hash].copy()
             self.messages[hash] = []
         
         # Devolvemos los mensajes obtenidos
