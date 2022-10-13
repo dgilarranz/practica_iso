@@ -1,5 +1,6 @@
 import sqlite3 as sql
 from app.contacto import Contacto
+from app.chat import Chat
 
 
 RUTA_BBDD = "resources/database.db"
@@ -41,23 +42,24 @@ def leer_contacto(hash_contacto): #leer filas
     conn.close()
     return Contacto(hash=datos[0],k_pub=datos[1],direccion_ip=datos[2])
 
-
-def insert_Rows (list): #meter varias filas
-    conn = sql.connect("usuario.db")
+def insertar_chat(chat): #meter varias filas
+    conn = sql.connect(RUTA_BBDD)
     cursor = conn.cursor() #nos proporciona el objeto de la conexión
-    instruccion = f"INSERT INTO usuario VALUES (?,?)"
-    cursor.executemany(instruccion,list) #utilizamos esta funcion porque vamos a insertar varios
+    instruccion = f"INSERT INTO Chat VALUES ('{chat.id_chat}')"
+    cursor.execute(instruccion) 
     conn.commit()
     conn.close()
-def readOrdered (field) : #leer en orden
-    conn = sql.connect("usuario.db")
+def leer_chat(chat) : #leer en orden
+    conn = sql.connect(RUTA_BBDD)
     cursor = conn.cursor() #nos proporciona el objeto de la conexión
-    instruccion = f"SELECT * from  usuario ORDER BY {field} DESC"
+    instruccion = f"SELECT * from  Chat WHERE Chat.id_chat = '{id_chat}'"
     cursor.execute(instruccion)
-    datos = cursor.fetchall() #nos devuelve todos los datos seleccionados
+    datos = cursor.fetchone() #nos devuelve todos los datos seleccionados
+    #print(datos)
     conn.commit()
     conn.close()
-    print(datos)
+    return Chat(id_chat=datos[0])
+   
 
 def search (): #hacer consultas
     conn = sql.connect("usuario.db")
@@ -99,4 +101,3 @@ if __name__ == "__main__":
     #search()
     #updateFields()
     #deleteRow()
-        
