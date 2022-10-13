@@ -40,11 +40,11 @@ async def main():
 
     # Recuperamos el chat de la Base de Datos
     print("Cargando Chat...")
-    chat = leer_chat(open("resources/demo_chat.txt").read())
+    chat = leer_chat(open("resources/demo_chat.txt").read().strip())
     
     # Obtenemos la info del contacto y lo añadimos al chat
-    hash_contacto = open("resources/hash_contacto.txt").read()
-    priv_key_contacto = string_to_priv_key(open("resources/priv_key_contacto.txt").read())
+    hash_contacto = open("resources/hash_contacto.txt").read().strip()
+    priv_key_contacto = string_to_priv_key(open("resources/priv_key_contacto.txt").read().strip())
     ip_contacto = hash_to_string(
         priv_key_contacto.decrypt(
             ciphertext=contract.consultar_ip(hash_contacto),
