@@ -1,10 +1,12 @@
 import binascii
 from app.mensaje import Mensaje
-from src.app.chat import Chat
-from src.app.contacto import Contacto
+from app.chat import Chat
+from app.contacto import Contacto
+from app.sockets import ConnectionManager
 import pytest
 import pytest_asyncio
-from unittest.mock import MagicMock, _patch_dict, patch
+import asyncio
+from unittest.mock import patch
 from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.primitives.hashes import SHA256
 from cryptography.hazmat.primitives.asymmetric import rsa
@@ -30,14 +32,23 @@ def test04_addMiembros():
     #pregunto y lo añado
     pass
 
-@pytest.fixture
-def crear_chat() -> Chat:
+@pytest_asyncio.fixture
+async def crear_chat() -> Chat:
     # Creamos un chat de prueba
     chat_hash = hashes.Hash(hashes.SHA256())
     chat_hash = chat_hash.finalize()
     priv_key = rsa.generate_private_key(65537, 2049)
     pub_key = priv_key.public_key()
-    return Chat(chat_hash, pub_key, priv_key)
+
+    # Iniciamos el servicio de intercambio de mensajes
+    cm = ConnectionManager()
+    server_task = asyncio.create_task(cm.start_service())
+    await asyncio.sleep(1)
+
+    yield Chat(chat_hash, pub_key, priv_key, cm)
+
+    # Paramos el servidor
+    server_task.cancel()
 
 @pytest.mark.asyncio
 @patch("app.sockets.ConnectionManager.send_message")
