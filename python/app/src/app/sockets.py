@@ -38,6 +38,7 @@ class ConnectionManager():
         contact_hash = data[0]
         message = data[1].strip(self.end_message)
 
+        # Se comprueba si es la primera vez que se recibe un mensaje de este emisor
         if contact_hash not in self.messages:
             # Si el usuario no está registrado, se registra la conexión
             self.messages[contact_hash] = []
@@ -46,7 +47,9 @@ class ConnectionManager():
             response = f'{self.user_registered_code}{self.end_message}'
             writer.write(response.encode('utf-8'))
             await writer.drain()
-        else:
+        
+        # Si se ha adjuntado un mensaje, se añade
+        if len(message) > 0:
             # Si el usuario está registrado, se añade el mensaje al diccionario
             self.messages[contact_hash].append(message)
             
