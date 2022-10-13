@@ -47,7 +47,7 @@ async def main():
     priv_key_contacto = string_to_priv_key(open("resources/priv_key_contacto.txt").read().strip())
     ip_contacto = hash_to_string(
         priv_key_contacto.decrypt(
-            ciphertext=contract.consultar_ip(hash_contacto),
+            ciphertext=binascii.unhexlify(contract.consultar_ip(hash_contacto).encode('utf-8')),
             padding=OAEP(
                 mgf=MGF1(SHA256()),
                 algorithm=SHA256(),
