@@ -1,0 +1,369 @@
+Date/Time:       2022-10-21 10:14:31 
+Command line:    /home/cyberscream/.local/bin/briefcase build
+
+OS Release:      Linux 5.18.0-14parrot1-amd64
+OS Version:      #1 SMP PREEMPT_DYNAMIC Debian 5.18.14-1parrot1 (2022-08-07)
+Architecture:    x86_64
+Platform:        Linux-5.18.0-14parrot1-amd64-x86_64-with-glibc2.31
+
+Python exe:      /usr/bin/python3
+Python version:  3.9.2 (default, Feb 28 2021, 17:03:44)  [GCC 10.2.1 20210110]
+Virtual env:     False
+Conda env:       False
+
+Briefcase:       0.3.11
+Target platform: linux
+Target format:   appimage
+
+Environment Variables:
+    COLORTERM=truecolor
+    DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus
+    DESKTOP_SESSION=lightdm-xsession
+    DISPLAY=:0
+    GDMSESSION=lightdm-xsession
+    GPG_AGENT_INFO=/run/user/1000/gnupg/S.gpg-agent:0:1
+    GTK_MODULES=gail:atk-bridge
+    GTK_OVERLAY_SCROLLING=0
+    HOME=/home/cyberscream
+    LANG=es_ES.UTF-8
+    LC_ADDRESS=es_ES.UTF-8
+    LC_IDENTIFICATION=es_ES.UTF-8
+    LC_MEASUREMENT=es_ES.UTF-8
+    LC_MONETARY=es_ES.UTF-8
+    LC_NAME=es_ES.UTF-8
+    LC_NUMERIC=es_ES.UTF-8
+    LC_PAPER=es_ES.UTF-8
+    LC_TELEPHONE=es_ES.UTF-8
+    LC_TIME=es_ES.UTF-8
+    LOGNAME=cyberscream
+    LS_COLORS=rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:
+    MATE_DESKTOP_SESSION_ID=this-is-deprecated
+    NVM_BIN=/home/cyberscream/.nvm/versions/node/v19.0.0/bin
+    NVM_CD_FLAGS=
+    NVM_DIR=/home/cyberscream/.nvm
+    NVM_INC=/home/cyberscream/.nvm/versions/node/v19.0.0/include/node
+    OLDPWD=/home/cyberscream/primer_semestre/Ingenieria_del_Software/practica_iso/python
+    PATH=/home/cyberscream/.nvm/versions/node/v19.0.0/bin:/home/cyberscream/.local/bin:/snap/bin:/usr/sandbox/:/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:/usr/share/games:/usr/local/sbin:/usr/sbin:/sbin:/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:/usr/share/games:/usr/local/sbin:/usr/sbin:/sbin:/home/cyberscream/.local/bin:/snap/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games
+    PWD=/home/cyberscream/primer_semestre/Ingenieria_del_Software/practica_iso/python/app
+    QT_ACCESSIBILITY=1
+    QT_AUTO_SCREEN_SCALE_FACTOR=0
+    QT_SCALE_FACTOR=1
+    SESSION_MANAGER=local/cyberscream-edc:@/tmp/.ICE-unix/1324,unix/cyberscream-edc:/tmp/.ICE-unix/1324
+    SHELL=/bin/bash
+    SHLVL=1
+    SSH_AGENT_PID=1380
+    SSH_AUTH_SOCK=/run/user/1000/keyring/ssh
+    TERM=xterm-256color
+    USER=cyberscream
+    VTE_VERSION=6203
+    WINDOWID=52428806
+    XAUTHORITY=/home/cyberscream/.Xauthority
+    XDG_CURRENT_DESKTOP=MATE
+    XDG_DATA_DIRS=/usr/share/mate:/usr/local/share/:/usr/share/
+    XDG_GREETER_DATA_DIR=/var/lib/lightdm/data/cyberscream
+    XDG_RUNTIME_DIR=/run/user/1000
+    XDG_SEAT=seat0
+    XDG_SEAT_PATH=/org/freedesktop/DisplayManager/Seat0
+    XDG_SESSION_CLASS=user
+    XDG_SESSION_DESKTOP=lightdm-xsession
+    XDG_SESSION_ID=2
+    XDG_SESSION_PATH=/org/freedesktop/DisplayManager/Session0
+    XDG_SESSION_TYPE=x11
+    XDG_VTNR=7
+    _=/home/cyberscream/.local/bin/briefcase
+
+Briefcase Log:
+[10:14:30]                                                                                                                                                         subprocess.py:516
+           >>> Running Command:                                                                                                                                    subprocess.py:517
+           >>>     docker --version                                                                                                                                subprocess.py:518
+           >>> Working Directory:                                                                                                                                  subprocess.py:525
+           >>>     /media/cyberscream/OS/David/CEU/Cuarto/Primer_Semestre/Ingenieria_del_Software/practica_iso/python/app                                          subprocess.py:526
+                                                                                                                                                                      __main__.py:27
+           Briefcase requires Docker, but it is not installed (or is not on your PATH).                                                                               __main__.py:28
+           Visit:                                                                                                                                                     __main__.py:28
+                                                                                                                                                                      __main__.py:28
+               https://docs.docker.com/engine/install/#server                                                                                                         __main__.py:28
+                                                                                                                                                                      __main__.py:28
+           to download and install Docker manually.                                                                                                                   __main__.py:28
+           Alternatively, to run briefcase natively (i.e. without Docker), use the                                                                                    __main__.py:28
+           `--no-docker` command-line argument.                                                                                                                       __main__.py:28
+           If you have installed Docker recently and are still getting this error, you may                                                                            __main__.py:28
+           need to restart your terminal session.                                                                                                                     __main__.py:28
+
+╭─────────────────────────────────────────────────────────────────────── Traceback (most recent call last) ────────────────────────────────────────────────────────────────────────╮
+│ /home/cyberscream/.local/lib/python3.9/site-packages/briefcase/integrations/docker.py:123 in verify                                                                              │
+│                                                                                                                                                                                  │
+│   120 │   │   # Verify Docker version is compatible.                                           ╭───────────────────────────────── locals ─────────────────────────────────╮      │
+│   121 │   │   try:                                                                             │   cls = <class 'briefcase.integrations.docker.Docker'>                   │      │
+│   122 │   │   │   # Try to get the version of docker that is installed.                        │ tools = <briefcase.integrations.base.ToolCache object at 0x7f73711eac70> │      │
+│ ❱ 123 │   │   │   output = tools.subprocess.check_output(                                      ╰──────────────────────────────────────────────────────────────────────────╯      │
+│   124 │   │   │   │   ["docker", "--version"],                                                                                                                                   │
+│   125 │   │   │   │   stderr=subprocess.STDOUT,                                                                                                                                  │
+│   126 │   │   │   ).strip("\n")                                                                                                                                                  │
+│                                                                                                                                                                                  │
+│ /home/cyberscream/.local/lib/python3.9/site-packages/briefcase/integrations/subprocess.py:110 in inner                                                                           │
+│                                                                                                                                                                                  │
+│   107 │   │   """                                                                                                                                                                │
+│   108 │   │   # Just run the command if no dynamic elements are active                                                                                                           │
+│   109 │   │   if not sub.tools.input.is_console_controlled:                                                                                                                      │
+│ ❱ 110 │   │   │   return sub_method(sub, args, **kwargs)                                                                                                                         │
+│   111 │   │                                                                                                                                                                      │
+│   112 │   │   remove_dynamic_elements = False                                                                                                                                    │
+│   113                                                                                                                                                                            │
+│                                                                                                                                                                                  │
+│ ╭─────────────────────────────────────── locals ───────────────────────────────────────╮                                                                                         │
+│ │       args = ['docker', '--version']                                                 │                                                                                         │
+│ │     kwargs = {'stderr': -2}                                                          │                                                                                         │
+│ │        sub = <briefcase.integrations.subprocess.Subprocess object at 0x7f73711ead60> │                                                                                         │
+│ │ sub_method = <function Subprocess.check_output at 0x7f73712c9790>                    │                                                                                         │
+│ ╰──────────────────────────────────────────────────────────────────────────────────────╯                                                                                         │
+│                                                                                                                                                                                  │
+│ /home/cyberscream/.local/lib/python3.9/site-packages/briefcase/integrations/subprocess.py:371 in check_output                                                                    │
+│                                                                                                                                                                                  │
+│   368 │   │   self._log_environment(kwargs.get("env"))                                                                                                                           │
+│   369 │   │                                                                                                                                                                      │
+│   370 │   │   try:                                                                                                                                                               │
+│ ❱ 371 │   │   │   cmd_output = self._subprocess.check_output(                                                                                                                    │
+│   372 │   │   │   │   [str(arg) for arg in args], **self.final_kwargs(**kwargs)                                                                                                  │
+│   373 │   │   │   )                                                                                                                                                              │
+│   374 │   │   except subprocess.CalledProcessError as e:                                                                                                                         │
+│                                                                                                                                                                                  │
+│ ╭───────────────────────────────────── locals ─────────────────────────────────────╮                                                                                             │
+│ │   args = ['docker', '--version']                                                 │                                                                                             │
+│ │ kwargs = {'stderr': -2}                                                          │                                                                                             │
+│ │   self = <briefcase.integrations.subprocess.Subprocess object at 0x7f73711ead60> │                                                                                             │
+│ ╰──────────────────────────────────────────────────────────────────────────────────╯                                                                                             │
+│                                                                                                                                                                                  │
+│ /usr/lib/python3.9/subprocess.py:424 in check_output                                                                                                                             │
+│                                                                                                                                                                                  │
+│    421 │   │   │   empty = b''                                                                  ╭─────────────────────────── locals ────────────────────────────╮                │
+│    422 │   │   kwargs['input'] = empty                                                          │    kwargs = {'stderr': -2, 'text': True, 'encoding': 'UTF-8'} │                │
+│    423 │                                                                                        │ popenargs = (['docker', '--version'],)                        │                │
+│ ❱  424 │   return run(*popenargs, stdout=PIPE, timeout=timeout, check=True,                     │   timeout = None                                              │                │
+│    425 │   │   │      **kwargs).stdout                                                          ╰───────────────────────────────────────────────────────────────╯                │
+│    426                                                                                                                                                                           │
+│    427                                                                                                                                                                           │
+│                                                                                                                                                                                  │
+│ /usr/lib/python3.9/subprocess.py:505 in run                                                                                                                                      │
+│                                                                                                                                                                                  │
+│    502 │   │   kwargs['stdout'] = PIPE                                                                                                                                           │
+│    503 │   │   kwargs['stderr'] = PIPE                                                                                                                                           │
+│    504 │                                                                                                                                                                         │
+│ ❱  505 │   with Popen(*popenargs, **kwargs) as process:                                                                                                                          │
+│    506 │   │   try:                                                                                                                                                              │
+│    507 │   │   │   stdout, stderr = process.communicate(input, timeout=timeout)                                                                                                  │
+│    508 │   │   except TimeoutExpired as exc:                                                                                                                                     │
+│                                                                                                                                                                                  │
+│ ╭───────────────────────────────────── locals ─────────────────────────────────────╮                                                                                             │
+│ │ capture_output = False                                                           │                                                                                             │
+│ │          check = True                                                            │                                                                                             │
+│ │          input = None                                                            │                                                                                             │
+│ │         kwargs = {'stdout': -1, 'stderr': -2, 'text': True, 'encoding': 'UTF-8'} │                                                                                             │
+│ │      popenargs = (['docker', '--version'],)                                      │                                                                                             │
+│ │        timeout = None                                                            │                                                                                             │
+│ ╰──────────────────────────────────────────────────────────────────────────────────╯                                                                                             │
+│                                                                                                                                                                                  │
+│ /usr/lib/python3.9/subprocess.py:951 in __init__                                                                                                                                 │
+│                                                                                                                                                                                  │
+│    948 │   │   │   │   │   self.stderr = io.TextIOWrapper(self.stderr,                          ╭────────────────────────────────── locals ───────────────────────────────────╮  │
+│    949 │   │   │   │   │   │   │   encoding=encoding, errors=errors)                            │               args = ['docker', '--version']                                │  │
+│    950 │   │   │                                                                                │            bufsize = -1                                                     │  │
+│ ❱  951 │   │   │   self._execute_child(args, executable, preexec_fn, close_fds,                 │            c2pread = 4                                                      │  │
+│    952 │   │   │   │   │   │   │   │   pass_fds, cwd, env,                                      │           c2pwrite = 5                                                      │  │
+│    953 │   │   │   │   │   │   │   │   startupinfo, creationflags, shell,                       │          close_fds = True                                                   │  │
+│    954 │   │   │   │   │   │   │   │   p2cread, p2cwrite,                                       │      creationflags = 0                                                      │  │
+│                                                                                                 │                cwd = None                                                   │  │
+│                                                                                                 │           encoding = 'UTF-8'                                                │  │
+│                                                                                                 │                env = None                                                   │  │
+│                                                                                                 │             errors = None                                                   │  │
+│                                                                                                 │            errread = -1                                                     │  │
+│                                                                                                 │           errwrite = 5                                                      │  │
+│                                                                                                 │         executable = None                                                   │  │
+│                                                                                                 │       extra_groups = None                                                   │  │
+│                                                                                                 │                  f = <_io.TextIOWrapper name=4 encoding='UTF-8'>            │  │
+│                                                                                                 │                gid = None                                                   │  │
+│                                                                                                 │               gids = None                                                   │  │
+│                                                                                                 │              group = None                                                   │  │
+│                                                                                                 │     line_buffering = False                                                  │  │
+│                                                                                                 │            p2cread = -1                                                     │  │
+│                                                                                                 │           p2cwrite = -1                                                     │  │
+│                                                                                                 │           pass_fds = ()                                                     │  │
+│                                                                                                 │         preexec_fn = None                                                   │  │
+│                                                                                                 │    restore_signals = True                                                   │  │
+│                                                                                                 │               self = <Popen: returncode: 255 args: ['docker', '--version']> │  │
+│                                                                                                 │              shell = False                                                  │  │
+│                                                                                                 │  start_new_session = False                                                  │  │
+│                                                                                                 │        startupinfo = None                                                   │  │
+│                                                                                                 │             stderr = -2                                                     │  │
+│                                                                                                 │              stdin = None                                                   │  │
+│                                                                                                 │             stdout = -1                                                     │  │
+│                                                                                                 │               text = True                                                   │  │
+│                                                                                                 │                uid = None                                                   │  │
+│                                                                                                 │              umask = -1                                                     │  │
+│                                                                                                 │ universal_newlines = None                                                   │  │
+│                                                                                                 │               user = None                                                   │  │
+│                                                                                                 ╰─────────────────────────────────────────────────────────────────────────────╯  │
+│                                                                                                                                                                                  │
+│ /usr/lib/python3.9/subprocess.py:1823 in _execute_child                                                                                                                          │
+│                                                                                                                                                                                  │
+│   1820 │   │   │   │   │   │   err_filename = orig_executable                                                                                                                    │
+│   1821 │   │   │   │   │   if errno_num != 0:                                                                                                                                    │
+│   1822 │   │   │   │   │   │   err_msg = os.strerror(errno_num)                                                                                                                  │
+│ ❱ 1823 │   │   │   │   │   raise child_exception_type(errno_num, err_msg, err_filename)                                                                                          │
+│   1824 │   │   │   │   raise child_exception_type(err_msg)                                                                                                                       │
+│   1825                                                                                                                                                                           │
+│   1826                                                                                                                                                                           │
+│                                                                                                                                                                                  │
+│ ╭───────────────────────────────────────── locals ──────────────────────────────────────────╮                                                                                    │
+│ │                    args = ['docker', '--version']                                         │                                                                                    │
+│ │                 c2pread = 4                                                               │                                                                                    │
+│ │                c2pwrite = 5                                                               │                                                                                    │
+│ │    child_exception_type = <class 'OSError'>                                               │                                                                                    │
+│ │ child_exec_never_called = False                                                           │                                                                                    │
+│ │               close_fds = True                                                            │                                                                                    │
+│ │           creationflags = 0                                                               │                                                                                    │
+│ │                     cwd = None                                                            │                                                                                    │
+│ │                     env = None                                                            │                                                                                    │
+│ │                env_list = None                                                            │                                                                                    │
+│ │            err_filename = 'docker'                                                        │                                                                                    │
+│ │                 err_msg = 'No such file or directory'                                     │                                                                                    │
+│ │               errno_num = 2                                                               │                                                                                    │
+│ │            errpipe_data = bytearray(b'OSError:2:')                                        │                                                                                    │
+│ │            errpipe_read = 6                                                               │                                                                                    │
+│ │           errpipe_write = 7                                                               │                                                                                    │
+│ │                 errread = -1                                                              │                                                                                    │
+│ │                errwrite = 5                                                               │                                                                                    │
+│ │          exception_name = bytearray(b'OSError')                                           │                                                                                    │
+│ │              executable = b'docker'                                                       │                                                                                    │
+│ │         executable_list = (                                                               │                                                                                    │
+│ │                           │   b'/home/cyberscream/.nvm/versions/node/v19.0.0/bin/docker', │                                                                                    │
+│ │                           │   b'/home/cyberscream/.local/bin/docker',                     │                                                                                    │
+│ │                           │   b'/snap/bin/docker',                                        │                                                                                    │
+│ │                           │   b'/usr/sandbox/docker',                                     │                                                                                    │
+│ │                           │   b'/usr/local/bin/docker',                                   │                                                                                    │
+│ │                           │   b'/usr/bin/docker',                                         │                                                                                    │
+│ │                           │   b'/bin/docker',                                             │                                                                                    │
+│ │                           │   b'/usr/local/games/docker',                                 │                                                                                    │
+│ │                           │   b'/usr/games/docker',                                       │                                                                                    │
+│ │                           │   b'/usr/share/games/docker',                                 │                                                                                    │
+│ │                           │   ... +19                                                     │                                                                                    │
+│ │                           )                                                               │                                                                                    │
+│ │             fds_to_keep = {7}                                                             │                                                                                    │
+│ │                     gid = None                                                            │                                                                                    │
+│ │                    gids = None                                                            │                                                                                    │
+│ │               hex_errno = bytearray(b'2')                                                 │                                                                                    │
+│ │        low_fds_to_close = []                                                              │                                                                                    │
+│ │         orig_executable = 'docker'                                                        │                                                                                    │
+│ │                 p2cread = -1                                                              │                                                                                    │
+│ │                p2cwrite = -1                                                              │                                                                                    │
+│ │                    part = b''                                                             │                                                                                    │
+│ │                pass_fds = ()                                                              │                                                                                    │
+│ │                     pid = 2208                                                            │                                                                                    │
+│ │              preexec_fn = None                                                            │                                                                                    │
+│ │         restore_signals = True                                                            │                                                                                    │
+│ │                    self = <Popen: returncode: 255 args: ['docker', '--version']>          │                                                                                    │
+│ │                   shell = False                                                           │                                                                                    │
+│ │       start_new_session = False                                                           │                                                                                    │
+│ │             startupinfo = None                                                            │                                                                                    │
+│ │                     sts = 65280                                                           │                                                                                    │
+│ │                     uid = None                                                            │                                                                                    │
+│ │                   umask = -1                                                              │                                                                                    │
+│ ╰───────────────────────────────────────────────────────────────────────────────────────────╯                                                                                    │
+╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+FileNotFoundError: [Errno 2] No such file or directory: 'docker'
+
+The above exception was the direct cause of the following exception:
+
+╭─────────────────────────────────────────────────────────────────────── Traceback (most recent call last) ────────────────────────────────────────────────────────────────────────╮
+│ /home/cyberscream/.local/lib/python3.9/site-packages/briefcase/__main__.py:21 in main                                                                                            │
+│                                                                                                                                                                                  │
+│   18 │   │   options = command.parse_options(extra=extra_cmdline)                                                                                                                │
+│   19 │   │   command.check_obsolete_data_dir()                                                                                                                                   │
+│   20 │   │   command.parse_config(Path.cwd() / "pyproject.toml")                                                                                                                 │
+│ ❱ 21 │   │   command(**options)                                                                                                                                                  │
+│   22 │   except HelpText as e:                                                                                                                                                   │
+│   23 │   │   logger.info()                                                                                                                                                       │
+│   24 │   │   logger.info(str(e))                                                                                                                                                 │
+│                                                                                                                                                                                  │
+│ ╭─────────────────────────────────────────────────────────────────────────────────── locals ───────────────────────────────────────────────────────────────────────────────────╮ │
+│ │       command = <briefcase.platforms.linux.appimage.LinuxAppImageBuildCommand object at 0x7f73725d2130>                                                                      │ │
+│ │       Command = <class 'briefcase.platforms.linux.appimage.LinuxAppImageBuildCommand'>                                                                                       │ │
+│ │       console = <briefcase.console.Console object at 0x7f73722570d0>                                                                                                         │ │
+│ │             e = BriefcaseCommandError('Briefcase requires Docker, but it is not installed (or is not on your PATH).\nVisit:\n\n                                              │ │
+│ │                 https://docs.docker.com/engine/install/#server\n\nto download and install Docker manually.\nAlternatively, to run briefcase natively (i.e. without Docker),  │ │
+│ │                 use the\n`--no-docker` command-line argument.\nIf you have installed Docker recently and are still getting this error, you may\nneed to restart your         │ │
+│ │                 terminal session.\n')                                                                                                                                        │ │
+│ │ extra_cmdline = []                                                                                                                                                           │ │
+│ │        logger = <briefcase.console.Log object at 0x7f73725bc8b0>                                                                                                             │ │
+│ │       options = {'update': False}                                                                                                                                            │ │
+│ │        result = 200                                                                                                                                                          │ │
+│ ╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯ │
+│                                                                                                                                                                                  │
+│ /home/cyberscream/.local/lib/python3.9/site-packages/briefcase/commands/build.py:53 in __call__                                                                                  │
+│                                                                                                                                                                                  │
+│   50 │   │   self, app: Optional[BaseConfig] = None, update: bool = False, **options                                                                                             │
+│   51 │   ):                                                                                                                                                                      │
+│   52 │   │   # Confirm all required tools are available                                                                                                                          │
+│ ❱ 53 │   │   self.verify_tools()                                                                                                                                                 │
+│   54 │   │                                                                                                                                                                       │
+│   55 │   │   if app:                                                                                                                                                             │
+│   56 │   │   │   state = self._build_app(app, update=update, **options)                                                                                                          │
+│                                                                                                                                                                                  │
+│ ╭───────────────────────────────────────────── locals ──────────────────────────────────────────────╮                                                                            │
+│ │     app = None                                                                                    │                                                                            │
+│ │ options = {}                                                                                      │                                                                            │
+│ │    self = <briefcase.platforms.linux.appimage.LinuxAppImageBuildCommand object at 0x7f73725d2130> │                                                                            │
+│ │  update = False                                                                                   │                                                                            │
+│ ╰───────────────────────────────────────────────────────────────────────────────────────────────────╯                                                                            │
+│                                                                                                                                                                                  │
+│ /home/cyberscream/.local/lib/python3.9/site-packages/briefcase/platforms/linux/appimage.py:143 in verify_tools                                                                   │
+│                                                                                                                                                                                  │
+│   140 │                                                                                                                                                                          │
+│   141 │   def verify_tools(self):                                                                                                                                                │
+│   142 │   │   """Verify the AppImage linuxdeploy tool and plugins exist."""                                                                                                      │
+│ ❱ 143 │   │   super().verify_tools()                                                                                                                                             │
+│   144 │   │   LinuxDeploy.verify(tools=self.tools)                                                                                                                               │
+│   145 │                                                                                                                                                                          │
+│   146 │   def build_app(self, app: AppConfig, **kwargs):                                                                                                                         │
+│                                                                                                                                                                                  │
+│ ╭────────────────────────────────────────────── locals ───────────────────────────────────────────────╮                                                                          │
+│ │ __class__ = <class 'briefcase.platforms.linux.appimage.LinuxAppImageBuildCommand'>                  │                                                                          │
+│ │      self = <briefcase.platforms.linux.appimage.LinuxAppImageBuildCommand object at 0x7f73725d2130> │                                                                          │
+│ ╰─────────────────────────────────────────────────────────────────────────────────────────────────────╯                                                                          │
+│                                                                                                                                                                                  │
+│ /home/cyberscream/.local/lib/python3.9/site-packages/briefcase/platforms/linux/appimage.py:82 in verify_tools                                                                    │
+│                                                                                                                                                                                  │
+│    79 │   │   │   │   │   "Linux AppImages cannot be generated on Windows."                                                                                                      │
+│    80 │   │   │   │   )                                                                                                                                                          │
+│    81 │   │   │   else:                                                                                                                                                          │
+│ ❱  82 │   │   │   │   Docker.verify(tools=self.tools)                                                                                                                            │
+│    83 │   │   elif self.tools.host_os != "Linux":                                                                                                                                │
+│    84 │   │   │   raise BriefcaseCommandError(                                                                                                                                   │
+│    85 │   │   │   │   "Linux AppImages can only be generated on Linux without Docker."                                                                                           │
+│                                                                                                                                                                                  │
+│ ╭────────────────────────────────────────────── locals ───────────────────────────────────────────────╮                                                                          │
+│ │ __class__ = <class 'briefcase.platforms.linux.appimage.LinuxAppImageMixin'>                         │                                                                          │
+│ │      self = <briefcase.platforms.linux.appimage.LinuxAppImageBuildCommand object at 0x7f73725d2130> │                                                                          │
+│ ╰─────────────────────────────────────────────────────────────────────────────────────────────────────╯                                                                          │
+│                                                                                                                                                                                  │
+│ /home/cyberscream/.local/lib/python3.9/site-packages/briefcase/integrations/docker.py:149 in verify                                                                              │
+│                                                                                                                                                                                  │
+│   146 │   │   │   tools.logger.warning(cls.DOCKER_INSTALLATION_STATUS_UNKNOWN_WARNING)         ╭───────────────────────────────── locals ─────────────────────────────────╮      │
+│   147 │   │   except FileNotFoundError as e:                                                   │   cls = <class 'briefcase.integrations.docker.Docker'>                   │      │
+│   148 │   │   │   # Docker executable doesn't exist.                                           │ tools = <briefcase.integrations.base.ToolCache object at 0x7f73711eac70> │      │
+│ ❱ 149 │   │   │   raise BriefcaseCommandError(                                                 ╰──────────────────────────────────────────────────────────────────────────╯      │
+│   150 │   │   │   │   cls.DOCKER_NOT_INSTALLED_ERROR.format(                                                                                                                     │
+│   151 │   │   │   │   │   **cls.DOCKER_INSTALL_DETAILS[tools.host_os]                                                                                                            │
+│   152 │   │   │   │   )                                                                                                                                                          │
+╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+BriefcaseCommandError: Briefcase requires Docker, but it is not installed (or is not on your PATH).
+Visit:
+
+    https://docs.docker.com/engine/install/#server
+
+to download and install Docker manually.
+Alternatively, to run briefcase natively (i.e. without Docker), use the
+`--no-docker` command-line argument.
+If you have installed Docker recently and are still getting this error, you may
+need to restart your terminal session.
+

@@ -1,0 +1,273 @@
+Date/Time:       2022-10-21 10:13:49 
+Command line:    /home/cyberscream/.local/bin/briefcase dev
+
+OS Release:      Linux 5.18.0-14parrot1-amd64
+OS Version:      #1 SMP PREEMPT_DYNAMIC Debian 5.18.14-1parrot1 (2022-08-07)
+Architecture:    x86_64
+Platform:        Linux-5.18.0-14parrot1-amd64-x86_64-with-glibc2.31
+
+Python exe:      /usr/bin/python3
+Python version:  3.9.2 (default, Feb 28 2021, 17:03:44)  [GCC 10.2.1 20210110]
+Virtual env:     False
+Conda env:       False
+
+Briefcase:       0.3.11
+Target platform: linux
+Target format:   None
+
+Environment Variables:
+    COLORTERM=truecolor
+    DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus
+    DESKTOP_SESSION=lightdm-xsession
+    DISPLAY=:0
+    GDMSESSION=lightdm-xsession
+    GPG_AGENT_INFO=/run/user/1000/gnupg/S.gpg-agent:0:1
+    GTK_MODULES=gail:atk-bridge
+    GTK_OVERLAY_SCROLLING=0
+    HOME=/home/cyberscream
+    LANG=es_ES.UTF-8
+    LC_ADDRESS=es_ES.UTF-8
+    LC_IDENTIFICATION=es_ES.UTF-8
+    LC_MEASUREMENT=es_ES.UTF-8
+    LC_MONETARY=es_ES.UTF-8
+    LC_NAME=es_ES.UTF-8
+    LC_NUMERIC=es_ES.UTF-8
+    LC_PAPER=es_ES.UTF-8
+    LC_TELEPHONE=es_ES.UTF-8
+    LC_TIME=es_ES.UTF-8
+    LOGNAME=cyberscream
+    LS_COLORS=rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:
+    MATE_DESKTOP_SESSION_ID=this-is-deprecated
+    NVM_BIN=/home/cyberscream/.nvm/versions/node/v19.0.0/bin
+    NVM_CD_FLAGS=
+    NVM_DIR=/home/cyberscream/.nvm
+    NVM_INC=/home/cyberscream/.nvm/versions/node/v19.0.0/include/node
+    OLDPWD=/home/cyberscream/primer_semestre/Ingenieria_del_Software/practica_iso/python
+    PATH=/home/cyberscream/.nvm/versions/node/v19.0.0/bin:/home/cyberscream/.local/bin:/snap/bin:/usr/sandbox/:/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:/usr/share/games:/usr/local/sbin:/usr/sbin:/sbin:/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:/usr/share/games:/usr/local/sbin:/usr/sbin:/sbin:/home/cyberscream/.local/bin:/snap/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games
+    PWD=/home/cyberscream/primer_semestre/Ingenieria_del_Software/practica_iso/python/app
+    QT_ACCESSIBILITY=1
+    QT_AUTO_SCREEN_SCALE_FACTOR=0
+    QT_SCALE_FACTOR=1
+    SESSION_MANAGER=local/cyberscream-edc:@/tmp/.ICE-unix/1324,unix/cyberscream-edc:/tmp/.ICE-unix/1324
+    SHELL=/bin/bash
+    SHLVL=1
+    SSH_AGENT_PID=1380
+    SSH_AUTH_SOCK=/run/user/1000/keyring/ssh
+    TERM=xterm-256color
+    USER=cyberscream
+    VTE_VERSION=6203
+    WINDOWID=52428806
+    XAUTHORITY=/home/cyberscream/.Xauthority
+    XDG_CURRENT_DESKTOP=MATE
+    XDG_DATA_DIRS=/usr/share/mate:/usr/local/share/:/usr/share/
+    XDG_GREETER_DATA_DIR=/var/lib/lightdm/data/cyberscream
+    XDG_RUNTIME_DIR=/run/user/1000
+    XDG_SEAT=seat0
+    XDG_SEAT_PATH=/org/freedesktop/DisplayManager/Seat0
+    XDG_SESSION_CLASS=user
+    XDG_SESSION_DESKTOP=lightdm-xsession
+    XDG_SESSION_ID=2
+    XDG_SESSION_PATH=/org/freedesktop/DisplayManager/Session0
+    XDG_SESSION_TYPE=x11
+    XDG_VTNR=7
+    _=/home/cyberscream/.local/bin/briefcase
+
+Briefcase Log:
+[10:13:48]                                                                                                                                                                dev.py:161
+           [app] Installing dependencies...                                                                                                                               dev.py:161
+                                                                                                                                                                   subprocess.py:516
+           >>> Running Command:                                                                                                                                    subprocess.py:517
+           >>>     /usr/bin/python3 -u -m pip install --upgrade 'toga-gtk>=0.3.0.dev38'                                                                            subprocess.py:518
+           >>> Working Directory:                                                                                                                                  subprocess.py:525
+           >>>     /media/cyberscream/OS/David/CEU/Cuarto/Primer_Semestre/Ingenieria_del_Software/practica_iso/python/app                                          subprocess.py:526
+           Defaulting to user installation because normal site-packages is not writeable                                                                           subprocess.py:495
+           Requirement already satisfied: toga-gtk>=0.3.0.dev38 in /home/cyberscream/.local/lib/python3.9/site-packages (0.3.0.dev39)                              subprocess.py:495
+[10:13:49] Requirement already satisfied: toga-core==0.3.0.dev39 in /home/cyberscream/.local/lib/python3.9/site-packages (from toga-gtk>=0.3.0.dev38)              subprocess.py:495
+           (0.3.0.dev39)                                                                                                                                                            
+           Requirement already satisfied: pycairo>=1.17.0 in /home/cyberscream/.local/lib/python3.9/site-packages (from toga-gtk>=0.3.0.dev38) (1.21.0)            subprocess.py:495
+           Requirement already satisfied: pygobject>=3.14.0 in /usr/lib/python3/dist-packages (from toga-gtk>=0.3.0.dev38) (3.38.0)                                subprocess.py:495
+           Requirement already satisfied: gbulb>=0.5.3 in /home/cyberscream/.local/lib/python3.9/site-packages (from toga-gtk>=0.3.0.dev38) (0.6.3)                subprocess.py:495
+           Requirement already satisfied: travertino>=0.1.3 in /home/cyberscream/.local/lib/python3.9/site-packages (from                                          subprocess.py:495
+           toga-core==0.3.0.dev39->toga-gtk>=0.3.0.dev38) (0.1.3)                                                                                                                   
+           >>> Return code: 0                                                                                                                                      subprocess.py:553
+           Installing dev dependencies... done                                                                                                                             dev.py:78
+                                                                                                                                                                          dev.py:166
+           [app] Starting in dev mode...                                                                                                                                  dev.py:166
+                                                                                                                                                                   subprocess.py:516
+           >>> Running Command:                                                                                                                                    subprocess.py:517
+           >>>     /usr/bin/python3 -u -c 'import runpy, sys;sys.path.pop(0);runpy.run_module("app", run_name="__main__", alter_sys=True)'                         subprocess.py:518
+           >>> Working Directory:                                                                                                                                  subprocess.py:525
+           >>>     /home/cyberscream                                                                                                                               subprocess.py:526
+           >>> Environment Overrides:                                                                                                                              subprocess.py:535
+           >>>     PYTHONPATH=/media/cyberscream/OS/David/CEU/Cuarto/Primer_Semestre/Ingenieria_del_Software/practica_iso/python/app/src                           subprocess.py:537
+           Traceback (most recent call last):                                                                                                                      subprocess.py:495
+             File "/usr/lib/python3.9/runpy.py", line 147, in _get_module_details                                                                                  subprocess.py:495
+               return _get_module_details(pkg_main_name, error)                                                                                                    subprocess.py:495
+             File "/usr/lib/python3.9/runpy.py", line 141, in _get_module_details                                                                                  subprocess.py:495
+               raise error("No module named %s" % mod_name)                                                                                                        subprocess.py:495
+           ImportError: No module named app.__main__                                                                                                               subprocess.py:495
+                                                                                                                                                                   subprocess.py:495
+           During handling of the above exception, another exception occurred:                                                                                     subprocess.py:495
+                                                                                                                                                                   subprocess.py:495
+           Traceback (most recent call last):                                                                                                                      subprocess.py:495
+             File "<string>", line 1, in <module>                                                                                                                  subprocess.py:495
+             File "/usr/lib/python3.9/runpy.py", line 206, in run_module                                                                                           subprocess.py:495
+               mod_name, mod_spec, code = _get_module_details(mod_name)                                                                                            subprocess.py:495
+             File "/usr/lib/python3.9/runpy.py", line 151, in _get_module_details                                                                                  subprocess.py:495
+               raise error(("%s; %r is a package and cannot " +                                                                                                    subprocess.py:495
+           ImportError: No module named app.__main__; 'app' is a package and cannot be directly executed                                                           subprocess.py:495
+           >>> Return code: 1                                                                                                                                      subprocess.py:553
+                                                                                                                                                                      __main__.py:27
+           Unable to start application 'app'                                                                                                                          __main__.py:28
+
+╭─────────────────────────────────────────────────────────────────────── Traceback (most recent call last) ────────────────────────────────────────────────────────────────────────╮
+│ /home/cyberscream/.local/lib/python3.9/site-packages/briefcase/commands/dev.py:90 in run_dev_app                                                                                 │
+│                                                                                                                                                                                  │
+│    87 │   │   """                                                                                                                                                                │
+│    88 │   │   try:                                                                                                                                                               │
+│    89 │   │   │   # Invoke the app.                                                                                                                                              │
+│ ❱  90 │   │   │   self.tools.subprocess.run(                                                                                                                                     │
+│    91 │   │   │   │   [                                                                                                                                                          │
+│    92 │   │   │   │   │   sys.executable,                                                                                                                                        │
+│    93 │   │   │   │   │   "-u",                                                                                                                                                  │
+│                                                                                                                                                                                  │
+│ ╭──────────────────────────────────────────────────── locals ─────────────────────────────────────────────────────╮                                                              │
+│ │     app = <com.example.app v0.0.1 AppConfig>                                                                    │                                                              │
+│ │     env = {'PYTHONPATH': '/media/cyberscream/OS/David/CEU/Cuarto/Primer_Semestre/Ingenieria_del_Software/p'+26} │                                                              │
+│ │ options = {}                                                                                                    │                                                              │
+│ │    self = <briefcase.commands.dev.DevCommand object at 0x7fd30b3ea370>                                          │                                                              │
+│ ╰─────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯                                                              │
+│                                                                                                                                                                                  │
+│ /home/cyberscream/.local/lib/python3.9/site-packages/briefcase/integrations/subprocess.py:110 in inner                                                                           │
+│                                                                                                                                                                                  │
+│   107 │   │   """                                                                                                                                                                │
+│   108 │   │   # Just run the command if no dynamic elements are active                                                                                                           │
+│   109 │   │   if not sub.tools.input.is_console_controlled:                                                                                                                      │
+│ ❱ 110 │   │   │   return sub_method(sub, args, **kwargs)                                                                                                                         │
+│   111 │   │                                                                                                                                                                      │
+│   112 │   │   remove_dynamic_elements = False                                                                                                                                    │
+│   113                                                                                                                                                                            │
+│                                                                                                                                                                                  │
+│ ╭─────────────────────────────────────────────────────────────── locals ───────────────────────────────────────────────────────────────╮                                         │
+│ │       args = ['/usr/bin/python3', '-u', '-c', 'import runpy, sys;sys.path.pop(0);runpy.run_module("app", run_name="__main__", a'+14] │                                         │
+│ │     kwargs = {                                                                                                                       │                                         │
+│ │              │   'env': {'PYTHONPATH': '/media/cyberscream/OS/David/CEU/Cuarto/Primer_Semestre/Ingenieria_del_Software/p'+26},       │                                         │
+│ │              │   'check': True,                                                                                                      │                                         │
+│ │              │   'cwd': PosixPath('/home/cyberscream'),                                                                              │                                         │
+│ │              │   'stream_output': True                                                                                               │                                         │
+│ │              }                                                                                                                       │                                         │
+│ │        sub = <briefcase.integrations.subprocess.Subprocess object at 0x7fd30a000130>                                                 │                                         │
+│ │ sub_method = <function Subprocess.run at 0x7fd30a13c5e0>                                                                             │                                         │
+│ ╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯                                         │
+│                                                                                                                                                                                  │
+│ /home/cyberscream/.local/lib/python3.9/site-packages/briefcase/integrations/subprocess.py:284 in run                                                                             │
+│                                                                                                                                                                                  │
+│   281 │   │   if stream_output or (                                                                                                                                              │
+│   282 │   │   │   self.tools.input.is_console_controlled and not is_output_redirected                                                                                            │
+│   283 │   │   ):                                                                                                                                                                 │
+│ ❱ 284 │   │   │   return self._run_and_stream_output(args, **kwargs)                                                                                                             │
+│   285 │   │                                                                                                                                                                      │
+│   286 │   │   # Otherwise, invoke run() normally.                                                                                                                                │
+│   287 │   │   self._log_command(args)                                                                                                                                            │
+│                                                                                                                                                                                  │
+│ ╭──────────────────────────────────────────────────────────────────── locals ────────────────────────────────────────────────────────────────────╮                               │
+│ │                 args = ['/usr/bin/python3', '-u', '-c', 'import runpy, sys;sys.path.pop(0);runpy.run_module("app", run_name="__main__", a'+14] │                               │
+│ │ is_output_redirected = None                                                                                                                    │                               │
+│ │               kwargs = {                                                                                                                       │                               │
+│ │                        │   'env': {'PYTHONPATH': '/media/cyberscream/OS/David/CEU/Cuarto/Primer_Semestre/Ingenieria_del_Software/p'+26},       │                               │
+│ │                        │   'check': True,                                                                                                      │                               │
+│ │                        │   'cwd': PosixPath('/home/cyberscream')                                                                               │                               │
+│ │                        }                                                                                                                       │                               │
+│ │                 self = <briefcase.integrations.subprocess.Subprocess object at 0x7fd30a000130>                                                 │                               │
+│ │        stream_output = True                                                                                                                    │                               │
+│ ╰────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯                               │
+│                                                                                                                                                                                  │
+│ /home/cyberscream/.local/lib/python3.9/site-packages/briefcase/integrations/subprocess.py:350 in _run_and_stream_output                                                          │
+│                                                                                                                                                                                  │
+│   347 │   │   self._log_return_code(return_code)                                                                                                                                 │
+│   348 │   │                                                                                                                                                                      │
+│   349 │   │   if check and return_code:                                                                                                                                          │
+│ ❱ 350 │   │   │   raise subprocess.CalledProcessError(return_code, args, stderr=stderr)                                                                                          │
+│   351 │   │                                                                                                                                                                      │
+│   352 │   │   return subprocess.CompletedProcess(args, return_code, stderr=stderr)                                                                                               │
+│   353                                                                                                                                                                            │
+│                                                                                                                                                                                  │
+│ ╭─────────────────────────────────────────────────────────────── locals ────────────────────────────────────────────────────────────────╮                                        │
+│ │        args = ['/usr/bin/python3', '-u', '-c', 'import runpy, sys;sys.path.pop(0);runpy.run_module("app", run_name="__main__", a'+14] │                                        │
+│ │       check = True                                                                                                                    │                                        │
+│ │      kwargs = {                                                                                                                       │                                        │
+│ │               │   'env': {'PYTHONPATH': '/media/cyberscream/OS/David/CEU/Cuarto/Primer_Semestre/Ingenieria_del_Software/p'+26},       │                                        │
+│ │               │   'cwd': PosixPath('/home/cyberscream'),                                                                              │                                        │
+│ │               │   'stdout': -1,                                                                                                       │                                        │
+│ │               │   'stderr': -2,                                                                                                       │                                        │
+│ │               │   'bufsize': 1                                                                                                        │                                        │
+│ │               }                                                                                                                       │                                        │
+│ │     process = <Popen: returncode: 1 args: ['/usr/bin/python3', '-u', '-c', 'import runpy, ...>                                        │                                        │
+│ │ return_code = 1                                                                                                                       │                                        │
+│ │        self = <briefcase.integrations.subprocess.Subprocess object at 0x7fd30a000130>                                                 │                                        │
+│ │      stderr = None                                                                                                                    │                                        │
+│ ╰───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯                                        │
+╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+CalledProcessError: Command '['/usr/bin/python3', '-u', '-c', 'import runpy, sys;sys.path.pop(0);runpy.run_module("app", run_name="__main__", alter_sys=True)']' returned non-zero exit status 1.
+
+The above exception was the direct cause of the following exception:
+
+╭─────────────────────────────────────────────────────────────────────── Traceback (most recent call last) ────────────────────────────────────────────────────────────────────────╮
+│ /home/cyberscream/.local/lib/python3.9/site-packages/briefcase/__main__.py:21 in main                                                                                            │
+│                                                                                                                                                                                  │
+│   18 │   │   options = command.parse_options(extra=extra_cmdline)                                                                                                                │
+│   19 │   │   command.check_obsolete_data_dir()                                                                                                                                   │
+│   20 │   │   command.parse_config(Path.cwd() / "pyproject.toml")                                                                                                                 │
+│ ❱ 21 │   │   command(**options)                                                                                                                                                  │
+│   22 │   except HelpText as e:                                                                                                                                                   │
+│   23 │   │   logger.info()                                                                                                                                                       │
+│   24 │   │   logger.info(str(e))                                                                                                                                                 │
+│                                                                                                                                                                                  │
+│ ╭───────────────────────────────────── locals ─────────────────────────────────────╮                                                                                             │
+│ │       command = <briefcase.commands.dev.DevCommand object at 0x7fd30b3ea370>     │                                                                                             │
+│ │       Command = <class 'briefcase.commands.dev.DevCommand'>                      │                                                                                             │
+│ │       console = <briefcase.console.Console object at 0x7fd30b0ca0d0>             │                                                                                             │
+│ │             e = BriefcaseCommandError("Unable to start application 'app'")       │                                                                                             │
+│ │ extra_cmdline = []                                                               │                                                                                             │
+│ │        logger = <briefcase.console.Log object at 0x7fd30b42f8b0>                 │                                                                                             │
+│ │       options = {'appname': None, 'update_dependencies': False, 'run_app': True} │                                                                                             │
+│ │        result = 200                                                              │                                                                                             │
+│ ╰──────────────────────────────────────────────────────────────────────────────────╯                                                                                             │
+│                                                                                                                                                                                  │
+│ /home/cyberscream/.local/lib/python3.9/site-packages/briefcase/commands/dev.py:168 in __call__                                                                                   │
+│                                                                                                                                                                                  │
+│   165 │   │   if run_app:                                                                                                                                                        │
+│   166 │   │   │   self.logger.info("Starting in dev mode...", prefix=app.app_name)                                                                                               │
+│   167 │   │   │   env = self.get_environment(app)                                                                                                                                │
+│ ❱ 168 │   │   │   return self.run_dev_app(app, env, **options)                                                                                                                   │
+│   169                                                                                                                                                                            │
+│                                                                                                                                                                                  │
+│ ╭────────────────────────────────────────────────────────────────────────── locals ───────────────────────────────────────────────────────────────────────────╮                  │
+│ │                 app = <com.example.app v0.0.1 AppConfig>                                                                                                    │                  │
+│ │             appname = None                                                                                                                                  │                  │
+│ │      dist_info_path = PosixPath('/media/cyberscream/OS/David/CEU/Cuarto/Primer_Semestre/Ingenieria_del_Software/practica_iso/python/app/src/app.dist-info') │                  │
+│ │                 env = {'PYTHONPATH': '/media/cyberscream/OS/David/CEU/Cuarto/Primer_Semestre/Ingenieria_del_Software/p'+26}                                 │                  │
+│ │             options = {}                                                                                                                                    │                  │
+│ │             run_app = True                                                                                                                                  │                  │
+│ │                self = <briefcase.commands.dev.DevCommand object at 0x7fd30b3ea370>                                                                          │                  │
+│ │ update_dependencies = False                                                                                                                                 │                  │
+│ ╰─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯                  │
+│                                                                                                                                                                                  │
+│ /home/cyberscream/.local/lib/python3.9/site-packages/briefcase/commands/dev.py:107 in run_dev_app                                                                                │
+│                                                                                                                                                                                  │
+│   104 │   │   │   │   stream_output=True,                                                                                                                                        │
+│   105 │   │   │   )                                                                                                                                                              │
+│   106 │   │   except subprocess.CalledProcessError as e:                                                                                                                         │
+│ ❱ 107 │   │   │   raise BriefcaseCommandError(                                                                                                                                   │
+│   108 │   │   │   │   f"Unable to start application '{app.app_name}'"                                                                                                            │
+│   109 │   │   │   ) from e                                                                                                                                                       │
+│   110                                                                                                                                                                            │
+│                                                                                                                                                                                  │
+│ ╭──────────────────────────────────────────────────── locals ─────────────────────────────────────────────────────╮                                                              │
+│ │     app = <com.example.app v0.0.1 AppConfig>                                                                    │                                                              │
+│ │     env = {'PYTHONPATH': '/media/cyberscream/OS/David/CEU/Cuarto/Primer_Semestre/Ingenieria_del_Software/p'+26} │                                                              │
+│ │ options = {}                                                                                                    │                                                              │
+│ │    self = <briefcase.commands.dev.DevCommand object at 0x7fd30b3ea370>                                          │                                                              │
+│ ╰─────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯                                                              │
+╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+BriefcaseCommandError: Unable to start application 'app'
