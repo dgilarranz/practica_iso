@@ -1,4 +1,4 @@
-from app.app import main
+from gui.chat_frame import ChatFrame
 
 if __name__ == '__main__':
-    main().main_loop()
+    ChatFrame().main_loop()
