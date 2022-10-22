@@ -13,6 +13,7 @@ from cryptography.hazmat.primitives.asymmetric import rsa
 from cryptography.hazmat.primitives.asymmetric.padding import OAEP
 from cryptography.hazmat.primitives.asymmetric.padding import MGF1
 from cryptography.hazmat.primitives.hashes import SHA256
+from cryptography.fernet import Fernet
 
 # poetry run pytest test_chat.py
 def test01_crearChat():
@@ -37,15 +38,15 @@ async def crear_chat() -> Chat:
     # Creamos un chat de prueba
     chat_hash = hashes.Hash(hashes.SHA256())
     chat_hash = chat_hash.finalize()
-    priv_key = rsa.generate_private_key(65537, 2049)
-    pub_key = priv_key.public_key()
+    key_bytes = Fernet.generate_key()
+    chat_key = Fernet(key_bytes)
 
     # Iniciamos el servicio de intercambio de mensajes
     cm = ConnectionManager()
     server_task = asyncio.create_task(cm.start_service())
     await asyncio.sleep(1)
 
-    yield Chat(chat_hash, pub_key, priv_key, cm)
+    yield Chat(chat_hash, chat_key, cm)
 
     # Paramos el servidor
     server_task.cancel()
@@ -77,16 +78,7 @@ def test_read_messages(mock_get_messages, crear_chat):
     mensaje = Mensaje("Prueba", chat_hash_str,"id_user", ttl=None)
 
     # Creamos un mensaje de prueba y mockeamos la respuesta del CM para que lo devuelva
-    mensaje_cifrado = binascii.hexlify(
-        chat.pub_key.encrypt(
-            mensaje.to_json().encode('utf-8'),
-            padding=OAEP(
-                mgf=MGF1(SHA256()),
-                algorithm=SHA256(),
-                label=None
-            )
-        )
-    ).decode('utf-8')
+    mensaje_cifrado = chat.key.encrypt(mensaje.to_json().encode("utf-8")).decode('utf-8')
     mock_get_messages.return_value = [mensaje_cifrado]
 
     # Comprobamos que se lee el mensaje

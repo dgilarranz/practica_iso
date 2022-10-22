@@ -6,17 +6,17 @@ from cryptography.hazmat.primitives.asymmetric import rsa
 from cryptography.hazmat.primitives.asymmetric.padding import OAEP
 from cryptography.hazmat.primitives.asymmetric.padding import MGF1
 from cryptography.hazmat.primitives.hashes import SHA256
+from cryptography.fernet import Fernet
 from app.cyphersuite import hash_to_string
 from app.mensaje import Mensaje
 from app.sockets import ConnectionManager
 import binascii
 
 class Chat:
-    def __init__(self, id_chat, pub_key: rsa.RSAPublicKey, priv_key: rsa.RSAPrivateKey, cm: ConnectionManager = None):
+    def __init__(self, id_chat, key: Fernet, cm: ConnectionManager = None):
         self.id_chat= id_chat
         self.miembros=set()
-        self.pub_key = pub_key
-        self.priv_key = priv_key
+        self.key = key
         self.cm = cm
         self.messages = []
 
@@ -34,14 +34,7 @@ class Chat:
     async def send_message(self, mensaje: Mensaje) -> int:
         # Ciframos el mensaje
         mensaje_cifrado = binascii.hexlify(
-            self.pub_key.encrypt(
-                mensaje.to_json().encode('utf-8'),
-                padding=OAEP(
-                    mgf=MGF1(SHA256()),
-                    algorithm=SHA256(),
-                    label=None
-                )
-            )
+            self.key.encrypt(mensaje.to_json().encode("utf-8"))
         ).decode('utf-8')
 
         # Enviamos un mensaje a todos los miembros
@@ -70,20 +63,14 @@ class Chat:
 
         for message in encrypted_messages:
             json_message = json.loads(
-                self.priv_key.decrypt(
-                    ciphertext=binascii.unhexlify(message.encode('utf-8')),
-                    padding=OAEP(
-                        mgf=MGF1(SHA256()),
-                        algorithm=SHA256(),
-                        label=None
-                    )
-                )
+                self.key.decrypt(message.encode("utf-8"))
             )
             decrypted_messages.append(
                 Mensaje(
                     id_chat=json_message['id_chat'],
                     texto=json_message['texto'],
-                    ttl=json_message['ttl']
+                    ttl=json_message['ttl'],
+                    id_sender=json_message['id_sender']
                 )
             )
 

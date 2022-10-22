@@ -10,6 +10,8 @@ from app.cyphersuite import priv_key_to_string
 from app.cyphersuite import string_to_priv_key
 from app.cyphersuite import pub_key_to_string
 from app.cyphersuite import string_to_pub_key
+from app.cyphersuite import bytes_to_string
+from app.cyphersuite import string_to_bytes
 from app.mensaje import Mensaje
 from cryptography.hazmat.primitives.asymmetric import rsa
 from cryptography.hazmat.primitives import hashes
