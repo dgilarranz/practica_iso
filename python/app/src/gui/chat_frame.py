@@ -10,7 +10,7 @@ from toga.style.pack import COLUMN, ROW
 from app.chat import Chat
 from app.cyphersuite import hash_to_string
 import copy
-from app.__main__ import user
+from app.config_manager import ConfigManager
 
 class ChatFrame(toga.App):
 
@@ -37,7 +37,7 @@ class ChatFrame(toga.App):
             text_box
         )
 
-        self.add_message("Holaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "self")
+        self.add_message("Holaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", ConfigManager.config["user"].hash)
         self.add_message("Hola", "other")
         
         self.main_window.content.refresh()
@@ -103,7 +103,7 @@ class ChatFrame(toga.App):
 
     def send_message(self, widget):
         message_content = self.message_input.value
-        message = Mensaje(message_content, self.chat.id_chat, hash_to_string(user.hash))
+        message = Mensaje(message_content, self.chat.id_chat, hash_to_string(ConfigManager.config["user"].hash))
 
         self.chat.messages.append(message)
         self.chat.send_message(message)
@@ -125,7 +125,7 @@ class ChatFrame(toga.App):
 
         # Estilo general para todas las líneas
         style = Pack(height=30)
-        if sender == user.hash:
+        if sender == ConfigManager.config["user"].hash:
             style.update(alignment="right")
             style.update(padding_left=400)
             style.update(padding_right=10)
