@@ -18,6 +18,7 @@ class Chat:
         self.pub_key = pub_key
         self.priv_key = priv_key
         self.cm = cm
+        self.messages = []
 
 
     def addMiembro(self,contacto):

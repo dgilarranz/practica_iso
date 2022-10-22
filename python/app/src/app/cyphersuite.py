@@ -10,6 +10,7 @@ from cryptography.hazmat.primitives import serialization
 
 
 def cifrar_mensaje(mensaje: Mensaje, pub_key: RSAPublicKey) -> str:
+    print(mensaje.to_json())
     return binascii.hexlify(
             pub_key.encrypt(
                 mensaje.to_json().encode('utf-8'),
@@ -35,7 +36,8 @@ def descifrar_mensaje(mensaje_cifrado: str, priv_key: RSAPrivateKey) -> Mensaje:
     return Mensaje(
         texto=mensaje_descifrado['texto'],
         id_chat=mensaje_descifrado['id_chat'],
-        ttl=mensaje_descifrado['ttl']
+        ttl=mensaje_descifrado['ttl'],
+        id_sender=mensaje_descifrado['id_sender']
     )
 
 def hash_to_string(hash: bytes) -> str:

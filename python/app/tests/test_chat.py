@@ -64,7 +64,7 @@ async def test_send_message(mock_send_message, crear_chat):
     miembros.add(Contacto("clave", "2.2.2.2", "hash_c2"))
     with patch.object(chat, 'miembros', miembros):
         response = await chat.send_message(
-            Mensaje("Prueba", binascii.hexlify(chat.id_chat).decode('utf-8'), ttl=None)
+            Mensaje("Prueba", binascii.hexlify(chat.id_chat).decode('utf-8'), "id_user", ttl=None)
         )
     
     # Verificamos que se han enviado todos los mensajes
@@ -74,7 +74,7 @@ async def test_send_message(mock_send_message, crear_chat):
 def test_read_messages(mock_get_messages, crear_chat):
     chat = crear_chat
     chat_hash_str = binascii.hexlify(chat.id_chat).decode('utf-8')
-    mensaje = Mensaje("Prueba", chat_hash_str, ttl=None)
+    mensaje = Mensaje("Prueba", chat_hash_str,"id_user", ttl=None)
 
     # Creamos un mensaje de prueba y mockeamos la respuesta del CM para que lo devuelva
     mensaje_cifrado = binascii.hexlify(

@@ -32,7 +32,7 @@ def crear_chat() -> Chat:
 
 def test_cifrar_mensaje(crear_chat: Chat):
     chat = crear_chat
-    mensaje = Mensaje("texto prueba", binascii.hexlify(chat.id_chat).decode('utf-8'), None)
+    mensaje = Mensaje("texto prueba", binascii.hexlify(chat.id_chat).decode('utf-8'), "user_id", None)
     mensaje_cifrado = cifrar_mensaje(mensaje, chat.pub_key)
 
     # Desciframos el mensaje y comprobamos que tiene los campos adecuados
@@ -50,7 +50,7 @@ def test_cifrar_mensaje(crear_chat: Chat):
 
 def test_descifrar_mensaje(crear_chat: Chat):
     chat = crear_chat
-    mensaje = Mensaje("texto prueba", binascii.hexlify(chat.id_chat).decode('utf-8'), None)
+    mensaje = Mensaje("texto prueba", binascii.hexlify(chat.id_chat).decode('utf-8'), "id_user", None)
     
     # Ciframos el mensaje
     mensaje_cifrado = binascii.hexlify(

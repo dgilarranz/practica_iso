@@ -3,3 +3,6 @@ planificacion/.~lock.planificacion.ods#
 
 # Caché de pytest
 __pycache__
+
+# Archivos de log
+*.log
