@@ -16,7 +16,7 @@ from app.mensaje import Mensaje
 RUTA_BBDD = "resources/database.db"
 CONSULTAS_CREATE = [
     "CREATE TABLE Contacto(hash text, pub_key text, ip text, PRIMARY KEY (hash))",
-    "CREATE TABLE Chat(id_chat text, PRIMARY KEY (id_chat))",
+    "CREATE TABLE Chat(id_chat text, key text, PRIMARY KEY (id_chat))",
     "CREATE TABLE ChatContacto (id_chat text NOT NULL , hash_contacto text NULL,PRIMARY KEY (id_chat,hash_contacto) FOREIGN KEY (id_chat) REFERENCES Chat(id_chat), FOREIGN KEY (hash_contacto) REFERENCES Contacto(hash))",
     "CREATE INDEX indice_id_chat ON ChatContacto(id_chat)",
     "CREATE TABLE Mensaje(mensaje_cifrado text, PRIMARY KEY (mensaje_cifrado))"
@@ -63,7 +63,7 @@ def leer_contacto(hash_contacto): #leer filas
 def insertar_chat(chat:Chat): #meter varias filas
     conn = sql.connect(RUTA_BBDD)
     cursor = conn.cursor() #nos proporciona el objeto de la conexión
-    instruccion = f"INSERT INTO Chat VALUES ('{hash_to_string(chat.id_chat)}', '{pub_key_to_string(chat.pub_key)}', '{priv_key_to_string(chat.priv_key)}')"
+    instruccion = f"INSERT INTO Chat VALUES ('{hash_to_string(chat.id_chat)}', '{hash_to_string(chat.key)}')"
     cursor.execute(instruccion) 
     conn.commit()
     conn.close()
@@ -77,7 +77,7 @@ def leer_chat(id_chat:str)-> Chat : #leer en orden
     #print(datos)
     conn.commit()
     conn.close()
-    return Chat(id_chat=string_to_hash(datos[0]),pub_key= string_to_pub_key(datos[1]), priv_key= string_to_priv_key(datos[2]))
+    return Chat(id_chat=string_to_hash(datos[0]),key=string_to_hash(datos[1]))
 
 def insertar_mensaje(mensaje:str): #modificar
     conn = sql.connect(RUTA_BBDD)

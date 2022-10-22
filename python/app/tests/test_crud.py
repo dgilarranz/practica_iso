@@ -2,6 +2,7 @@ from importlib.resources import path
 import resource
 import sqlite3 as sql
 from xml.dom.minidom import CharacterData
+from app.setup import inicializar_usuario
 import pytest
 from app.crud import createDB
 from unittest.mock import patch
@@ -32,14 +33,14 @@ from app.cyphersuite import pub_key_to_string
 from app.cyphersuite import string_to_pub_key
 from cryptography.hazmat.primitives.asymmetric import rsa
 from cryptography.hazmat.primitives import hashes
-
+from cryptography.fernet import Fernet
 
 @pytest.fixture(scope="session", autouse = True)
 def crear_datos_para_test():
     conn = sql.connect("resources/pruebas.db")
     cursor = conn.cursor() #nos proporciona el objeto de la conexión
     cursor.execute("CREATE TABLE Contacto(hash text, pub_key text, ip text, PRIMARY KEY (hash))")
-    cursor.execute("CREATE TABLE Chat(id_chat text, pub_key text, priv_key text, PRIMARY KEY (id_chat))")
+    cursor.execute("CREATE TABLE Chat(id_chat text, key text, PRIMARY KEY (id_chat))")
     cursor.execute("CREATE TABLE Mensaje(mensaje_cifrado text, PRIMARY KEY (mensaje_cifrado))")
 
     #consultas para Contacto
@@ -47,7 +48,7 @@ def crear_datos_para_test():
     #cursor.execute("UPDATE Contacto SET ip = '2.2.2.2' WHERE ip like '1.1.1.1'")
     #cursor.execute("DELETE FROM Contacto WHERE ip like '1.1.1.1'")
     #consultas para chat
-    cursor.execute("INSERT INTO Chat VALUES ('id_chat_prueba','pub_key_prueba','priv_key_prueba')")
+    cursor.execute("INSERT INTO Chat VALUES ('id_chat_prueba','key_prueba')")
     #cursor.execute("UPDATE Chat SET id_chat = '1'")
     #cursor.execute("DELETE FROM Chat WHERE id_chat = 'id_chat_prueba'")
     #consultas para mensaje
@@ -63,9 +64,8 @@ def crear_chat() -> Chat:
     # Creamos un chat de prueba
     chat_hash = hashes.Hash(hashes.SHA256())
     chat_hash = chat_hash.finalize()
-    priv_key = rsa.generate_private_key(65537, 2049)
-    pub_key = priv_key.public_key()
-    return Chat(chat_hash, pub_key, priv_key)
+    key = Fernet.generate_key()
+    return Chat(chat_hash, key)
 
 @pytest.fixture
 def crear_mensaje(crear_chat:Chat) -> Mensaje:
@@ -81,7 +81,7 @@ def test_crear_base_de_datos():
     cursor.execute(consulta)
     resultado = cursor.fetchone()
     #print(resultado)
-    assert resultado[0] == 3
+    assert resultado[0] == 4
     os.remove("resources/pruebaCreacion.db")
 
 @patch("app.crud.RUTA_BBDD", "resources/pruebas.db")
@@ -127,11 +127,11 @@ def test_insertar_chat(crear_chat: Chat):
     chat = crear_chat
     insertar_chat(chat)
     conn = sql.connect("resources/pruebas.db")
-    consulta = f"SELECT pub_key from Chat WHERE id_chat = '{hash_to_string(chat.id_chat)}';"
+    consulta = f"SELECT key from Chat WHERE id_chat = '{hash_to_string(chat.id_chat)}';"
     cursor=conn.cursor()
     cursor.execute(consulta)
     resultado=cursor.fetchone()
-    assert resultado[0] == pub_key_to_string(chat.pub_key)
+    assert resultado[0] == hash_to_string(chat.key)
 
 @patch("app.crud.RUTA_BBDD", "resources/pruebas.db")
 def test_leer_chat(crear_chat: Chat):
@@ -142,8 +142,9 @@ def test_leer_chat(crear_chat: Chat):
 @patch("app.crud.RUTA_BBDD", "resources/pruebas.db")
 def test_insertar_mensaje(crear_chat: Chat):
     chat = crear_chat
-    mensaje = Mensaje('texto_prueba', hash_to_string(chat.id_chat))
-    mensaje_cifrado = cifrar_mensaje(mensaje,chat.pub_key)
+    user = inicializar_usuario()
+    mensaje = Mensaje('texto_prueba', hash_to_string(chat.id_chat), "id_sender")
+    mensaje_cifrado = hash_to_string(Fernet(chat.key).encrypt(mensaje.to_json().encode("utf-8")))
     insertar_mensaje(mensaje_cifrado)
     conn = sql.connect("resources/pruebas.db")
     consulta = f"SELECT mensaje_cifrado from Mensaje;"

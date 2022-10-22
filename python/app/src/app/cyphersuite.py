@@ -7,31 +7,17 @@ from cryptography.hazmat.primitives.asymmetric.padding import OAEP
 from cryptography.hazmat.primitives.asymmetric.padding import MGF1
 from cryptography.hazmat.primitives.hashes import SHA256
 from cryptography.hazmat.primitives import serialization 
+from cryptography.fernet import Fernet
 
 
-def cifrar_mensaje(mensaje: Mensaje, pub_key: RSAPublicKey) -> str:
-    print(mensaje.to_json())
+def cifrar_mensaje(mensaje: Mensaje, key: bytes) -> str:
     return binascii.hexlify(
-            pub_key.encrypt(
-                mensaje.to_json().encode('utf-8'),
-                padding=OAEP(
-                    mgf=MGF1(SHA256()),
-                    algorithm=SHA256(),
-                    label=None
-                )
-            )
+            Fernet(key).encrypt(mensaje.to_json().encode("utf-8"))
         ).decode('utf-8')
 
-def descifrar_mensaje(mensaje_cifrado: str, priv_key: RSAPrivateKey) -> Mensaje:
+def descifrar_mensaje(mensaje_cifrado: str, key: bytes) -> Mensaje:
     mensaje_descifrado = json.loads(
-        priv_key.decrypt(
-            ciphertext=binascii.unhexlify(mensaje_cifrado.encode('utf-8')),
-                padding=OAEP(
-                mgf=MGF1(SHA256()),
-                algorithm=SHA256(),
-                label=None
-            )
-        )
+        Fernet(key).decrypt(binascii.unhexlify(mensaje_cifrado.encode('utf-8')))
     )
     return Mensaje(
         texto=mensaje_descifrado['texto'],

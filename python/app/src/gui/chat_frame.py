@@ -37,7 +37,7 @@ class ChatFrame(toga.App):
             text_box
         )
 
-        self.add_message("Holaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "self")
+        self.add_message("Holaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "self")
         self.add_message("Hola", "other")
         
         self.main_window.content.refresh()

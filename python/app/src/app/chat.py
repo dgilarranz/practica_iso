@@ -13,7 +13,7 @@ from app.sockets import ConnectionManager
 import binascii
 
 class Chat:
-    def __init__(self, id_chat, key: Fernet, cm: ConnectionManager = None):
+    def __init__(self, id_chat, key: bytes, cm: ConnectionManager = None):
         self.id_chat= id_chat
         self.miembros=set()
         self.key = key
@@ -34,7 +34,7 @@ class Chat:
     async def send_message(self, mensaje: Mensaje) -> int:
         # Ciframos el mensaje
         mensaje_cifrado = binascii.hexlify(
-            self.key.encrypt(mensaje.to_json().encode("utf-8"))
+            Fernet(self.key).encrypt(mensaje.to_json().encode("utf-8"))
         ).decode('utf-8')
 
         # Enviamos un mensaje a todos los miembros
@@ -63,7 +63,7 @@ class Chat:
 
         for message in encrypted_messages:
             json_message = json.loads(
-                self.key.decrypt(message.encode("utf-8"))
+                Fernet(self.key).decrypt(message.encode("utf-8"))
             )
             decrypted_messages.append(
                 Mensaje(

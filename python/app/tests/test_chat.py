@@ -38,15 +38,14 @@ async def crear_chat() -> Chat:
     # Creamos un chat de prueba
     chat_hash = hashes.Hash(hashes.SHA256())
     chat_hash = chat_hash.finalize()
-    key_bytes = Fernet.generate_key()
-    chat_key = Fernet(key_bytes)
+    key = Fernet.generate_key()
 
     # Iniciamos el servicio de intercambio de mensajes
     cm = ConnectionManager()
     server_task = asyncio.create_task(cm.start_service())
     await asyncio.sleep(1)
 
-    yield Chat(chat_hash, chat_key, cm)
+    yield Chat(chat_hash, key, cm)
 
     # Paramos el servidor
     server_task.cancel()
@@ -78,7 +77,7 @@ def test_read_messages(mock_get_messages, crear_chat):
     mensaje = Mensaje("Prueba", chat_hash_str,"id_user", ttl=None)
 
     # Creamos un mensaje de prueba y mockeamos la respuesta del CM para que lo devuelva
-    mensaje_cifrado = chat.key.encrypt(mensaje.to_json().encode("utf-8")).decode('utf-8')
+    mensaje_cifrado = Fernet(chat.key).encrypt(mensaje.to_json().encode("utf-8")).decode('utf-8')
     mock_get_messages.return_value = [mensaje_cifrado]
 
     # Comprobamos que se lee el mensaje
