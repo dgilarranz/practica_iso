@@ -1,6 +1,7 @@
 import asyncio
 from app.chat import Chat
 from app.sockets import ConnectionManager
+from gui.app import MessageApp
 from gui.chat_frame import ChatFrame
 from gui.main_frame import MainFrame
 from cryptography.hazmat.primitives import hashes
@@ -17,9 +18,7 @@ def crear_chat() -> Chat:
     return Chat(chat_hash, key, None)
 
 if __name__ == '__main__':
-    app = toga.App()
-    app.main_window = MainFrame(id="App", title="App")
-    app.main_window.show()
+    app = MessageApp()
     app.main_loop()
 
     
