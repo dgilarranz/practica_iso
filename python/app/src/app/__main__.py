@@ -1,9 +1,9 @@
 import asyncio
 from app.chat import Chat
 from app.sockets import ConnectionManager
-from gui.app import MessageApp
-from gui.chat_frame import ChatFrame
-from gui.main_frame import MainFrame
+from app.gui.app import MessageApp
+from app.gui.chat_frame import ChatFrame
+from app.gui.main_frame import MainFrame
 from cryptography.hazmat.primitives import hashes
 from cryptography.fernet import Fernet
 from app.config_manager import ConfigManager
