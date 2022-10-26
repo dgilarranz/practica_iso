@@ -2,19 +2,23 @@ import toga
 from toga.style import Pack
 from toga.style.pack import COLUMN
 
-class NewChatFrame(toga.App):
-    def startup(self) -> None:
-        self.main_window = toga.MainWindow(title="Nuevo chat")
+class NewChatFrame(toga.Window):
+    def __init__(self) -> None:
+        super().__init__(title="Nuevo chat")
         main_box = toga.Box(id="main_box", style=Pack(direction=COLUMN, background_color="#155757"))
-        self.main_window.content = main_box
 
         container = toga.OptionContainer()
         create_chat = self.crearChat()
         join_chat = self.unirseChat()
+
         container.add('Crear', create_chat)
         container.add('Unirse', join_chat)
+        
+        main_box.add(container)
+        self.content = main_box
+        self.content.refresh()
 
-    def crearChat(self) -> None:
+    def crearChat(self) -> toga.Box:
         id_create_box = toga.Box()
         clave_create_box = toga.Box()
         box_create = toga.Box()
@@ -37,7 +41,9 @@ class NewChatFrame(toga.App):
         box_create.add(clave_create_box)
         box_create.add(create_button)
 
-    def unirseChat(self) -> None:
+        return box_create
+
+    def unirseChat(self) -> toga.Box:
         id_join_box = toga.Box()
         clave_join_box = toga.Box()
         box_join = toga.Box()
@@ -59,3 +65,5 @@ class NewChatFrame(toga.App):
         box_join.add(id_join_box)
         box_join.add(clave_join_box)
         box_join.add(join_button)
+
+        return box_join
