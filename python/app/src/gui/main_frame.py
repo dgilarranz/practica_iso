@@ -1,19 +1,24 @@
+from tkinter import HORIZONTAL
+from tkinter.ttk import Style
+from app.chat import Chat
+from app.cyphersuite import hash_to_string
 import toga
 from toga.style import Pack
 from toga.style.pack import COLUMN, ROW
 
 class MainFrame(toga.MainWindow):
-    def __init__(self, id, title) -> None:
+    def __init__(self, id: str, title: str, chat_list: list[Chat]) -> None:
         super().__init__(id, title)
+        self.chat_list = chat_list
         self.create_interface()
 
     def create_interface(self):
         main_box = toga.Box(id="main_box", style=Pack(direction=COLUMN, background_color="#155757"))
 
         options_box = self.create_options_box()
-        self.chats_box = self.create_chats_box()
+        chats_scroll_box = self.create_chats_box()
         divider = toga.Divider(direction=0, style=Pack(height=3))
-        main_box.add(options_box, divider, self.chats_box)
+        main_box.add(options_box, divider, chats_scroll_box)
 
         self.content = main_box
         self.content.refresh()
@@ -38,7 +43,13 @@ class MainFrame(toga.MainWindow):
         return options_box
 
     def create_chats_box(self):
-        return toga.Box()
+        self.chats_box = toga.Box(id="options_box", style=Pack(direction=COLUMN, padding=10, flex=1))
+        scroll_container = toga.ScrollContainer(content=self.chats_box, horizontal=False)
+
+        for chat in self.chat_list:
+            self.chats_box.add(self.create_chat_widget(chat))
+
+        return scroll_container
     
     def open_add_chat_window(self, widget):
         pass
@@ -48,4 +59,27 @@ class MainFrame(toga.MainWindow):
 
     def open_chat_window(self, widget):
         pass
+
+    def create_chat_widget(self, chat: Chat) -> toga.Box:
+        str_chat_id = hash_to_string(chat.id_chat)
+        chat_box = toga.Box(id=f"chat_{str_chat_id}_box", style=Pack(direction=COLUMN))
+
+        inner_box = toga.Box(id=f"chat_{str_chat_id}_inner_box", style=Pack(direction=ROW, padding=10))
+        label_chat = toga.Label("Chat:", style=Pack(font_weight="bold", padding_right=5))
+        label_id = toga.Label(str_chat_id)
+        open_button = toga.Button(
+            text="Abrir",
+            id=f"open_{str_chat_id}_btn",
+            style=Pack(padding_left=20),
+            on_press=self.open_chat(chat)
+        )
+
+        inner_box.add(label_chat, label_id, open_button)
+        chat_box.add(inner_box, toga.Divider(direction=0, style=Pack(height=2)))
+        return chat_box
+        
+
+    def open_chat(self, chat: Chat) -> None:
+        pass
+
 
