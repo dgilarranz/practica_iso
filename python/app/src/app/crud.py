@@ -62,10 +62,10 @@ def leer_contacto(hash_contacto): #leer filas
     conn.close()
     return Contacto(hash=datos[0],k_pub=datos[1],direccion_ip=datos[2])
 
-def actualizar_contacto():
+def actualizar_contacto(ip):
     conn = sql.connect(RUTA_BBDD)
     cursor = conn.cursor()
-    instruccion = f"UPDATE Contacto SET hash =  WHERE "
+    instruccion = f"UPDATE Contacto SET ip = 2.2.2.2 WHERE Contacto.direccion_ip = '{ip}'"
     cursor.execute(instruccion)
     datos = cursor.fetchone()
     conn.commit()
@@ -73,10 +73,10 @@ def actualizar_contacto():
     #return Contacto()
 
 
-def borrar_contacto():
+def borrar_contacto(ip):
     conn = sql.connect(RUTA_BBDD)
     cursor = conn.cursor()
-    instruccion = f"DELETE FROM Contacto WHERE Contacto.hash = ''"
+    instruccion = f"DELETE FROM Contacto WHERE Contacto.direccion_ip = '{ip}'"
     cursor.execute(instruccion)
     datos = cursor.fetchone()
     conn.commit()
@@ -104,26 +104,26 @@ def leer_chat(id_chat:str)-> Chat : #leer en orden
     conn.close()
     return Chat(id_chat=string_to_hash(datos[0]),key=string_to_hash(datos[1]))
 
-def actualizar_chat():
+def actualizar_chat(id_chat:str)-> Chat:
     conn = sql.connect(RUTA_BBDD)
     cursor = conn.cursor()
-    instruccion = f"UPDATE Chat SET id_chat =  WHERE "
+    instruccion = f"UPDATE Chat SET id_chat = 1 WHERE Chat.id_chat = '{id_chat}'"
     cursor.execute(instruccion)
     datos = cursor.fetchone()
     conn.commit()
     conn.close()
 
-def borrar_chat():
+def borrar_chat(id_chat):
     conn = sql.connect(RUTA_BBDD)
     cursor = conn.cursor()
-    instruccion = f"DELETE FROM Contacto WHERE "
+    instruccion = f"DELETE FROM Chat WHERE Chat.id_chat = '{id_chat}'"
     cursor.execute(instruccion)
     datos = cursor.fetchone()
     conn.commit()
     conn.close()
 
 #Métodos CRUD para mensaje
-def insertar_mensaje(mensaje:str): #modificar
+def insertar_mensaje(mensaje:str):
     conn = sql.connect(RUTA_BBDD)
     cursor = conn.cursor() #nos proporciona el objeto de la conexión
     instruccion = f"INSERT INTO Mensaje VALUES ('{mensaje}')"
@@ -134,7 +134,7 @@ def insertar_mensaje(mensaje:str): #modificar
 def leer_mensaje(id_mensaje:str) -> Mensaje:
     conn = sql.connect(RUTA_BBDD)
     cursor = conn.cursor() #nos proporciona el objeto de la conexión
-    instruccion = f"SELECT * from  Mensaje WHERE Chat.id_chat = '{id_chat}'"
+    instruccion = f"SELECT * from  Mensaje WHERE Mensaje.id_mensaje = '{id_mensaje}'"
     cursor.execute(instruccion)
     datos = cursor.fetchone() #nos devuelve todos los datos seleccionados
     #print(datos)
@@ -142,19 +142,23 @@ def leer_mensaje(id_mensaje:str) -> Mensaje:
     conn.close()
     return Mensaje(id_chat=string_to_hash(datos[0]),key=string_to_hash(datos[1]))
 
-def actualizar_mensaje():
+def actualizar_mensaje(mensaje_cifrado):
      conn = sql.connect(RUTA_BBDD)
      cursor = conn.cursor()
-     instruccion = f"UPDATE Mensaje SET "
+     instruccion = f"UPDATE Mensaje SET mensaje_cifrado = prueba WHERE Mensaje.mensaje_cifrado = '{mensaje_cifrado}'"
      cursor.execute(instruccion)
      datos = cursor.fetchone()
      conn.commit()
      conn.close()
 
-def borrar_mensaje():
+def borrar_mensaje(id_mensaje):
     conn = sql.connect(RUTA_BBDD)
     cursor = conn.cursor()
-    instruccion = f"DELETE FROM Mensaje WHERE"
+    instruccion = f"DELETE FROM Mensaje WHERE Mensaje.id_mensaje = '{id_mensaje}'"
+    cursor.execute(instruccion)
+    datos = cursor.fetchone()
+    conn.commit()
+    conn.close()
 
 
 if __name__ == "__main__":

@@ -10,18 +10,18 @@ import os
 from app.contacto import Contacto
 from app.crud import insertar_contacto
 from app.crud import leer_contacto
-#from app.crud import actualizar_contacto
-#from app.crud import borrar_contacto
+from app.crud import actualizar_contacto
+from app.crud import borrar_contacto
 from app.chat import Chat
 from app.crud import insertar_chat
 from app.crud import leer_chat
-#from app.crud import actualizar_chat
-#from app.crud import borrar_chat
+from app.crud import actualizar_chat
+from app.crud import borrar_chat
 from app.mensaje import Mensaje
 from app.crud import insertar_mensaje
-#from app.crud import leer_mensaje
-#from app.crud import actualizar_mensaje
-#from app.crud import borrar_mensaje
+from app.crud import leer_mensaje
+from app.crud import actualizar_mensaje
+from app.crud import borrar_mensaje
 # from app.crud import *
 from app.cyphersuite import cifrar_mensaje
 from app.cyphersuite import descifrar_mensaje
@@ -34,6 +34,8 @@ from app.cyphersuite import string_to_pub_key
 from cryptography.hazmat.primitives.asymmetric import rsa
 from cryptography.hazmat.primitives import hashes
 from cryptography.fernet import Fernet
+
+from python.app.src.app.crud import actualizar_chat
 
 @pytest.fixture(scope="session", autouse = True)
 def crear_datos_para_test():
@@ -143,8 +145,26 @@ def test_leer_chat(crear_chat: Chat):
     assert leer_chat(hash_to_string(chat.id_chat)).id_chat == chat.id_chat    
 
 @patch("app.crud.RUTA_BBDD", "resources/pruebas.db")
-def test_actualizar_contacto()
+def test_actualizar_chat(crear_chat: Chat):
+    chat = crear_chat
+    actualizar_chat(chat)
+    conn = sql.connect("resources/pruebas.db") 
+    consulta = f"SELECT id_chat from Chat WHERE id_chat = '{hash_to_string(chat.id_chat)}';"
+    cursor = conn.cursor()
+    cursor.execute(consulta)
+    resultado = consulta.fetchone()
+    assert resultado[0] == '1'
 
+@patch("app.crud.RUTA_BBDD", "resources/pruebas.db")
+def test_borrar_chat(crear_chat: Chat):
+    chat = crear_chat
+    borrar_chat(Chat)
+    conn = sql.connect("resources/pruebas.db") 
+    consulta = f"SELECT key from Chat WHERE id_chat = '{hash_to_string(chat.id_chat)}';"
+    cursor = conn.cursor()
+    cursor.execute(consulta)
+    resultado = consulta.fetchone()
+    assert resultado[0] == []
 
 ##TEST MENSAJE
 
@@ -161,6 +181,35 @@ def test_insertar_mensaje(crear_chat: Chat):
     cursor.execute(consulta)
     resultado=cursor.fetchone()
     assert resultado[0] == mensaje_cifrado
+
+@patch("app.crud.RUTA_BBDD", "resources/pruebas.db")
+def test_leer_mensaje(crear_mensaje: Mensaje):
+    mensaje = crear_mensaje
+    assert leer_mensaje(hash_to_string(mensaje.id_mensaje)).id_mensaje == mensaje.id_mensaje
+
+@patch("app.crud.RUTA_BBDD", "resources/pruebas.db")
+def test_actualizar_mensaje(crear_mensaje: Mensaje):
+    mensaje = crear_mensaje
+    actualizar_mensaje(mensaje)
+    conn = sql.connect("resources/prueba.db")
+    consulta = f"SELECT texto from Mensaje WHERE id_mensaje = '{hash_to_string(mensaje.id_mensaje)}';"
+    cursor = conn.cursor()
+    cursor.execute(consulta)
+    resultado = consulta.fetchone()
+    assert resultado[0] == ['prueba'] 
+
+@patch("app.crud.RUTA_BBDD", "resources/pruebas.db")
+def test_borrar_mensaje(crear_mensaje: Mensaje):
+    mensaje = crear_mensaje
+    borrar_mensaje(mensaje)
+    conn = sql.connect("resources/prueba.db")
+    consulta = f"SELECT texto from Mensaje WHERE id_mensaje = '{hash_to_string(mensaje.id_mensaje)}';"
+    cursor = conn.cursor()
+    cursor.execute(consulta)
+    resultado = consulta.fetchone()
+    assert resultado[0] == [] 
+
+
 
 
 
