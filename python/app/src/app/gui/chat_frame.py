@@ -12,19 +12,20 @@ from app.cyphersuite import hash_to_string
 import copy
 from app.config_manager import ConfigManager
 
-class ChatFrame(toga.App):
+class ChatFrame(toga.Window):
 
     def __init__(self, chat: Chat) -> None:
         super().__init__()
         self.chat = chat
         self.max_chars_per_line = 50
+        self.create_interface()
         
 
-    def startup(self) -> None:
+    def create_interface(self) -> None:
         """Método que inicializa la interfaz gráfica"""
-        self.main_window = toga.MainWindow(title="PRUEBA")
+        self.title = "Chat"
         main_box = toga.Box(id="main_box", style=Pack(direction=COLUMN, background_color="#155757"))
-        self.main_window.content = main_box
+        self.content = main_box
 
         info_box = self.create_info_box()
         message_box = self.create_message_box()
@@ -36,13 +37,8 @@ class ChatFrame(toga.App):
             toga.Divider(direction=0, style=Pack(height=3)),
             text_box
         )
-
-        self.add_message("Holaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", ConfigManager.config["user"].hash)
-        self.add_message("Hola", "other")
         
-        self.main_window.content.refresh()
-        print(str(message_box.content))
-        self.main_window.show()
+        self.content.refresh()
 
     def create_info_box(self)-> toga.Box:
         info_box = toga.Box(id="main_box", style=Pack(direction=ROW, background_color="#155757", padding=10))
@@ -150,7 +146,7 @@ class ChatFrame(toga.App):
             message_widget = toga.Label(text=line, style=line_style)
             self.message_container.add(message_widget)
 
-        self.main_window.content.refresh()
+        self.content.refresh()
         
         
 
