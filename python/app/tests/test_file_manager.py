@@ -11,7 +11,7 @@ from unittest.mock import patch
 def test_guardar_usuario():
     usuario = inicializar_usuario()
     guardar_usuario(usuario) 
-    f = open('fichero_prueba_config.json', 'r') #abre un fichero en modo lectura
+    f = open('resources/fichero_prueba_config.json', 'r') #abre un fichero en modo lectura
     contenido = json.load(f)
     assert contenido['hash'] == binascii.hexlify(usuario.hash).decode('UTF-8')
 

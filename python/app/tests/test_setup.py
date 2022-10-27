@@ -14,6 +14,7 @@ def test_inicializar_usuario():
     assert type(usuario.hash) == bytes
     assert usuario.pub_key.key_size == 2048
     assert usuario.priv_key.key_size == 2048
+    assert type(usuario.key) == bytes
 
 @patch ('app.setup.requests.get')
 def test_obtener_ip(mock_requests):
