@@ -1,7 +1,11 @@
+import imp
 import os
 from pkgutil import extend_path
 import sys
+import toga
+import pathlib
 from app.chat import Chat
+from app.crud import leer_mensaje
 from app.gui.main_frame import MainFrame
 from app.gui.new_chat_frame import NewChatFrame
 from app.gui.new_contact_frame import NewContactFrame
@@ -9,8 +13,8 @@ from app.setup import inicializar_usuario
 from app.file_manager import guardar_usuario, leer_usuario
 from app.cyphersuite import hash_to_string
 from app.config_manager import ConfigManager
-import toga
-import pathlib
+from app.crud import leer_mensaje
+
 # IMPORTS PARA PRUEBAS
 from cryptography.hazmat.primitives import hashes
 from cryptography.fernet import Fernet
@@ -46,11 +50,10 @@ class MessageApp(toga.App):
         self.main_window.show()
     
     def leer_chats(self) -> list[Chat]:
-        # IMPLEMENTACIÓN PRUEBA -> REAL: LEER BBDD
-        chat_hash = hashes.Hash(hashes.SHA256())
-        chat_hash = chat_hash.finalize()
-        key = Fernet.generate_key
-        return [Chat(chat_hash, key, None)]
+        # FALTA EL MÉTODO CRUD
+        # chats = CRUD LEER CHATS
+        # return chats
+        pass
 
     def cargar_configuracion(self):
         user = None
@@ -69,7 +72,12 @@ class MessageApp(toga.App):
             ConfigManager.config["user"] = hash_to_string(user.hash)
 
     def leer_mensajes(self, chats: list[Chat]):
-        pass
+        mensajes = leer_mensaje()
+        # Ordenamos los mensajes por tienpo
+        mensajes = sorted(mensajes, key=lambda msg: msg.timestamp)
+        for msg in mensajes:
+            chat = list(filter(lambda chat, msg: chat.id_chat == msg.id_chat, chats))[0]
+            chat.messages.append(msg)
 
     def leer_contactos(self, chats: list[Chat]):
         pass
