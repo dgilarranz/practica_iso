@@ -37,6 +37,10 @@ class ChatFrame(toga.Window):
             toga.Divider(direction=0, style=Pack(height=3)),
             text_box
         )
+
+        # Añadimos dos mensajes de prueba
+        self.add_message("Holaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", hash_to_string(ConfigManager.config["user"].hash))
+        self.add_message("Hola", "otro")
         
         self.content.refresh()
 

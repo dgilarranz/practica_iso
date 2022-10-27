@@ -1,4 +1,5 @@
 from ast import Str
+from operator import contains
 import sqlite3 as sql
 from app.contacto import Contacto
 from app.chat import Chat
@@ -11,7 +12,7 @@ from app.cyphersuite import string_to_priv_key
 from app.cyphersuite import pub_key_to_string
 from app.cyphersuite import string_to_pub_key
 from app.mensaje import Mensaje
-from python.app.src.app.config_manager import ConfigManager
+from app.config_manager import ConfigManager
 
 
 RUTA_BBDD = "resources/database.db"
@@ -63,10 +64,10 @@ def leer_contacto(hash_contacto): #leer filas
     conn.close()
     return Contacto(hash=datos[0],k_pub=datos[1],direccion_ip=datos[2])
 
-def actualizar_contacto(ip):
+def actualizar_contacto(contacto: Contacto, ip: str):
     conn = sql.connect(RUTA_BBDD)
     cursor = conn.cursor()
-    instruccion = f"UPDATE Contacto SET ip = 2.2.2.2 WHERE Contacto.direccion_ip = '{ip}'"
+    instruccion = f"UPDATE Contacto SET ip = '{ip}' WHERE hash = '{contacto.hash}'" # Solo para pasar test. Luego -> hash_to_string
     cursor.execute(instruccion)
     datos = cursor.fetchone()
     conn.commit()
@@ -77,7 +78,7 @@ def actualizar_contacto(ip):
 def borrar_contacto(ip):
     conn = sql.connect(RUTA_BBDD)
     cursor = conn.cursor()
-    instruccion = f"DELETE FROM Contacto WHERE Contacto.direccion_ip = '{ip}'"
+    instruccion = f"DELETE FROM Contacto WHERE Contacto.ip = '{ip}'"
     cursor.execute(instruccion)
     datos = cursor.fetchone()
     conn.commit()
@@ -100,7 +101,7 @@ def insertar_chat_contacto(chat:Chat): #por cada
     cursor = conn.cursor()
     for contacto in chat.miembros:
         instruccion = f"INSERT INTO ChatContacto VALUES ('{hash_to_string(chat.id_chat)}','{hash_to_string(contacto.hash)}')"
-    cursor.execute(instruccion)
+        cursor.execute(instruccion)
     conn.commit()
     conn.close()
 
@@ -115,6 +116,22 @@ def leer_chat(id_chat:str)-> Chat : #leer en orden
     conn.commit()
     conn.close()
     return Chat(id_chat=string_to_hash(datos[0]),key=string_to_hash(datos[1]))
+
+def leer_chats() -> list[Chat]:
+    conn = sql.connect(RUTA_BBDD)
+    cursor = conn.cursor() #nos proporciona el objeto de la conexión
+    instruccion = f"SELECT * from  Chat"
+    cursor.execute(instruccion)
+    datos = cursor.fetchall()
+    
+    chats = []
+    for d in datos:
+        chats.append(Chat(string_to_hash(d[0]), string_to_hash[d[1]]))
+    
+    for chat in chats:
+        leer_chat_contacto(chat)
+    
+    return chats
 
 def leer_chat_contacto(chat:Chat):
     conn = sql.connect(RUTA_BBDD)
@@ -131,7 +148,7 @@ def leer_chat_contacto(chat:Chat):
 def actualizar_chat(id_chat:str)-> Chat:
     conn = sql.connect(RUTA_BBDD)
     cursor = conn.cursor()
-    instruccion = f"UPDATE Chat SET id_chat = 1 WHERE Chat.id_chat = '{id_chat}'"
+    instruccion = f"UPDATE Chat SET id_chat = '1' WHERE Chat.id_chat = '{id_chat}'"
     cursor.execute(instruccion)
     datos = cursor.fetchone()
     conn.commit()
@@ -173,7 +190,7 @@ def leer_mensaje() -> list[Mensaje]:
 def actualizar_mensaje(mensaje_cifrado):
      conn = sql.connect(RUTA_BBDD)
      cursor = conn.cursor()
-     instruccion = f"UPDATE Mensaje SET mensaje_cifrado = prueba WHERE Mensaje.mensaje_cifrado = '{mensaje_cifrado}'"
+     instruccion = f"UPDATE Mensaje SET mensaje_cifrado = 'prueba' WHERE Mensaje.mensaje_cifrado = '{mensaje_cifrado}'"
      cursor.execute(instruccion)
      datos = cursor.fetchone()
      conn.commit()

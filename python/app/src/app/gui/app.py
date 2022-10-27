@@ -5,7 +5,7 @@ import sys
 import toga
 import pathlib
 from app.chat import Chat
-from app.crud import leer_mensaje
+from app.crud import leer_chat, leer_mensaje
 from app.gui.main_frame import MainFrame
 from app.gui.new_chat_frame import NewChatFrame
 from app.gui.new_contact_frame import NewContactFrame
@@ -23,10 +23,8 @@ class MessageApp(toga.App):
 
     def startup(self):
         self.cargar_configuracion()
-        self.chats = self.leer_chats()
+        self.chats = leer_chat()
         self.leer_mensajes(self.chats)
-        self.leer_contactos(self.chats)
-
 
         self.main_window = MainFrame("main_window", "App", self.chats)
 
@@ -50,9 +48,11 @@ class MessageApp(toga.App):
         self.main_window.show()
     
     def leer_chats(self) -> list[Chat]:
-        # FALTA EL MÉTODO CRUD
-        # chats = CRUD LEER CHATS
-        # return chats
+        # DE PRUEBA PARA LA DEMO
+        # chat_hash = hashes.Hash(hashes.SHA256())
+        # chat_hash = chat_hash.finalize()
+        # key = Fernet.generate_key
+        # return [Chat(chat_hash, key)]
         pass
 
     def cargar_configuracion(self):
@@ -69,11 +69,12 @@ class MessageApp(toga.App):
             user = inicializar_usuario()
             guardar_usuario(user)
         finally:
-            ConfigManager.config["user"] = hash_to_string(user.hash)
+            ConfigManager.config["user"] = user
 
     def leer_mensajes(self, chats: list[Chat]):
-        mensajes = leer_mensaje()
-        # Ordenamos los mensajes por tienpo
+        # mensajes = leer_mensaje()
+        # Ordenamos los mensajes por tiempo
+        mensajes = []
         mensajes = sorted(mensajes, key=lambda msg: msg.timestamp)
         for msg in mensajes:
             chat = list(filter(lambda chat, msg: chat.id_chat == msg.id_chat, chats))[0]
