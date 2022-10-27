@@ -19,23 +19,23 @@ class NewChatFrame(toga.Window):
         self.content.refresh()
 
     def crearChat(self) -> toga.Box:
-        id_create_box = toga.Box()
-        clave_create_box = toga.Box()
-        box_create = toga.Box()
+        id_create_box = toga.Box(style=Pack(padding=10))
+        clave_create_box = toga.Box(style=Pack(padding=10))
+        box_create = toga.Box(style=Pack(direction=COLUMN))
 
-        id_create_input = toga.TextInput(readonly=True)
-        clave_create_input = toga.TextInput(readonly=True)
+        id_create_input = toga.TextInput(readonly=True, style=Pack(flex=1))
+        clave_create_input = toga.TextInput(readonly=True, style=Pack(flex=1))
 
-        id_create_label = toga.Label('ID: ')
-        clave_create_label = toga.Label('Clave: ')
+        id_create_label = toga.Label('ID:', style=Pack(padding_left = 5, padding_right = 50))
+        clave_create_label = toga.Label('Clave:', style=Pack(padding_left = 5, padding_right = 10))
 
         create_button = toga.Button('Crear chat')
 
-        id_create_box.add(id_create_input)
         id_create_box.add(id_create_label)
+        id_create_box.add(id_create_input)
 
-        clave_create_box.add(clave_create_input)
         clave_create_box.add(clave_create_label)
+        clave_create_box.add(clave_create_input)
 
         box_create.add(id_create_box)
         box_create.add(clave_create_box)
@@ -44,23 +44,23 @@ class NewChatFrame(toga.Window):
         return box_create
 
     def unirseChat(self) -> toga.Box:
-        id_join_box = toga.Box()
-        clave_join_box = toga.Box()
-        box_join = toga.Box()
+        id_join_box = toga.Box(style=Pack(padding=10))
+        clave_join_box = toga.Box(style=Pack(padding=10))
+        box_join = toga.Box(style=Pack(direction=COLUMN))
 
-        id_join_input = toga.TextInput()
-        clave_join_input = toga.TextInput()
+        id_join_input = toga.TextInput(style=Pack(flex=1))
+        clave_join_input = toga.TextInput(style=Pack(flex=1))
 
-        id_join_label = toga.Label('ID: ')
-        clave_join_label = toga.Label('Clave: ')
+        id_join_label = toga.Label('ID:', style=Pack(padding_left = 5, padding_right = 50))
+        clave_join_label = toga.Label('Clave:', style=Pack(padding_left = 5, padding_right = 10))
 
         join_button = toga.Button('Unirse al chat')
 
-        id_join_box.add(id_join_input)
         id_join_box.add(id_join_label)
+        id_join_box.add(id_join_input)
 
-        clave_join_box.add(clave_join_input)
         clave_join_box.add(clave_join_label)
+        clave_join_box.add(clave_join_input)
 
         box_join.add(id_join_box)
         box_join.add(clave_join_box)
