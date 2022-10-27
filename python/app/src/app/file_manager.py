@@ -1,3 +1,4 @@
+from app.cyphersuite import hash_to_string, string_to_hash
 from app.usuario import Usuario
 import json
 from cryptography.hazmat.primitives import serialization 
@@ -26,6 +27,7 @@ def guardar_usuario(usuario: Usuario) -> None:
     #print(type(priv_key_string))
 
     user_json['priv_key'] = priv_key_string
+    user_json['key'] = hash_to_string(usuario.key)
 
     fichero = open(FICHERO_CONFIG,'w') 
     user_string = json.dumps(user_json)
@@ -50,7 +52,9 @@ def leer_usuario() -> Usuario:
         None
     )
 
+    key = string_to_hash(json_contents['key'])
+
     # Devolvemos un objeto usuario con los atributos leídos
-    return Usuario(user_hash, pub_key, priv_key)
+    return Usuario(user_hash, pub_key, priv_key, key)
     
     

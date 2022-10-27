@@ -183,7 +183,7 @@ def leer_mensaje() -> list[Mensaje]:
     conn.close()
     lista_mensajes = []
     for mensaje in datos:
-        msg = descifrar_mensaje(mensaje)
+        msg = descifrar_mensaje(mensaje[0], ConfigManager.config["user"].key)
         lista_mensajes.append(msg)
     return lista_mensajes
 

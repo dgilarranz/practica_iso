@@ -73,14 +73,12 @@ class MessageApp(toga.App):
     def leer_mensajes(self, chats: list[Chat]):
         # mensajes = leer_mensaje()
         # Ordenamos los mensajes por tiempo
-        mensajes = []
+        mensajes = leer_mensaje()
         mensajes = sorted(mensajes, key=lambda msg: msg.timestamp)
         for msg in mensajes:
-            chat = list(filter(lambda chat, msg: chat.id_chat == msg.id_chat, chats))[0]
+            chat = list(filter(lambda chat: hash_to_string(chat.id_chat) == msg.id_chat, chats))[0]
             chat.messages.append(msg)
 
-    def leer_contactos(self, chats: list[Chat]):
-        pass
 
         
         

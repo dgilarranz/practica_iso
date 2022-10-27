@@ -5,6 +5,7 @@ from cryptography.hazmat.primitives import serialization
 from cryptography.hazmat.primitives.asymmetric.padding import OAEP
 from cryptography.hazmat.primitives.asymmetric.padding import MGF1
 from cryptography.hazmat.primitives.hashes import SHA256
+from cryptography.fernet import Fernet
 import requests
 import socket
 
@@ -24,8 +25,10 @@ def inicializar_usuario() -> Usuario:
             format=serialization.PublicFormat.SubjectPublicKeyInfo
         )
     )
+
+    key = Fernet.generate_key()
     
-    user = Usuario(user_hash.finalize(), pub_key, priv_key)
+    user = Usuario(user_hash.finalize(), pub_key, priv_key, key)
     return user
 
 def obtener_ip() -> str:
