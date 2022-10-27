@@ -7,10 +7,11 @@ import pytest
 import os
 from unittest.mock import patch
 
+@patch("app.file_manager.FICHERO_CONFIG", "resources/fichero_prueba_config.json")
 def test_guardar_usuario():
     usuario = inicializar_usuario()
     guardar_usuario(usuario) 
-    f = open('resources/config.json', 'r') #abre un fichero en modo lectura
+    f = open('fichero_prueba_config.json', 'r') #abre un fichero en modo lectura
     contenido = json.load(f)
     assert contenido['hash'] == binascii.hexlify(usuario.hash).decode('UTF-8')
 

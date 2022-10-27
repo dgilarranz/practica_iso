@@ -3,6 +3,7 @@ from tkinter.ttk import Style
 from app.chat import Chat
 from app.gui.chat_frame import ChatFrame
 from app.cyphersuite import hash_to_string
+from app.gui.new_chat_frame import NewChatFrame
 import toga
 from toga.style import Pack
 from toga.style.pack import COLUMN, ROW
@@ -54,7 +55,9 @@ class MainFrame(toga.MainWindow):
         return scroll_container
     
     def open_add_chat_window(self, widget):
-        pass
+        window = NewChatFrame()
+        window.app = self.app
+        window.show()
 
     def open_user_window(self, widget):
         pass
