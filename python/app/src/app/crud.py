@@ -11,6 +11,7 @@ from app.cyphersuite import string_to_priv_key
 from app.cyphersuite import pub_key_to_string
 from app.cyphersuite import string_to_pub_key
 from app.mensaje import Mensaje
+from python.app.src.app.config_manager import ConfigManager
 
 
 RUTA_BBDD = "resources/database.db"
@@ -89,9 +90,20 @@ def insertar_chat(chat:Chat): #meter varias filas
     conn = sql.connect(RUTA_BBDD)
     cursor = conn.cursor() #nos proporciona el objeto de la conexión
     instruccion = f"INSERT INTO Chat VALUES ('{hash_to_string(chat.id_chat)}', '{hash_to_string(chat.key)}')"
+    insertar_chat_contacto(chat)
     cursor.execute(instruccion) 
     conn.commit()
     conn.close()
+
+def insertar_chat_contacto(chat:Chat): #por cada 
+    conn = sql.connect(RUTA_BBDD)
+    cursor = conn.cursor()
+    for contacto in chat.miembros:
+        instruccion = f"INSERT INTO ChatContacto VALUES ('{hash_to_string(chat.id_chat)}','{hash_to_string(contacto.hash)}')"
+    cursor.execute(instruccion)
+    conn.commit()
+    conn.close()
+
 
 def leer_chat(id_chat:str)-> Chat : #leer en orden
     conn = sql.connect(RUTA_BBDD)
@@ -103,6 +115,18 @@ def leer_chat(id_chat:str)-> Chat : #leer en orden
     conn.commit()
     conn.close()
     return Chat(id_chat=string_to_hash(datos[0]),key=string_to_hash(datos[1]))
+
+def leer_chat_contacto(chat:Chat):
+    conn = sql.connect(RUTA_BBDD)
+    cursor = conn.cursor()
+    instruccion = f"SELECT hash_contacto from ChatContacto WHERE id_chat = '{hash_to_string(chat.id_chat)}'"
+    cursor.execute(instruccion)
+    datos = cursor.fecthall()
+    resultado = {}
+    for d in datos:
+        chat.miembros.add(leer_contacto(d[0]))
+    conn.commit()
+    conn.close()
 
 def actualizar_chat(id_chat:str)-> Chat:
     conn = sql.connect(RUTA_BBDD)
@@ -131,16 +155,20 @@ def insertar_mensaje(mensaje:str):
     conn.commit()
     conn.close()
 
-def leer_mensaje(id_mensaje:str) -> Mensaje:
+def leer_mensaje() -> list[Mensaje]:
     conn = sql.connect(RUTA_BBDD)
     cursor = conn.cursor() #nos proporciona el objeto de la conexión
-    instruccion = f"SELECT * from  Mensaje WHERE Mensaje.id_mensaje = '{id_mensaje}'"
+    instruccion = f"SELECT * from  Mensaje"
     cursor.execute(instruccion)
-    datos = cursor.fetchone() #nos devuelve todos los datos seleccionados
+    datos = cursor.fetchall() #nos devuelve todos los datos seleccionados
     #print(datos)
     conn.commit()
     conn.close()
-    return Mensaje(id_chat=string_to_hash(datos[0]),key=string_to_hash(datos[1]))
+    lista_mensajes = []
+    for mensaje in datos:
+        msg = descifrar_mensaje(mensaje)
+        lista_mensajes.append(msg)
+    return lista_mensajes
 
 def actualizar_mensaje(mensaje_cifrado):
      conn = sql.connect(RUTA_BBDD)
