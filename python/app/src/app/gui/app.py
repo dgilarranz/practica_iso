@@ -1,6 +1,8 @@
 import imp
 import os
 from pkgutil import extend_path
+import resource
+import sqlite3
 import sys
 import toga
 import pathlib
@@ -13,7 +15,7 @@ from app.setup import inicializar_usuario
 from app.file_manager import guardar_usuario, leer_usuario
 from app.cyphersuite import hash_to_string
 from app.config_manager import ConfigManager
-from app.crud import leer_mensaje
+from app.crud import leer_mensaje, leer_chats, createDB, RUTA_BBDD
 
 # IMPORTS PARA PRUEBAS
 from cryptography.hazmat.primitives import hashes
@@ -23,7 +25,7 @@ class MessageApp(toga.App):
 
     def startup(self):
         self.cargar_configuracion()
-        self.chats = leer_chat()
+        self.chats = leer_chats()
         self.leer_mensajes(self.chats)
 
         self.main_window = MainFrame("main_window", "App", self.chats)
@@ -46,14 +48,6 @@ class MessageApp(toga.App):
         #################################################
 
         self.main_window.show()
-    
-    def leer_chats(self) -> list[Chat]:
-        # DE PRUEBA PARA LA DEMO
-        # chat_hash = hashes.Hash(hashes.SHA256())
-        # chat_hash = chat_hash.finalize()
-        # key = Fernet.generate_key
-        # return [Chat(chat_hash, key)]
-        pass
 
     def cargar_configuracion(self):
         user = None
@@ -62,6 +56,11 @@ class MessageApp(toga.App):
         correct_path = pathlib.Path(__file__).parent.resolve().parent.resolve().parent.resolve().parent.resolve()
         os.chdir(correct_path)
         print(correct_path)
+
+        try:
+            createDB()
+        except sqlite3.OperationalError:
+            pass
 
         try:
             user = leer_usuario()

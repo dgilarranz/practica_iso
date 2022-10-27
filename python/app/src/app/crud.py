@@ -126,7 +126,7 @@ def leer_chats() -> list[Chat]:
     
     chats = []
     for d in datos:
-        chats.append(Chat(string_to_hash(d[0]), string_to_hash[d[1]]))
+        chats.append(Chat(string_to_hash(d[0]), string_to_hash(d[1])))
     
     for chat in chats:
         leer_chat_contacto(chat)
@@ -138,7 +138,7 @@ def leer_chat_contacto(chat:Chat):
     cursor = conn.cursor()
     instruccion = f"SELECT hash_contacto from ChatContacto WHERE id_chat = '{hash_to_string(chat.id_chat)}'"
     cursor.execute(instruccion)
-    datos = cursor.fecthall()
+    datos = cursor.fetchall()
     resultado = {}
     for d in datos:
         chat.miembros.add(leer_contacto(d[0]))
