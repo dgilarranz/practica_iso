@@ -8,9 +8,10 @@ import toga
 from toga.style import Pack
 from toga.style.pack import COLUMN, ROW
 from app.chat import Chat
-from app.cyphersuite import hash_to_string
+from app.cyphersuite import cifrar_mensaje, hash_to_string
 import copy
 from app.config_manager import ConfigManager
+from app.crud import insertar_mensaje
 
 class ChatFrame(toga.Window):
 
@@ -38,9 +39,9 @@ class ChatFrame(toga.Window):
             text_box
         )
 
-        # Añadimos dos mensajes de prueba
-        self.add_message("Holaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", hash_to_string(ConfigManager.config["user"].hash))
-        self.add_message("Hola", "otro")
+        # Añadimos los mensajes del chat
+        for mensaje in self.chat.messages:
+            self.add_message(mensaje.texto, mensaje.id_sender)
         
         self.content.refresh()
 
@@ -103,10 +104,13 @@ class ChatFrame(toga.Window):
 
     def send_message(self, widget):
         message_content = self.message_input.value
-        message = Mensaje(message_content, self.chat.id_chat, hash_to_string(ConfigManager.config["user"].hash))
+        message = Mensaje(message_content, hash_to_string(self.chat.id_chat), hash_to_string(ConfigManager.config["user"].hash))
 
         self.chat.messages.append(message)
         self.chat.send_message(message)
+        insertar_mensaje(cifrar_mensaje(message, ConfigManager.config["user"].key))
+
+        self.add_message(message.texto, message.id_sender)
 
     def add_message(self, message, sender):
         # La longitud máxima de cada línea serán 50 chars, si es más, se parte el mensaje
@@ -125,7 +129,7 @@ class ChatFrame(toga.Window):
 
         # Estilo general para todas las líneas
         style = Pack(height=30)
-        if sender == ConfigManager.config["user"].hash:
+        if sender == hash_to_string(ConfigManager.config["user"].hash):
             style.update(alignment="right")
             style.update(padding_left=400)
             style.update(padding_right=10)
