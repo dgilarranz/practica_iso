@@ -2,7 +2,10 @@
 planificacion/.~lock.planificacion.ods#
 
 # Caché de pytest
-__pycache__
+**/__pycache__
 
 # Archivos de log
-*.log
+**.log
+
+# Entorno virtual -> Para evitar dependencias conflictivas en distintas plataformas
+python/app/beeware-env/
