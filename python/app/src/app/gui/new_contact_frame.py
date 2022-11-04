@@ -14,23 +14,23 @@ class NewContactFrame(toga.Window):
         self.content.refresh()
 
     def crearContacto(self) -> toga.Box:
-        id_createcont_box = toga.Box()
-        clave_createcont_box = toga.Box()
-        box_createcont = toga.Box()
+        id_createcont_box = toga.Box(style=Pack(padding=10))
+        clave_createcont_box = toga.Box(style=Pack(padding=10))
+        box_createcont = toga.Box(style=Pack(direction=COLUMN))
 
-        id_createcont_input = toga.TextInput()
-        clave_createcont_input = toga.TextInput()
+        id_createcont_input = toga.TextInput(style=Pack(flex=1))
+        clave_createcont_input = toga.TextInput(style=Pack(flex=1))
 
-        id_createcont_label = toga.Label('ID contacto: ')
-        clave_createcont_label = toga.Label('Clave: ')
+        id_createcont_label = toga.Label('ID contacto:', style=Pack(padding_left = 5, padding_right = 30))
+        clave_createcont_label = toga.Label('Clave Pública:', style=Pack(padding_left = 5, padding_right = 10))
 
-        createcont_button = toga.Button('Crear contacto')
+        createcont_button = toga.Button('Añadir')
 
-        id_createcont_box.add(id_createcont_input)
         id_createcont_box.add(id_createcont_label)
+        id_createcont_box.add(id_createcont_input)
 
-        clave_createcont_box.add(clave_createcont_input)
         clave_createcont_box.add(clave_createcont_label)
+        clave_createcont_box.add(clave_createcont_input)
 
         box_createcont.add(id_createcont_box)
         box_createcont.add(clave_createcont_box)
