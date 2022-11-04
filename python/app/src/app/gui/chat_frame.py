@@ -12,6 +12,7 @@ from app.cyphersuite import cifrar_mensaje, hash_to_string
 import copy
 from app.config_manager import ConfigManager
 from app.crud import insertar_mensaje
+from app.gui.new_contact_frame import NewContactFrame
 
 class ChatFrame(toga.Window):
 
@@ -97,7 +98,9 @@ class ChatFrame(toga.Window):
         return text_box
 
     def add_contact(self, widget):
-        pass
+        frame = NewContactFrame()
+        frame.app = self.app
+        frame.show()
 
     def send_crypto(self, widget):
         pass
