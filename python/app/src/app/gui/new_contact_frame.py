@@ -52,7 +52,6 @@ class NewContactFrame(toga.Window):
 
         pub_key = self.key_input.value
         contact_hash = self.hash_input.value
-
         contacto = Contacto(
             string_to_pub_key(pub_key), 
             direccion_ip, 
