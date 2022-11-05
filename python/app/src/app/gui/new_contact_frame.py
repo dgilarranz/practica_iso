@@ -5,6 +5,7 @@ from app.chat import Chat
 from app.contacto import Contacto
 from app.contrato import Contrato
 from app.cyphersuite import string_to_hash, string_to_pub_key
+from app.crud import insertar_contacto
 
 class NewContactFrame(toga.Window):
     def __init__(self, chat: Chat) -> None:
@@ -57,5 +58,7 @@ class NewContactFrame(toga.Window):
             direccion_ip, 
             string_to_hash(contact_hash)
         )
+
+        insertar_contacto(contacto)
 
         self.chat.addMiembro(contacto)

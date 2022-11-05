@@ -7,6 +7,7 @@ from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.primitives.asymmetric import rsa
 from cryptography.fernet import Fernet
 from app.cyphersuite import hash_to_string, pub_key_to_string
+from app.crud import leer_contacto
 
 @pytest.fixture
 def crear_chat() -> Chat:
@@ -62,3 +63,19 @@ def test_add_another_new_contact(mock_consultar_ip, crear_chat: Chat, crear_cont
     )
 
     assert pub_key_to_string(contacto.k_pub) in contact_list
+
+@patch("app.contrato.Contrato.consultar_ip")
+def test_contact_added_to_db(mock_consultar_ip, crear_chat: Chat, crear_contacto: Contacto):
+    chat = crear_chat
+    frame = NewContactFrame(chat)
+
+    mock_consultar_ip.return_value = "1.1.1.1"
+
+    contacto = crear_contacto
+    frame.key_input.value = pub_key_to_string(contacto.k_pub)
+    frame.hash_input.value = hash_to_string(contacto.hash)
+    frame.add_contact_to_chat(None)
+
+    db_contact = leer_contacto(hash_to_string(contacto.hash))
+
+    assert db_contact.hash == contacto.hash

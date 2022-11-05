@@ -2,11 +2,13 @@ from tkinter import HORIZONTAL
 from tkinter.ttk import Style
 from app.chat import Chat
 from app.gui.chat_frame import ChatFrame
-from app.cyphersuite import hash_to_string
+from app.cyphersuite import hash_to_string, pub_key_to_string
 from app.gui.new_chat_frame import NewChatFrame
+from app.gui.user_frame import UserFrame
 import toga
 from toga.style import Pack
 from toga.style.pack import COLUMN, ROW
+from app.config_manager import ConfigManager
 
 class MainFrame(toga.MainWindow):
     def __init__(self, id: str, title: str, chat_list: list[Chat]) -> None:
@@ -60,7 +62,10 @@ class MainFrame(toga.MainWindow):
         window.show()
 
     def open_user_window(self, widget):
-        pass
+        user = ConfigManager.config["user"]
+        window = UserFrame(hash_to_string(user.hash), pub_key_to_string(user.pub_key))
+        window.app = self.app
+        window.show()
 
     def open_chat_window(self, widget):
         pass
