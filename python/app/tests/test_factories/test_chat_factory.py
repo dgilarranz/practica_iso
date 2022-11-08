@@ -22,14 +22,14 @@ def crear_base_datos_para_tests():
 
 @patch("app.crud.RUTA_BBDD", "resources/test_database.db")
 def test_creation_of_new_chat_not_in_database():
-    chat = ChatFactory().create_chat()
+    chat = ChatFactory().produce()
     id_chat = hash_to_string(chat.id_chat)
     db_chat = leer_chat(id_chat)
     assert chat.id_chat == db_chat.id_chat
 
 @patch("app.crud.RUTA_BBDD", "resources/test_database.db")
 def test_another_creation_of_new_chat_not_in_database():
-    chat = ChatFactory().create_chat()
+    chat = ChatFactory().produce()
     id_chat = hash_to_string(chat.id_chat)
     db_chat = leer_chat(id_chat)
     assert chat is not None and db_chat is not None and chat.id_chat == db_chat.id_chat
@@ -37,8 +37,8 @@ def test_another_creation_of_new_chat_not_in_database():
 @patch("app.crud.RUTA_BBDD", "resources/test_database.db")
 def test_chats_have_different_ids():
     factory = ChatFactory()
-    chat_1 = factory.create_chat()
-    chat_2 = factory.create_chat()
+    chat_1 = factory.produce()
+    chat_2 = factory.produce()
     assert chat_1.id_chat != chat_2.id_chat
 
 @patch("app.crud.RUTA_BBDD", "resources/test_database.db")
@@ -52,18 +52,17 @@ def test_create_new_chat_with_known_params():
     str_key = hash_to_string(key)
     str_hash = hash_to_string(chat_hash)
 
-    chat = ChatFactory().create_chat(str_hash, str_key)
+    chat = ChatFactory(str_hash, str_key).produce()
     db_chat = leer_chat(hash_to_string(chat.id_chat))
 
     assert chat.id_chat == db_chat.id_chat
 
 @patch("app.crud.RUTA_BBDD", "resources/test_database.db")
 def test_cannot_create_existing_chat():
-    factory = ChatFactory()
-    chat = factory.create_chat()
+    chat = ChatFactory().produce()
 
     id_str = hash_to_string(chat.id_chat)
     key_str = hash_to_string(chat.key)
 
     with pytest.raises(ChatExistsException):
-        factory.create_chat(id_str, key_str)
+        ChatFactory(id_str, key_str).produce()
