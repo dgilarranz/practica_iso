@@ -3,6 +3,7 @@ from cryptography.fernet import Fernet
 from app.chat import Chat
 from app.crud import insertar_chat
 from app.cyphersuite import string_to_hash
+from sqlite3 import IntegrityError
 
 class ChatFactory:
     def create_chat(self, id_str = None, key_str = None) -> Chat:
@@ -19,8 +20,11 @@ class ChatFactory:
             chat_hash = string_to_hash(id_str)
 
         chat = Chat(chat_hash, key)
-        insertar_chat(chat)
-        return chat
+        try:
+            insertar_chat(chat)
+            return chat
+        except IntegrityError:
+            raise ChatExistsException()
 
 class ChatExistsException(Exception):
     pass

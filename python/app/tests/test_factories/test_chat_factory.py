@@ -56,3 +56,14 @@ def test_create_new_chat_with_known_params():
     db_chat = leer_chat(hash_to_string(chat.id_chat))
 
     assert chat.id_chat == db_chat.id_chat
+
+@patch("app.crud.RUTA_BBDD", "resources/test_database.db")
+def test_cannot_create_existing_chat():
+    factory = ChatFactory()
+    chat = factory.create_chat()
+
+    id_str = hash_to_string(chat.id_chat)
+    key_str = hash_to_string(chat.key)
+
+    with pytest.raises(ChatExistsException):
+        factory.create_chat(id_str, key_str)
