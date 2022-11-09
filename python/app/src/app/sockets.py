@@ -61,6 +61,7 @@ class ConnectionManager():
         writer.close()
 
     async def send_message(self, ip: str, port: int, contact_hash: str, message: str) -> Boolean:
+        print(message)
         # Abrimos la conexión, si hay errores se intenta hasta lograrse
         connected = False
         while not connected:

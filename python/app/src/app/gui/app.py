@@ -16,6 +16,7 @@ from app.file_manager import guardar_usuario, leer_usuario
 from app.cyphersuite import hash_to_string
 from app.config_manager import ConfigManager
 from app.crud import leer_mensaje, leer_chats, createDB, RUTA_BBDD
+from app.sockets import ConnectionManager
 
 # IMPORTS PARA PRUEBAS
 from cryptography.hazmat.primitives import hashes
@@ -25,6 +26,7 @@ class MessageApp(toga.App):
 
     def startup(self):
         self.cargar_configuracion()
+        self.arrancar_servidor()
         self.chats = leer_chats()
         self.leer_mensajes(self.chats)
 
@@ -51,6 +53,11 @@ class MessageApp(toga.App):
             guardar_usuario(user)
         finally:
             ConfigManager.config["user"] = user
+    
+    def arrancar_servidor(self):
+        cm = ConnectionManager()
+        ConfigManager().set_connection_manager(cm)
+        print(ConfigManager().get_connection_manager())
 
     def leer_mensajes(self, chats: list[Chat]):
         # Ordenamos los mensajes por tiempo

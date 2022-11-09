@@ -49,7 +49,11 @@ class MainFrame(toga.MainWindow):
 
     def create_chats_box(self):
         self.chats_box = toga.Box(id="options_box", style=Pack(direction=COLUMN, padding=10, flex=1))
-        scroll_container = toga.ScrollContainer(content=self.chats_box, horizontal=False)
+        scroll_container = toga.ScrollContainer(
+            content=self.chats_box,
+            horizontal=False,
+            style=Pack(flex=1)
+        )
 
         for chat in self.chat_list:
             self.chats_box.add(self.create_chat_widget(chat))
@@ -73,7 +77,7 @@ class MainFrame(toga.MainWindow):
 
         inner_box = toga.Box(id=f"chat_{str_chat_id}_inner_box", style=Pack(direction=ROW, padding=10))
         label_chat = toga.Label("Chat:", style=Pack(font_weight="bold", padding_right=5))
-        label_id = toga.Label(str_chat_id)
+        label_id = toga.Label(str_chat_id, style=Pack(width=950))
         open_button = toga.Button(
             text="Abrir",
             id=f"open_{str_chat_id}_btn",

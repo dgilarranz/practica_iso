@@ -13,6 +13,7 @@ import copy
 from app.config_manager import ConfigManager
 from app.crud import insertar_mensaje
 from app.gui.new_contact_frame import NewContactFrame
+import asyncio
 
 class ChatFrame(toga.Window):
 
@@ -105,15 +106,19 @@ class ChatFrame(toga.Window):
     def send_crypto(self, widget):
         pass
 
-    def send_message(self, widget):
+    async def send_message(self, widget):
         message_content = self.message_input.value
         message = Mensaje(message_content, hash_to_string(self.chat.id_chat), hash_to_string(ConfigManager.config["user"].hash))
 
         self.chat.messages.append(message)
-        self.chat.send_message(message)
+        asyncio.create_task(self.chat.send_message(message))
+
         insertar_mensaje(cifrar_mensaje(message, ConfigManager.config["user"].key))
 
         self.add_message(message.texto, message.id_sender)
+
+        # Damos tiempo a enviarse al mensaje
+        await asyncio.sleep(1)
 
     def add_message(self, message, sender):
         # La longitud máxima de cada línea serán 50 chars, si es más, se parte el mensaje
