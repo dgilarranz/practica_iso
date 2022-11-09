@@ -80,12 +80,17 @@ class NewChatFrame(toga.Window):
         id_chat = self.id_join_input.value
         key = self.clave_join_input.value
 
-        if key is "":
+        if key == "":
             raise KeyNotSuppliedException()
+        elif id_chat == "":
+            raise IdNotSuppliedException()
 
         factory = ChatFactory(id_chat, key)
         factory.produce()
         self.close()
 
 class KeyNotSuppliedException(Exception):
+    pass
+
+class IdNotSuppliedException(Exception):
     pass
