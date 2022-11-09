@@ -1,6 +1,8 @@
 import toga
 from toga.style import Pack
 from toga.style.pack import COLUMN
+from app.factories.chat_factory import ChatFactory
+from app.cyphersuite import hash_to_string
 
 class NewChatFrame(toga.Window):
     def __init__(self) -> None:
@@ -23,8 +25,8 @@ class NewChatFrame(toga.Window):
         clave_create_box = toga.Box(style=Pack(padding=10))
         box_create = toga.Box(style=Pack(direction=COLUMN))
 
-        id_create_input = toga.TextInput(readonly=True, style=Pack(flex=1))
-        clave_create_input = toga.TextInput(readonly=True, style=Pack(flex=1))
+        self.id_create_input = toga.TextInput(readonly=True, style=Pack(flex=1))
+        self.clave_create_input = toga.TextInput(readonly=True, style=Pack(flex=1))
 
         id_create_label = toga.Label('ID:', style=Pack(padding_left = 5, padding_right = 50))
         clave_create_label = toga.Label('Clave:', style=Pack(padding_left = 5, padding_right = 10))
@@ -32,10 +34,10 @@ class NewChatFrame(toga.Window):
         create_button = toga.Button('Crear chat')
 
         id_create_box.add(id_create_label)
-        id_create_box.add(id_create_input)
+        id_create_box.add(self.id_create_input)
 
         clave_create_box.add(clave_create_label)
-        clave_create_box.add(clave_create_input)
+        clave_create_box.add(self.clave_create_input)
 
         box_create.add(id_create_box)
         box_create.add(clave_create_box)
@@ -67,3 +69,9 @@ class NewChatFrame(toga.Window):
         box_join.add(join_button)
 
         return box_join
+
+    def create_new_chat(self):
+        factory = ChatFactory()
+        chat = factory.produce()
+        self.id_create_input.value = hash_to_string(chat.id_chat)
+        self.clave_create_input.value = hash_to_string(chat.key)
