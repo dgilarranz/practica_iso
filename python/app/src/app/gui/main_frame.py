@@ -67,9 +67,6 @@ class MainFrame(toga.MainWindow):
         window.app = self.app
         window.show()
 
-    def open_chat_window(self, widget):
-        pass
-
     def create_chat_widget(self, chat: Chat) -> toga.Box:
         str_chat_id = hash_to_string(chat.id_chat)
         chat_box = toga.Box(id=f"chat_{str_chat_id}_box", style=Pack(direction=COLUMN))
