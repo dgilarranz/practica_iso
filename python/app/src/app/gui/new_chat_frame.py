@@ -31,7 +31,7 @@ class NewChatFrame(toga.Window):
         id_create_label = toga.Label('ID:', style=Pack(padding_left = 5, padding_right = 50))
         clave_create_label = toga.Label('Clave:', style=Pack(padding_left = 5, padding_right = 10))
 
-        create_button = toga.Button('Crear chat')
+        create_button = toga.Button('Crear chat', on_press=self.create_new_chat)
 
         id_create_box.add(id_create_label)
         id_create_box.add(self.id_create_input)
@@ -56,7 +56,7 @@ class NewChatFrame(toga.Window):
         id_join_label = toga.Label('ID:', style=Pack(padding_left = 5, padding_right = 50))
         clave_join_label = toga.Label('Clave:', style=Pack(padding_left = 5, padding_right = 10))
 
-        join_button = toga.Button('Unirse al chat')
+        join_button = toga.Button('Unirse al chat', on_press=self.join_chat)
 
         id_join_box.add(id_join_label)
         id_join_box.add(self.id_join_input)
@@ -70,14 +70,15 @@ class NewChatFrame(toga.Window):
 
         return box_join
 
-    def create_new_chat(self):
+    def create_new_chat(self, widget):
         factory = ChatFactory()
         chat = factory.produce()
         self.id_create_input.value = hash_to_string(chat.id_chat)
         self.clave_create_input.value = hash_to_string(chat.key)
 
-    def join_chat(self):
+    def join_chat(self, widget):
         id_chat = self.id_join_input.value
         key = self.clave_join_input.value
         factory = ChatFactory(id_chat, key)
         factory.produce()
+        self.close()
