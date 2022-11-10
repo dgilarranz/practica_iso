@@ -39,7 +39,9 @@ def createTables(conn):
 def insertar_contacto(contacto): #meter una fila
     conn = sql.connect(RUTA_BBDD)
     cursor = conn.cursor() #nos proporciona el objeto de la conexión
-    instruccion = f"INSERT INTO Contacto VALUES ('{contacto.hash}', '{contacto.k_pub}', '{contacto.direccion_ip}')"
+    hash_to_string= hash_to_string(contacto.hash)
+    k_pub= pub_key_to_string(contacto.k_pub)
+    instruccion = f"INSERT INTO Contacto VALUES ('{hash_to_string}', '{k_pub}', '{contacto.direccion_ip}')"
     cursor.execute(instruccion)
     conn.commit()
     conn.close()
@@ -62,7 +64,9 @@ def leer_contacto(hash_contacto): #leer filas
     #print(datos)
     conn.commit()
     conn.close()
-    return Contacto(hash=datos[0],k_pub=datos[1],direccion_ip=datos[2])
+    hash_to_string = hash_to_string(datos[0])
+    k_pub= pub_key_to_string(datos[1])
+    return Contacto(hash_to_string ,k_pub,direccion_ip=datos[2])
 
 def actualizar_contacto(contacto: Contacto, ip: str):
     conn = sql.connect(RUTA_BBDD)
