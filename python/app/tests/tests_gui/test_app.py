@@ -10,6 +10,7 @@ from app.crud import insertar_mensaje
 from app.cyphersuite import cifrar_mensaje, hash_to_string
 from app.file_manager import leer_usuario
 from app.config_manager import ConfigManager
+from app.sockets import ConnectionManager
 import sqlite3 as sql
 import os
 
@@ -58,11 +59,17 @@ def test_leer_mensajes(crear_chat: Chat):
     # Comprobamos que los mensajes se han añadido al chat
     assert len(chat.messages) == 2
 
-def test_cargar_configuracion():
+def test_cargar_configuracion_carga_user():
     app = MessageApp()
     app.cargar_configuracion()
 
     user = leer_usuario()
 
     assert ConfigManager().get_user().hash == user.hash
-    
+
+def test_cargar_configuracion_carga_cm():
+    app = MessageApp()
+    app.cargar_configuracion()
+    cm = ConfigManager().get_connection_manager()
+
+    assert cm is not None and isinstance(cm, ConnectionManager)
