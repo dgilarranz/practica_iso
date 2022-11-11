@@ -2,6 +2,7 @@ import binascii
 from app.mensaje import Mensaje
 from app.chat import Chat
 from app.contacto import Contacto
+from app.config_manager import ConfigManager
 from app.sockets import ConnectionManager
 import pytest
 import pytest_asyncio
@@ -17,18 +18,18 @@ from cryptography.fernet import Fernet
 
 # poetry run pytest test_chat.py
 def test01_crearChat():
-    assert Chat(00, None, None)
+    assert Chat(00, None)
 
 def test02_obtenerIdChat():
-    chat= Chat(1, None, None)
+    chat= Chat(1, None)
     assert chat.getID_Chat()==1
 
 def test03_ceroMiembrosAlCrearChat():
-    chat = Chat(1, None, None)
+    chat = Chat(1, None)
     assert len(chat.getMiembros())==0
 
 def test04_addMiembros():
-    chat = Chat(1, None, None)
+    chat = Chat(1, None)
     #falta añadir miembros, pero como nose si tiene alias y tal
     #pregunto y lo añado
     pass
@@ -40,12 +41,12 @@ async def crear_chat() -> Chat:
     chat_hash = chat_hash.finalize()
     key = Fernet.generate_key()
 
-    # Iniciamos el servicio de intercambio de mensajes
-    cm = ConnectionManager()
-    server_task = asyncio.create_task(cm.start_service())
-    await asyncio.sleep(1)
+    # Arrancamos el servidor
+    cm = ConfigManager()
+    cm.connection_manager = ConnectionManager()
+    server_task = asyncio.create_task(cm.connection_manager.start_service())
 
-    yield Chat(chat_hash, key, cm)
+    yield Chat(chat_hash, key)
 
     # Paramos el servidor
     server_task.cancel()

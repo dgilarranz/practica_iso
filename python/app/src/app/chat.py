@@ -9,15 +9,14 @@ from cryptography.hazmat.primitives.hashes import SHA256
 from cryptography.fernet import Fernet
 from app.cyphersuite import hash_to_string
 from app.mensaje import Mensaje
-from app.sockets import ConnectionManager
+from app.config_manager import ConfigManager
 import binascii
 
 class Chat:
-    def __init__(self, id_chat, key: bytes, cm: ConnectionManager = None):
+    def __init__(self, id_chat, key: bytes):
         self.id_chat= id_chat
         self.miembros=set()
         self.key = key
-        self.cm = cm
         self.messages = []
 
 
@@ -38,11 +37,12 @@ class Chat:
         ).decode('utf-8')
 
         # Enviamos un mensaje a todos los miembros
+        cm = ConfigManager().connection_manager
         pending_tasks = set()
         sent_messages = 0
         for m in self.miembros:
-            task = asyncio.create_task(self.cm.send_message(
-                ip=m.direccion_ip, port=self.cm.port,
+            task = asyncio.create_task(cm.send_message(
+                ip=m.direccion_ip, port=cm.port,
                 contact_hash=hash_to_string(self.id_chat), message=mensaje_cifrado
             ))
             pending_tasks.add(task)
@@ -58,7 +58,7 @@ class Chat:
     # Devuelve la lista de mensajes leídos
     def read_new_messages(self) -> list[Mensaje]:
         # Obtenemos los mensajes nuevos para nuestro chat
-        encrypted_messages = self.cm.get_messages(hash_to_string(self.id_chat))
+        encrypted_messages = ConfigManager().connection_manager.get_messages(hash_to_string(self.id_chat))
         decrypted_messages = []
 
         for message in encrypted_messages:

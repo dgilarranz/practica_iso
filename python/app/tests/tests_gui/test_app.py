@@ -65,11 +65,11 @@ def test_cargar_configuracion_carga_user():
 
     user = leer_usuario()
 
-    assert ConfigManager().get_user().hash == user.hash
+    assert ConfigManager().user.hash == user.hash
 
 def test_cargar_configuracion_carga_cm():
     app = MessageApp()
     app.cargar_configuracion()
-    cm = ConfigManager().get_connection_manager()
+    cm = ConfigManager().connection_manager
 
     assert cm is not None and isinstance(cm, ConnectionManager)

@@ -13,15 +13,3 @@ class Singleton(type):
 class ConfigManager(metaclass=Singleton):  
     user = None
     connection_manager = None
-
-    def get_connection_manager(self) -> ConnectionManager:
-        return self.connection_manager
-
-    def set_connection_manager(self, cm: ConnectionManager):
-        self.connection_manager = cm
-
-    def get_user(self) -> Usuario:
-        return self.user
-
-    def set_user(self, user: Usuario):
-        self.user = user

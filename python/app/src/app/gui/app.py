@@ -35,7 +35,7 @@ class MessageApp(toga.App):
 
     def cargar_configuracion(self):
         self.cargar_usuario()
-        self.cargar_connection_manager()
+        self.arrancar_servidor()
     
     def cargar_usuario(self):
         user = None
@@ -56,16 +56,11 @@ class MessageApp(toga.App):
             user = inicializar_usuario()
             guardar_usuario(user)
         finally:
-            ConfigManager().set_user(user)
+            ConfigManager().user = user
 
-    def cargar_connection_manager(self):
-        cm = ConnectionManager()
-        ConfigManager().set_connection_manager(cm)
-    
     def arrancar_servidor(self):
         cm = ConnectionManager()
-        ConfigManager().set_connection_manager(cm)
-        print(ConfigManager().get_connection_manager())
+        ConfigManager().connection_manager = cm
 
     def leer_mensajes(self, chats: list[Chat]):
         # Ordenamos los mensajes por tiempo
