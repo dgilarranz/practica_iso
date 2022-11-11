@@ -34,6 +34,10 @@ class MessageApp(toga.App):
         self.main_window.show()
 
     def cargar_configuracion(self):
+        self.cargar_usuario()
+        self.cargar_connection_manager()
+    
+    def cargar_usuario(self):
         user = None
 
         # Investigar mejor solución. Temporalmente, cambiar la ejecución al directorio python/app
@@ -53,7 +57,8 @@ class MessageApp(toga.App):
             guardar_usuario(user)
         finally:
             ConfigManager().set_user(user)
-        
+
+    def cargar_connection_manager(self):
         cm = ConnectionManager()
         ConfigManager().set_connection_manager(cm)
     
