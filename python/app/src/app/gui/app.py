@@ -52,7 +52,7 @@ class MessageApp(toga.App):
             user = inicializar_usuario()
             guardar_usuario(user)
         finally:
-            ConfigManager.config["user"] = user
+            ConfigManager().set_user(user)
     
     def arrancar_servidor(self):
         cm = ConnectionManager()
