@@ -1,4 +1,5 @@
-from app.observer import Observer, Subject
+from app.observer import Observer, Subject, SubscriberIsNotObserverException
+import pytest
 
 def test_observer_hash_notify_method():
     assert callable(Observer.update)
@@ -13,3 +14,8 @@ def test_subscribe_observer():
     s.subscribe(o)
 
     assert o in s.subscribers
+
+def test_only_observers_can_subscribe():
+    s = Subject()
+    with pytest.raises(SubscriberIsNotObserverException):
+        s.subscribe(3)
