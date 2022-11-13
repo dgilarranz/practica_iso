@@ -4,8 +4,9 @@ from dis import findlinestarts
 from sqlite3 import connect
 from sys import stderr
 from xmlrpc.client import Boolean
+from app.observer import Subject
 
-class ConnectionManager():
+class ConnectionManager(Subject):
     def __init__(self, port=54321, separator='\N{END OF MEDIUM}', end_message_indicator='\N{END OF TRANSMISSION}') -> None:
         # Lanzamos el servicio de escucha en el puerto PORT
         self.port = port

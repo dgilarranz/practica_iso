@@ -1,6 +1,7 @@
 from multiprocessing.connection import wait
 from unittest.mock import patch
 from app.sockets import ConnectionManager
+from app.observer import Subject
 import asyncio
 import pytest    
 
@@ -63,3 +64,7 @@ def test_get_messages():
     cm = ConnectionManager()
     with patch.object(cm, 'messages', {'hash_prueba': ['mensaje']}):
         assert cm.get_messages('hash_prueba')[0] == 'mensaje'
+
+def test_connection_manager_is_instance_of_subject():
+    cm = ConnectionManager()
+    assert isinstance(cm, Subject)
