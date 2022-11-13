@@ -7,7 +7,7 @@ class Subject:
         self.subscribers = set()
 
     def subscribe(self, observer: Observer):
-        if isinstance(observer, int):
+        if not isinstance(observer, Observer):
             raise SubscriberIsNotObserverException
         self.subscribers.add(observer)
 
