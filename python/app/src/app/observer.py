@@ -15,7 +15,8 @@ class Subject:
         self.subscribers.remove(observer)
     
     def notify(self):
-        pass
+        for sub in self.subscribers:
+            sub.update()
 
 class SubscriberIsNotObserverException(Exception):
     pass

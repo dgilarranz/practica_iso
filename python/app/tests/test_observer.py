@@ -1,5 +1,6 @@
 from app.observer import Observer, Subject, SubscriberIsNotObserverException
 import pytest
+from unittest.mock import patch
 
 def test_observer_hash_notify_method():
     assert callable(Observer.update)
@@ -35,3 +36,12 @@ def test_unsubscribe_subscribed_observer():
 
 def test_subject_has_notify_method():
     assert callable(Subject.notify)
+
+@patch("app.observer.Observer.update")
+def test_notifiy_notifies_subscribers(mock_update):
+    o = Observer()
+    s = Subject()
+    s.subscribe(o)
+    s.notify()
+
+    mock_update.assert_called_once()
