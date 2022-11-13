@@ -1,5 +1,5 @@
 class Observer:
-    def update():
+    def update(self):
         pass
 
 class Subject:
