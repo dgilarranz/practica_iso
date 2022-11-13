@@ -17,16 +17,12 @@ from app.cyphersuite import hash_to_string
 from app.config_manager import ConfigManager
 from app.crud import leer_mensaje, leer_chats, createDB, RUTA_BBDD
 from app.sockets import ConnectionManager
-
-# IMPORTS PARA PRUEBAS
-from cryptography.hazmat.primitives import hashes
-from cryptography.fernet import Fernet
+import asyncio
 
 class MessageApp(toga.App):
 
     def startup(self):
         self.cargar_configuracion()
-        self.arrancar_servidor()
         self.chats = leer_chats()
         self.leer_mensajes(self.chats)
 
@@ -60,6 +56,7 @@ class MessageApp(toga.App):
 
     def arrancar_servidor(self):
         cm = ConnectionManager()
+        asyncio.create_task(cm.start_service(), name="servidor")
         ConfigManager().connection_manager = cm
 
     def leer_mensajes(self, chats: list[Chat]):

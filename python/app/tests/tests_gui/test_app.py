@@ -13,6 +13,7 @@ from app.config_manager import ConfigManager
 from app.sockets import ConnectionManager
 import sqlite3 as sql
 import os
+import asyncio
 
 TEST_DB = "resources/tests.db"
 
@@ -59,7 +60,8 @@ def test_leer_mensajes(crear_chat: Chat):
     # Comprobamos que los mensajes se han añadido al chat
     assert len(chat.messages) == 2
 
-def test_cargar_configuracion_carga_user():
+@patch("asyncio.create_task")
+def test_cargar_configuracion_carga_user(mock_create_task):
     app = MessageApp()
     app.cargar_configuracion()
 
@@ -67,9 +69,17 @@ def test_cargar_configuracion_carga_user():
 
     assert ConfigManager().user.hash == user.hash
 
-def test_cargar_configuracion_carga_cm():
+@patch("asyncio.create_task")
+def test_cargar_configuracion_carga_cm(mock_create_task):
     app = MessageApp()
     app.cargar_configuracion()
     cm = ConfigManager().connection_manager
 
     assert cm is not None and isinstance(cm, ConnectionManager)
+
+@patch("asyncio.create_task")
+def test_servidor_arranca(mock_create_task):
+    app = MessageApp()
+    app.cargar_configuracion()
+
+    mock_create_task.assert_called_once()
