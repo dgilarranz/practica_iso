@@ -32,3 +32,6 @@ def test_unsubscribe_subscribed_observer():
     s.unsubscribe(o)
     
     assert o not in s.subscribers
+
+def test_subject_has_notify_method():
+    assert callable(Subject.notify)

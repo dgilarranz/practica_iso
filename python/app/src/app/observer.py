@@ -13,6 +13,9 @@ class Subject:
     
     def unsubscribe(self, observer: Observer):
         self.subscribers.remove(observer)
+    
+    def notify(self):
+        pass
 
 class SubscriberIsNotObserverException(Exception):
     pass
