@@ -6,3 +6,10 @@ def test_observer_hash_notify_method():
 def test_subject_hash_observer_list():
     s: Subject = Subject()
     assert type(s.subscribers) is set
+
+def test_subscribe_observer():
+    o = Observer()
+    s = Subject()
+    s.subscribe(o)
+
+    assert o in s.subscribers

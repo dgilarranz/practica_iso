@@ -3,6 +3,9 @@ class Observer:
         pass
 
 class Subject:
-    def __init__(self) -> None:
+    def __init__(self):
         self.subscribers = set()
+
+    def subscribe(self, observer: Observer):
+        self.subscribers.add(observer)
         
