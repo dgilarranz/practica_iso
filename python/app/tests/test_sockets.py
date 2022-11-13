@@ -84,3 +84,18 @@ async def test_connection_manager_notifies_subscribers_on_message_received_for_e
     
     server_task.cancel()
     message_task.cancel()
+
+@pytest.mark.asyncio
+async def test_connection_manager_does_not_notify_if_message_empty():
+    cm = ConnectionManager(54322)
+    server_task = asyncio.create_task(cm.start_service())
+    await asyncio.sleep(1)
+
+    with patch.object(cm, "notify") as mock_notify:
+        cm.messages["chat_prueba"] = ["mensaje de prueba"]
+        message_task = asyncio.create_task(cm.send_message("127.0.0.1", 54322, "chat_prueba", ""))
+        await asyncio.sleep(1)
+        mock_notify.assert_not_called()
+    
+    server_task.cancel()
+    message_task.cancel()
