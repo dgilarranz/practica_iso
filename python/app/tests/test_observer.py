@@ -24,3 +24,11 @@ def test_only_observers_can_subscribe_2():
     s = Subject()
     with pytest.raises(SubscriberIsNotObserverException):
         s.subscribe("Aserejé")
+
+def test_unsubscribe_subscribed_observer():
+    o = Observer()
+    s = Subject()
+    s.subscribe(o)
+    s.unsubscribe(o)
+    
+    assert o not in s.subscribers

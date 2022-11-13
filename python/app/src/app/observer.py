@@ -10,6 +10,9 @@ class Subject:
         if not isinstance(observer, Observer):
             raise SubscriberIsNotObserverException
         self.subscribers.add(observer)
+    
+    def unsubscribe(self, observer: Observer):
+        self.subscribers.remove(observer)
 
 class SubscriberIsNotObserverException(Exception):
     pass
