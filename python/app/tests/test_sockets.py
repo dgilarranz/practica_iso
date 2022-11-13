@@ -68,3 +68,19 @@ def test_get_messages():
 def test_connection_manager_is_instance_of_subject():
     cm = ConnectionManager()
     assert isinstance(cm, Subject)
+
+
+@pytest.mark.asyncio
+async def test_connection_manager_notifies_subscribers_on_message_received_for_existing_chat():
+    cm = ConnectionManager(54322)
+    server_task = asyncio.create_task(cm.start_service())
+    await asyncio.sleep(1)
+
+    with patch.object(cm, "notify") as mock_notify:
+        cm.messages["chat_prueba"] = ["mensaje de prueba"]
+        message_task = asyncio.create_task(cm.send_message("127.0.0.1", 54322, "chat_prueba", "otro mensaje"))
+        await asyncio.sleep(1)
+        mock_notify.assert_called_once()
+    
+    server_task.cancel()
+    message_task.cancel()

@@ -35,7 +35,7 @@ class ConnectionManager(Subject):
         # Al recibir una conexión, comprobamos si el hash se corresponde a una sesión ya establecida
         data = await reader.readuntil(self.end_message.encode('utf-8'))
         data = data.decode('utf-8').split(sep=self.hash_message_separator)
-        
+
         contact_hash = data[0]
         message = data[1].strip(self.end_message)
 
@@ -58,11 +58,12 @@ class ConnectionManager(Subject):
             response = f'{self.message_delivered_code}{self.end_message}'
             writer.write(response.encode('utf-8'))
             await writer.drain()
-        
+        self.notify()
+
         writer.close()
 
     async def send_message(self, ip: str, port: int, contact_hash: str, message: str) -> Boolean:
-        print(message)
+
         # Abrimos la conexión, si hay errores se intenta hasta lograrse
         connected = False
         while not connected:
