@@ -97,3 +97,12 @@ def test_chat_is_subscribed_to_connection_manager():
     chat = Chat("id", b"key")
 
     assert chat in cm.subscribers
+
+def test_chat_checks_chats_on_update(crear_chat: Chat):
+    cm = ConfigManager().connection_manager
+    chat = crear_chat
+
+    with patch.object(chat, "read_new_messages") as mock_read_messages:
+        cm.notify()
+        mock_read_messages.assert_called_once()
+    
