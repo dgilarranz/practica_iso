@@ -9,15 +9,18 @@ from cryptography.fernet import Fernet
 from app.cyphersuite import hash_to_string
 from app.mensaje import Mensaje
 from app.config_manager import ConfigManager
-from app.observer import Subject
+from app.observer import Observer
 import binascii
 
-class Chat(Subject):
+class Chat(Observer):
     def __init__(self, id_chat, key: bytes):
         self.id_chat= id_chat
         self.miembros=set()
         self.key = key
         self.messages = []
+
+        # Subscribimos el chat a ConnectionManager (Patrón Observer)
+        ConfigManager().connection_manager.subscribe(self)
 
 
     def addMiembro(self,contacto):

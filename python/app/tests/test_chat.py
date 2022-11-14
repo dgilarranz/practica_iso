@@ -4,7 +4,7 @@ from app.chat import Chat
 from app.contacto import Contacto
 from app.config_manager import ConfigManager
 from app.sockets import ConnectionManager
-from app.observer import Subject
+from app.observer import Observer
 import pytest
 import pytest_asyncio
 import asyncio
@@ -16,6 +16,11 @@ from cryptography.hazmat.primitives.asymmetric.padding import OAEP
 from cryptography.hazmat.primitives.asymmetric.padding import MGF1
 from cryptography.hazmat.primitives.hashes import SHA256
 from cryptography.fernet import Fernet
+
+@pytest.fixture(autouse=True)
+def crear_connection_manager():
+    cm = ConnectionManager()
+    ConfigManager().connection_manager = cm
 
 # poetry run pytest test_chat.py
 def test01_crearChat():
@@ -43,9 +48,8 @@ async def crear_chat() -> Chat:
     key = Fernet.generate_key()
 
     # Arrancamos el servidor
-    cm = ConfigManager()
-    cm.connection_manager = ConnectionManager()
-    server_task = asyncio.create_task(cm.connection_manager.start_service())
+    cm = ConfigManager().connection_manager
+    server_task = asyncio.create_task(cm.start_service())
 
     yield Chat(chat_hash, key)
 
@@ -85,6 +89,11 @@ def test_read_messages(mock_get_messages, crear_chat):
     # Comprobamos que se lee el mensaje
     assert chat.read_new_messages()[0].texto == mensaje.texto
 
-def test_chat_is_instance_of_subject():
-    assert isinstance(Chat("id", b"key"), Subject)
+def test_chat_is_instance_of_observer():
+    assert isinstance(Chat("id", b"key"), Observer)
 
+def test_chat_is_subscribed_to_connection_manager():
+    cm = ConfigManager().connection_manager
+    chat = Chat("id", b"key")
+
+    assert chat in cm.subscribers
