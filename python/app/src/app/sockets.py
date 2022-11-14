@@ -8,6 +8,9 @@ from app.observer import Subject
 
 class ConnectionManager(Subject):
     def __init__(self, port=54321, separator='\N{END OF MEDIUM}', end_message_indicator='\N{END OF TRANSMISSION}') -> None:
+        # Inicializamos la clase padre
+        super().__init__()
+        
         # Lanzamos el servicio de escucha en el puerto PORT
         self.port = port
         self.last_port = port
@@ -51,14 +54,15 @@ class ConnectionManager(Subject):
         
         # Si se ha adjuntado un mensaje, se añade
         if len(message) > 0:
-            # Si el usuario está registrado, se añade el mensaje al diccionario
+            # Si el usuario está registrado, se añade el mensaje al diccionario y se notifica
+            # a los suscriptores
             self.messages[contact_hash].append(message)
+            self.notify()
             
             # Devolvemos un código indicando que se ha enviado el mensaje
             response = f'{self.message_delivered_code}{self.end_message}'
             writer.write(response.encode('utf-8'))
             await writer.drain()
-        self.notify()
 
         writer.close()
 

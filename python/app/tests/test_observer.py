@@ -45,3 +45,10 @@ def test_notifiy_notifies_subscribers(mock_update):
     s.notify()
 
     mock_update.assert_called_once()
+
+@patch("app.observer.Observer.update")
+def test_notify_empty(mock_update):
+    s = Subject()
+    s.notify()
+    mock_update.assert_not_called()
+    

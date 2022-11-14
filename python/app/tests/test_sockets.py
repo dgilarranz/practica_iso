@@ -69,6 +69,10 @@ def test_connection_manager_is_instance_of_subject():
     cm = ConnectionManager()
     assert isinstance(cm, Subject)
 
+def test_connection_manager_initialises_super_class():
+    cm = ConnectionManager()
+    assert cm.subscribers is not None
+
 
 @pytest.mark.asyncio
 async def test_connection_manager_notifies_subscribers_on_message_received_for_existing_chat():
