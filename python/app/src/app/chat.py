@@ -1,5 +1,4 @@
 import asyncio
-from email import message
 import json
 from xmlrpc.client import Boolean
 from cryptography.hazmat.primitives.asymmetric import rsa
@@ -10,9 +9,10 @@ from cryptography.fernet import Fernet
 from app.cyphersuite import hash_to_string
 from app.mensaje import Mensaje
 from app.config_manager import ConfigManager
+from app.observer import Subject
 import binascii
 
-class Chat:
+class Chat(Subject):
     def __init__(self, id_chat, key: bytes):
         self.id_chat= id_chat
         self.miembros=set()

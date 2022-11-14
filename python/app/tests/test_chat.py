@@ -4,6 +4,7 @@ from app.chat import Chat
 from app.contacto import Contacto
 from app.config_manager import ConfigManager
 from app.sockets import ConnectionManager
+from app.observer import Subject
 import pytest
 import pytest_asyncio
 import asyncio
@@ -84,5 +85,6 @@ def test_read_messages(mock_get_messages, crear_chat):
     # Comprobamos que se lee el mensaje
     assert chat.read_new_messages()[0].texto == mensaje.texto
 
-    
+def test_chat_is_instance_of_subject():
+    assert isinstance(Chat("id", b"key"), Subject)
 
