@@ -19,3 +19,11 @@ def test_from_json():
 
     received_message = Mensaje.from_json(json_message)
     assert str(received_message.id_mensaje) == str(message.id_mensaje)
+
+def test_from_json_with_ttl():
+    message = Mensaje("text", "id_chat", None)
+    message.ttl = 1
+    json_message = message.to_json()
+
+    received_message = Mensaje.from_json(json_message)
+    assert received_message.ttl == message.ttl

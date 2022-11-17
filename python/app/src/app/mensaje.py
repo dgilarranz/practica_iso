@@ -26,4 +26,5 @@ class Mensaje:
         json_msg = json.loads(json_str)
         msg = Mensaje(json_msg["texto"], json_msg["id_chat"], json_msg["id_sender"])
         msg.id_mensaje = json_msg["id_mensaje"]
+        msg.ttl = int(json_msg["ttl"]) if json_msg["ttl"] != "None" else None 
         return msg
