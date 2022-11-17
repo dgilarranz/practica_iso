@@ -35,3 +35,31 @@ def test_from_json_with_another_ttl():
 
     received_message = Mensaje.from_json(json_message)
     assert received_message.ttl == message.ttl
+
+def test_from_json_same_text():
+    message = Mensaje("texto 1", "id_chat", None)
+    json_message = message.to_json()
+
+    received_message = Mensaje.from_json(json_message)
+    assert received_message.texto == message.texto
+
+def test_from_json_another_text():
+    message = Mensaje("texto 2", "id_chat", None)
+    json_message = message.to_json()
+
+    received_message = Mensaje.from_json(json_message)
+    assert received_message.texto == message.texto
+
+def test_from_json_same_chat():
+    message = Mensaje("texto 1", "id_chat 1", None)
+    json_message = message.to_json()
+
+    received_message = Mensaje.from_json(json_message)
+    assert received_message.id_chat == message.id_chat
+
+def test_from_json_another_chat():
+    message = Mensaje("texto 1", "id_chat 2", None)
+    json_message = message.to_json()
+
+    received_message = Mensaje.from_json(json_message)
+    assert received_message.id_chat == message.id_chat
