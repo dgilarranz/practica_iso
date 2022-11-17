@@ -12,3 +12,10 @@ def test_to_json():
 def test_message_has_uuid():
     message = Mensaje("text", "id_chat", None)
     assert isinstance(message.id_mensaje, UUID)
+
+def test_from_json():
+    message = Mensaje("text", "id_chat", None)
+    json_message = message.to_json()
+
+    received_message = Mensaje.from_json(json_message)
+    assert str(received_message.id_mensaje) == str(message.id_mensaje)

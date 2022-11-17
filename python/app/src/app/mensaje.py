@@ -22,3 +22,8 @@ class Mensaje:
         }
         return json.dumps(json_self)
 
+    def from_json(json_str: str):
+        json_msg = json.loads(json_str)
+        msg = Mensaje(json_msg["texto"], json_msg["id_chat"], json_msg["id_sender"])
+        msg.id_mensaje = json_msg["id_mensaje"]
+        return msg
