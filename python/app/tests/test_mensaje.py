@@ -27,3 +27,11 @@ def test_from_json_with_ttl():
 
     received_message = Mensaje.from_json(json_message)
     assert received_message.ttl == message.ttl
+
+def test_from_json_with_another_ttl():
+    message = Mensaje("text", "id_chat", None)
+    message.ttl = 2
+    json_message = message.to_json()
+
+    received_message = Mensaje.from_json(json_message)
+    assert received_message.ttl == message.ttl
