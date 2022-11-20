@@ -9,6 +9,7 @@ import toga
 from toga.style import Pack
 from toga.style.pack import COLUMN, ROW
 from app.config_manager import ConfigManager
+from app.crud import borrar_chat
 
 class MainFrame(toga.MainWindow):
     def __init__(self, id: str, title: str, chat_list: list[Chat]) -> None:
@@ -97,5 +98,7 @@ class MainFrame(toga.MainWindow):
         chat_window.app = self.app
         chat_window.show()
 
-    def delete_chat(self) -> None:
-        pass
+    def delete_chat(self, widget) -> None:
+        chat = self.delete_btn_map[widget.id]
+        id_chat = hash_to_string(chat.id_chat)
+        borrar_chat(id_chat)
