@@ -63,3 +63,10 @@ def test_from_json_another_chat():
 
     received_message = Mensaje.from_json(json_message)
     assert received_message.id_chat == message.id_chat
+
+def test_from_json_uuid_correct_type():
+    message = Mensaje("text", "id_chat", None)
+    json_message = message.to_json()
+
+    received_message = Mensaje.from_json(json_message)
+    assert isinstance(received_message.id_mensaje, UUID)

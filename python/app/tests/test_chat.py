@@ -105,4 +105,4 @@ def test_chat_checks_chats_on_update(crear_chat: Chat):
     with patch.object(chat, "read_new_messages") as mock_read_messages:
         cm.notify()
         mock_read_messages.assert_called_once()
-    
+        
