@@ -110,12 +110,12 @@ class ChatFrame(toga.Window, Observer):
 
     async def send_message(self, widget):
         message_content = self.message_input.value
-        message = Mensaje(message_content, hash_to_string(self.chat.id_chat), hash_to_string(ConfigManager.config["user"].hash))
+        message = Mensaje(message_content, hash_to_string(self.chat.id_chat), hash_to_string(ConfigManager().user.hash))
 
         self.chat.messages.append(message)
         asyncio.create_task(self.chat.send_message(message))
 
-        insertar_mensaje(cifrar_mensaje(message, ConfigManager.config["user"].key))
+        insertar_mensaje(cifrar_mensaje(message, ConfigManager().user.key))
 
         self.add_message(message.texto, message.id_sender)
 
@@ -139,7 +139,7 @@ class ChatFrame(toga.Window, Observer):
 
         # Estilo general para todas las líneas
         style = Pack(height=30)
-        if sender == hash_to_string(ConfigManager.config["user"].hash):
+        if sender == hash_to_string(ConfigManager().user.hash):
             style.update(alignment="right")
             style.update(padding_left=400)
             style.update(padding_right=10)
@@ -166,7 +166,9 @@ class ChatFrame(toga.Window, Observer):
 
         self.content.refresh()
         
-        
+    def update(self):
+        mensaje = Mensaje("Bla", "Bla", "Bla")
+        self.add_message(mensaje, mensaje.id_sender)
 
 
     
