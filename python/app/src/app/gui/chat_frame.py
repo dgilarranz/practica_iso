@@ -21,6 +21,7 @@ class ChatFrame(toga.Window, Observer):
     def __init__(self, chat: Chat) -> None:
         super().__init__()
         self.chat = chat
+        self.chat.subscribe(self)
         self.max_chars_per_line = 50
         self.create_interface()
         
