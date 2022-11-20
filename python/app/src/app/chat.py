@@ -14,6 +14,7 @@ import binascii
 
 class Chat(Observer, Subject):
     def __init__(self, id_chat, key: bytes):
+        super().__init__()
         self.id_chat= id_chat
         self.miembros=set()
         self.key = key
@@ -74,4 +75,5 @@ class Chat(Observer, Subject):
     def update(self) -> None:
         new_messages = self.read_new_messages()
         self.messages.extend(new_messages)
+        self.notify()
             

@@ -139,3 +139,13 @@ def test_chat_only_adds_new_messages_on_update(mock_get_messages):
 
     chat.update()    
     assert len(chat.messages) == 2
+
+def test_chat_initialises_superclass():
+    chat = ChatFactory().create_new_chat()
+    assert chat.subscribers is not None
+
+def test_chat_updates_subscribers_when_notified():
+    chat = ChatFactory().create_new_chat()
+    with patch.object(chat, "notify") as mock_notify:
+        chat.update()
+        mock_notify.assert_called_once()
