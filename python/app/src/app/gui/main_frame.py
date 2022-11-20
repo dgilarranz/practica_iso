@@ -97,4 +97,5 @@ class MainFrame(toga.MainWindow):
         chat_window.app = self.app
         chat_window.show()
 
-
+    def delete_chat(self) -> None:
+        pass
