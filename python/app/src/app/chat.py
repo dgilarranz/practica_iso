@@ -9,10 +9,10 @@ from cryptography.fernet import Fernet
 from app.cyphersuite import hash_to_string
 from app.mensaje import Mensaje
 from app.config_manager import ConfigManager
-from app.observer import Observer
+from app.observer import Observer, Subject
 import binascii
 
-class Chat(Observer):
+class Chat(Observer, Subject):
     def __init__(self, id_chat, key: bytes):
         self.id_chat= id_chat
         self.miembros=set()
@@ -65,20 +65,12 @@ class Chat(Observer):
         decrypted_messages = []
 
         for message in encrypted_messages:
-            json_message = json.loads(
-                Fernet(self.key).decrypt(message.encode("utf-8"))
-            )
-            decrypted_messages.append(
-                Mensaje(
-                    id_chat=json_message['id_chat'],
-                    texto=json_message['texto'],
-                    ttl=json_message['ttl'],
-                    id_sender=json_message['id_sender']
-                )
-            )
+            decrypted_message_str = Fernet(self.key).decrypt(message.encode("utf-8"))
+            message = Mensaje.from_json(decrypted_message_str)
+            decrypted_messages.append(message)
 
         return decrypted_messages
     
     def update(self) -> None:
-        self.read_new_messages()
+        self.messages = self.read_new_messages()
             
