@@ -72,5 +72,6 @@ class Chat(Observer, Subject):
         return decrypted_messages
     
     def update(self) -> None:
-        self.messages = self.read_new_messages()
+        new_messages = self.read_new_messages()
+        self.messages.extend(new_messages)
             
