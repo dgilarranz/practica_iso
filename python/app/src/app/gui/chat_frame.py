@@ -13,9 +13,10 @@ import copy
 from app.config_manager import ConfigManager
 from app.crud import insertar_mensaje
 from app.gui.new_contact_frame import NewContactFrame
+from app.observer import Observer
 import asyncio
 
-class ChatFrame(toga.Window):
+class ChatFrame(toga.Window, Observer):
 
     def __init__(self, chat: Chat) -> None:
         super().__init__()
