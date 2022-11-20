@@ -102,3 +102,4 @@ class MainFrame(toga.MainWindow):
         chat = self.delete_btn_map[widget.id]
         id_chat = hash_to_string(chat.id_chat)
         borrar_chat(id_chat)
+        self.content.refresh()
