@@ -14,7 +14,8 @@ class MainFrame(toga.MainWindow):
     def __init__(self, id: str, title: str, chat_list: list[Chat]) -> None:
         super().__init__(id, title)
         self.chat_list = chat_list
-        self.btn_chat_map = {}
+        self.open_btn_chat_map = {}
+        self.delete_btn_map = {}
         self.create_interface()
 
     def create_interface(self):
@@ -84,15 +85,14 @@ class MainFrame(toga.MainWindow):
             style=Pack(padding_left=20),
             on_press=self.open_chat
         )
-        self.btn_chat_map[open_button.id] = chat
+        self.open_btn_chat_map[open_button.id] = chat
 
         inner_box.add(label_chat, label_id, open_button)
         chat_box.add(inner_box, toga.Divider(direction=0, style=Pack(height=2)))
         return chat_box
-        
 
     def open_chat(self, widget) -> None:
-        chat = self.btn_chat_map[widget.id]
+        chat = self.open_btn_chat_map[widget.id]
         chat_window = ChatFrame(chat)
         chat_window.app = self.app
         chat_window.show()
