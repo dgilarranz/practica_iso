@@ -2,7 +2,7 @@ from importlib.resources import path
 import resource
 import sqlite3 as sql
 from xml.dom.minidom import CharacterData
-from app.setup import inicializar_usuario
+#from app.setup import inicializar_usuario
 import pytest
 from app.crud import createDB
 from unittest.mock import patch
@@ -22,7 +22,6 @@ from app.crud import insertar_mensaje
 from app.crud import leer_mensaje
 from app.crud import actualizar_mensaje
 from app.crud import borrar_mensaje
-# from app.crud import *
 from app.cyphersuite import cifrar_mensaje
 from app.cyphersuite import descifrar_mensaje
 from app.cyphersuite import hash_to_string
