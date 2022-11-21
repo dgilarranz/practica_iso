@@ -71,7 +71,7 @@ def leer_contacto(hash_contacto): #leer filas
 def actualizar_contacto(contacto: Contacto, ip: str):
     conn = sql.connect(RUTA_BBDD)
     cursor = conn.cursor()
-    instruccion = f"UPDATE Contacto SET ip = '{ip}' WHERE hash = '{contacto.hash}'" # Solo para pasar test. Luego -> hash_to_string
+    instruccion = f"UPDATE Contacto SET ip = '{ip}' WHERE hash = ('{hash_to_string(contacto.hash)}'" # comprobar que funciona
     cursor.execute(instruccion)
     datos = cursor.fetchone()
     conn.commit()
