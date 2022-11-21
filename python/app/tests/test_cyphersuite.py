@@ -21,6 +21,8 @@ from cryptography.hazmat.primitives.asymmetric.rsa import RSAPrivateKey
 from cryptography.hazmat.primitives import serialization 
 from cryptography.fernet import Fernet
 from app.setup import inicializar_usuario
+from app.config_manager import ConfigManager
+from app.sockets import ConnectionManager
 import pytest
 
 @pytest.fixture
@@ -29,6 +31,7 @@ def crear_chat() -> Chat:
     chat_hash = hashes.Hash(hashes.SHA256())
     chat_hash = chat_hash.finalize()
     key = Fernet.generate_key()
+    ConfigManager().connection_manager = ConnectionManager()
     return Chat(chat_hash, key)
 
 def test_cifrar_mensaje(crear_chat: Chat):

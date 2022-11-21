@@ -86,9 +86,16 @@ class MainFrame(toga.MainWindow):
             style=Pack(padding_left=20),
             on_press=self.open_chat
         )
+        delete_button = toga.Button(
+            text="Borrar",
+            id=f"delete_{str_chat_id}_btn",
+            style=Pack(padding_left=20),
+            on_press=self.delete_chat
+        )
         self.open_btn_chat_map[open_button.id] = chat
+        self.delete_btn_map[delete_button.id] = chat
 
-        inner_box.add(label_chat, label_id, open_button)
+        inner_box.add(label_chat, label_id, open_button, delete_button)
         chat_box.add(inner_box, toga.Divider(direction=0, style=Pack(height=2)))
         return chat_box
 

@@ -16,15 +16,8 @@ def cifrar_mensaje(mensaje: Mensaje, key: bytes) -> str:
         ).decode('utf-8')
 
 def descifrar_mensaje(mensaje_cifrado: str, key: bytes) -> Mensaje:
-    mensaje_descifrado = json.loads(
-        Fernet(key).decrypt(binascii.unhexlify(mensaje_cifrado.encode('utf-8')))
-    )
-    return Mensaje(
-        texto=mensaje_descifrado['texto'],
-        id_chat=mensaje_descifrado['id_chat'],
-        ttl=mensaje_descifrado['ttl'],
-        id_sender=mensaje_descifrado['id_sender']
-    )
+    mensaje_descifrado = Fernet(key).decrypt(binascii.unhexlify(mensaje_cifrado.encode('utf-8')))
+    return Mensaje.from_json(mensaje_descifrado)
 
 def hash_to_string(hash: bytes) -> str:
     return binascii.hexlify(hash).decode('utf-8')

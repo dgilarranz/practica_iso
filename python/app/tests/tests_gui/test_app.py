@@ -1,17 +1,18 @@
 from unittest.mock import patch
 import pytest
-#from app.gui.app import MessageApp
 from app.chat import Chat
+from app.factories.chat_factory import ChatFactory
 from app.mensaje import Mensaje
 from cryptography.fernet import Fernet
 from app.gui.app import MessageApp
 from cryptography.hazmat.primitives import hashes
-from app.crud import insertar_mensaje
+from app.crud import insertar_mensaje, leer_mensaje
 from app.cyphersuite import cifrar_mensaje, hash_to_string
 from app.file_manager import leer_usuario
 from app.config_manager import ConfigManager
 from app.sockets import ConnectionManager
 import sqlite3 as sql
+from app.file_manager import leer_usuario
 import os
 import asyncio
 
@@ -36,6 +37,7 @@ def crear_chat() -> Chat:
     chat_hash = hashes.Hash(hashes.SHA256())
     chat_hash = chat_hash.finalize()
     key = Fernet.generate_key()
+    ConfigManager().connection_manager = ConnectionManager()
     return Chat(chat_hash, key)
 
 def crear_mensaje(texto:str, chat: Chat) -> Mensaje:
@@ -83,3 +85,18 @@ def test_servidor_arranca(mock_create_task):
     app.cargar_configuracion()
 
     mock_create_task.assert_called_once()
+
+@patch("app.crud.RUTA_BBDD", TEST_DB)
+def test_leer_mensajes_borra_mensajes_si_chat_ya_no_existe():
+    import pdb; pdb.set_trace()
+    app = MessageApp()
+    ConfigManager().user = leer_usuario()
+
+    chat = ChatFactory().create_new_chat()
+    mensaje = Mensaje("Mensaje de chat borrado", hash_to_string(chat.id_chat), "Fantasmita")
+    mensaje_cifrado = cifrar_mensaje(mensaje, ConfigManager().user.key)
+    insertar_mensaje(mensaje_cifrado)
+
+    with pytest.raises(TypeError):
+        app.leer_mensajes([])
+    
