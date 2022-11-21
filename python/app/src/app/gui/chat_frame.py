@@ -46,7 +46,7 @@ class ChatFrame(toga.Window, Observer):
         # Añadimos los mensajes del chat
         for mensaje in self.chat.messages:
             self.add_message(mensaje.texto, mensaje.id_sender)
-        
+            
         self.content.refresh()
 
     def create_info_box(self)-> toga.Box:
