@@ -56,3 +56,13 @@ def test_chat_frame_adds_all_messages_with_correct_content_when_notified():
     with patch.object(chat_frame, "add_message") as mock_add_message:
         chat_frame.update()
         mock_add_message.assert_called_with(mensaje_2, mensaje_2.id_sender)
+
+def test_chat_frame_adds_refeshes_content_when_notified():
+    ConfigManager().connection_manager = ConnectionManager()
+    ConfigManager().user = inicializar_usuario()
+    chat = ChatFactory().create_new_chat()
+    chat_frame = ChatFrame(chat)
+    
+    with patch.object(chat_frame.content, "refresh") as mock_refresh:
+        chat_frame.update()
+        mock_refresh.assert_called_once()
