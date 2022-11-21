@@ -19,7 +19,7 @@ def test_chat_frame_is_subscribed_to_chat():
     chat_frame = ChatFrame(chat)
     assert chat_frame in chat.subscribers
 
-def test_chat_frame_refreshes_content_when_notified():
+def test_chat_frame_adds_message_to_content_when_notified():
     ConfigManager().connection_manager = ConnectionManager()
     ConfigManager().user = inicializar_usuario()
     chat = ChatFactory().create_new_chat()
@@ -30,3 +30,15 @@ def test_chat_frame_refreshes_content_when_notified():
     with patch.object(chat_frame, "add_message") as mock_add_message:
         chat_frame.update()
         mock_add_message.assert_called_once()
+
+def test_chat_frame_adds_message_with_correct_content_when_notified():
+    ConfigManager().connection_manager = ConnectionManager()
+    ConfigManager().user = inicializar_usuario()
+    chat = ChatFactory().create_new_chat()
+    mensaje = Mensaje("Prueba", chat.id_chat, "blabla")
+    chat.messages.append(mensaje)
+    chat_frame = ChatFrame(chat)
+    
+    with patch.object(chat_frame, "add_message") as mock_add_message:
+        chat_frame.update()
+        mock_add_message.assert_called_with(mensaje, mensaje.id_sender)
