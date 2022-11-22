@@ -33,6 +33,8 @@ from app.cyphersuite import string_to_pub_key
 from cryptography.hazmat.primitives.asymmetric import rsa
 from cryptography.hazmat.primitives import hashes
 from cryptography.fernet import Fernet
+from app.config_manager import ConfigManager
+from app.sockets import ConnectionManager
 
 from app.crud import actualizar_chat
 
@@ -63,6 +65,7 @@ def crear_datos_para_test():
 @pytest.fixture
 def crear_chat() -> Chat:
     # Creamos un chat de prueba
+    ConfigManager.connection_manager = ConnectionManager()
     chat_hash = hashes.Hash(hashes.SHA256())
     chat_hash = chat_hash.finalize()
     key = Fernet.generate_key()
