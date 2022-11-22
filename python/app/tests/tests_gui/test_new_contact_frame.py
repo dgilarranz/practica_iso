@@ -8,6 +8,20 @@ from cryptography.hazmat.primitives.asymmetric import rsa
 from cryptography.fernet import Fernet
 from app.cyphersuite import hash_to_string, pub_key_to_string
 from app.crud import leer_contacto
+import sqlite3 as sql
+import os
+
+TEST_DB = "resources/test.db"
+
+@pytest.fixture(scope="function", autouse = True)
+def crear_base_datos_para_tests():
+    conn = sql.connect(TEST_DB)
+    cursor = conn.cursor()
+    cursor.execute("CREATE TABLE Chat(id_chat text, key text, PRIMARY KEY (id_chat))")
+    conn.commit()
+    conn.close()
+    yield
+    os.remove(TEST_DB)
 
 @pytest.fixture
 def crear_chat() -> Chat:
@@ -27,6 +41,7 @@ def crear_contacto() -> Contacto:
     
 
 @patch("app.contrato.Contrato.consultar_ip")
+@patch("app.crud.RUTA_BBDD", TEST_DB)
 def test_add_new_contact(mock_consultar_ip, crear_chat: Chat, crear_contacto: Contacto):
     chat = crear_chat
     frame = NewContactFrame(chat)
@@ -46,6 +61,7 @@ def test_add_new_contact(mock_consultar_ip, crear_chat: Chat, crear_contacto: Co
     assert contacto.hash in contact_list
 
 @patch("app.contrato.Contrato.consultar_ip")
+@patch("app.crud.RUTA_BBDD", TEST_DB)
 def test_add_another_new_contact(mock_consultar_ip, crear_chat: Chat, crear_contacto: Contacto):
     chat = crear_chat
     frame = NewContactFrame(chat)
@@ -65,6 +81,7 @@ def test_add_another_new_contact(mock_consultar_ip, crear_chat: Chat, crear_cont
     assert pub_key_to_string(contacto.k_pub) in contact_list
 
 @patch("app.contrato.Contrato.consultar_ip")
+@patch("app.crud.RUTA_BBDD", TEST_DB)
 def test_contact_added_to_db(mock_consultar_ip, crear_chat: Chat, crear_contacto: Contacto):
     chat = crear_chat
     frame = NewContactFrame(chat)

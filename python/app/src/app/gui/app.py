@@ -7,7 +7,7 @@ import sys
 import toga
 import pathlib
 from app.chat import Chat
-from app.crud import leer_chat, leer_mensaje
+from app.crud import leer_chat, leer_mensaje, borrar_mensaje
 from app.gui.main_frame import MainFrame
 from app.gui.new_chat_frame import NewChatFrame
 from app.gui.new_contact_frame import NewContactFrame
@@ -63,9 +63,17 @@ class MessageApp(toga.App):
         # Ordenamos los mensajes por tiempo
         mensajes = leer_mensaje()
         mensajes = sorted(mensajes, key=lambda msg: msg.timestamp)
-        for msg in mensajes:
-            chat = list(filter(lambda chat: hash_to_string(chat.id_chat) == msg.id_chat, chats))[0]
-            chat.messages.append(msg)
+
+        mensajes_asignados = []
+        for chat in chats:
+            for msg in mensajes:
+                if msg.id_chat == hash_to_string(chat.id_chat):
+                    mensajes_asignados.append(msg)
+                    chat.messages.append(msg)
+        
+        #for msg in mensajes:
+        #    if msg not in mensajes_asignados:
+        #        borrar_mensaje()
 
 
         

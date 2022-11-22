@@ -1,5 +1,3 @@
-from tkinter import HORIZONTAL
-from tkinter.ttk import Style
 from app.chat import Chat
 from app.gui.chat_frame import ChatFrame
 from app.cyphersuite import hash_to_string, pub_key_to_string

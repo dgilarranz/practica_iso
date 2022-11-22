@@ -2,16 +2,20 @@ from app.gui.new_chat_frame import NewChatFrame, KeyNotSuppliedException, IdNotS
 from app.crud import leer_chat, borrar_chat
 from app.cyphersuite import hash_to_string
 from app.factories.chat_factory import ChatFactory
+from app.config_manager import ConfigManager
+from app.sockets import ConnectionManager
 from unittest.mock import patch
 import pytest
 import sqlite3 as sql
 import os
 import toga
 
-TEST_DB = "resources/test_database.db"
+TEST_DB = "resources/test.db"
 
-@pytest.fixture(scope="session", autouse = True)
+@pytest.fixture(scope="function", autouse = True)
 def crear_base_datos_para_tests():
+    ConfigManager().connection_manager = ConnectionManager()
+
     conn = sql.connect(TEST_DB)
     cursor = conn.cursor()
     cursor.execute("CREATE TABLE Chat(id_chat text, key text, PRIMARY KEY (id_chat))")

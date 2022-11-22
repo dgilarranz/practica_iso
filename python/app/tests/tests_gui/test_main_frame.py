@@ -9,9 +9,8 @@ import toga
 import sqlite3 as sql
 import os
 import pytest
-import pdb
 
-TEST_DB = "resources/test_database.db"
+TEST_DB = "resources/test.db"
 
 @pytest.fixture(scope="session", autouse=True)
 def crear_base_datos_para_tests():

@@ -1,8 +1,3 @@
-from cgitb import text
-from ctypes import alignment
-from curses.textpad import Textbox
-from distutils.log import info
-from turtle import st, width
 from app.mensaje import Mensaje
 import toga
 from toga.style import Pack
