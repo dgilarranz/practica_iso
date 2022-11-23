@@ -74,3 +74,7 @@ def test_chat_box_is_removed_after_delete():
     with patch.object(mf.chats_box, "remove") as remove_mock:
         mf.delete_chat(delete_button)
         remove_mock.assert_called_once_with(chat_box)
+
+def test_main_frame_hash_function_for_updating_chats():
+    mf = MainFrame("", "", [])
+    assert callable(mf.update_chats)
