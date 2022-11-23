@@ -113,4 +113,5 @@ class MainFrame(toga.MainWindow):
         self.chats_box.remove(box_to_delete)
 
     def update_chats(self) -> None:
-        pass
+        children = self.chats_box.children
+        self.chats_box.remove(children)
