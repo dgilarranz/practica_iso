@@ -106,5 +106,8 @@ class MainFrame(toga.MainWindow):
     def delete_chat(self, widget) -> None:
         chat = self.delete_btn_map[widget.id]
         id_chat = hash_to_string(chat.id_chat)
+
         borrar_chat(id_chat)
-        self.content.refresh()
+
+        box_to_delete = list(filter(lambda child: child.id == f"chat_{id_chat}_box", self.chats_box.children))[0]
+        self.chats_box.remove(box_to_delete)

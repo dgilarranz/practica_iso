@@ -57,3 +57,20 @@ def test_window_is_updated_after_delete():
     with patch.object(mf.content, "refresh") as refresh_mock:
         mf.delete_chat(delete_button)
         refresh_mock.assert_called_once()
+
+@patch("app.crud.RUTA_BBDD", TEST_DB)
+def test_chat_box_is_removed_after_delete():
+    ConfigManager().connection_manager = ConnectionManager()
+    chat = ChatFactory().produce()
+    id_chat = hash_to_string(chat.id_chat)
+    mf = MainFrame("", "", [chat])
+
+    delete_button = toga.Widget(id="id_prueba")
+    mf.delete_btn_map[delete_button.id] = chat
+
+    chat_box = list(filter(lambda child: child.id == f"chat_{id_chat}_box", mf.chats_box.children))[0]
+
+    
+    with patch.object(mf.chats_box, "remove") as remove_mock:
+        mf.delete_chat(delete_button)
+        remove_mock.assert_called_once_with(chat_box)

@@ -1,9 +1,6 @@
-import imp
 import os
 from pkgutil import extend_path
-import resource
 import sqlite3
-import sys
 import toga
 import pathlib
 from app.chat import Chat
