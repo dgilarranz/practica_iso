@@ -79,12 +79,14 @@ def test_main_frame_has_function_for_adding_a_new_chat_box():
     mf = MainFrame("", "", [])
     assert callable(mf.add_new_chat)
 
+@patch("app.crud.RUTA_BBDD", TEST_DB)
 def test_new_chat_box_receives_a_chat():
     ConfigManager().connection_manager = ConnectionManager()
     chat = ChatFactory().produce()
     mf = MainFrame("", "", [])
     mf.add_new_chat(chat)
 
+@patch("app.crud.RUTA_BBDD", TEST_DB)
 def test_new_chat_box_creates_a_widget_for_the_chat():
     ConfigManager().connection_manager = ConnectionManager()
     chat = ChatFactory().produce()
@@ -96,7 +98,7 @@ def test_new_chat_box_creates_a_widget_for_the_chat():
         mf.add_new_chat(chat)
         mock_create_widget.assert_called_once_with(chat)
 
-
+@patch("app.crud.RUTA_BBDD", TEST_DB)
 def test_new_chat_box_adds_the_widget_to_window():
     ConfigManager().connection_manager = ConnectionManager()
     chat = ChatFactory().produce()
