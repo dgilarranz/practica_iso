@@ -36,12 +36,12 @@ def createTables(conn):
 
 #Métodos CRUD Para Contacto
 
-def insertar_contacto(contacto): #meter una fila
+def insertar_contacto(contacto: Contacto): #meter una fila
     conn = sql.connect(RUTA_BBDD)
     cursor = conn.cursor() #nos proporciona el objeto de la conexión
     string_contacto= hash_to_string(contacto.hash) 
     k_pub= pub_key_to_string(contacto.k_pub)
-    instruccion = f"INSERT INTO Contacto VALUES ('{hash_to_string}', '{k_pub}', '{contacto.direccion_ip}')"
+    instruccion = f"INSERT INTO Contacto VALUES ('{string_contacto}', '{k_pub}', '{contacto.direccion_ip}')"
     cursor.execute(instruccion)
     conn.commit()
     conn.close()

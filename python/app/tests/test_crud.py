@@ -88,10 +88,22 @@ def test_crear_base_de_datos():
     assert resultado[0] == 4
     os.remove("resources/pruebaCreacion.db")
 
+@patch("app.crud.RUTA_BBDD", "resources/pruebas.db")  
+def no_test_add_contacto_chat():
+    createDB()
+    conn = sql.connect("resources/pruebaCreacion.db") 
+    consulta = f"SELECT "
+    cursor = conn.cursor()
+    cursor.execute(consulta)
+    resultado = cursor.fetchone()
+    ##assert resultado[0] ==
+    os.remove("resources/pruebaCreacion.db")
+
+
 ##TEST CONTACTO
 
 @patch("app.crud.RUTA_BBDD", "resources/pruebas.db")
-def no_test_insertar_contacto():
+def test_insertar_contacto():
     contacto = Contacto(k_pub="kpub_prueba",direccion_ip="IP_prueba",hash="hash_prueba")
     insertar_contacto(contacto)
     conn = sql.connect("resources/pruebas.db") 
@@ -118,9 +130,9 @@ def test_actualizar_contacto():
     assert resultado[0] == '2.2.2.2'
 
 @patch("app.crud.RUTA_BBDD", "resources/pruebas.db")
-def no_test_borrar_contacto():
+def test_borrar_contacto():
     contacto = Contacto(k_pub="kpub_prueba",direccion_ip="IP_prueba",hash="contacto_prueba")
-    borrar_contacto(contacto) #definir la funcion en la clase crud
+    borrar_contacto('1.1.1.1') #definir la funcion en la clase crud
     conn = sql.connect("resources/pruebas.db") 
     consulta = f"SELECT ip from Contacto WHERE hash = 'contacto_prueba';"
     cursor = conn.cursor()
