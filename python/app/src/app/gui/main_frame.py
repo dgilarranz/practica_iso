@@ -113,4 +113,5 @@ class MainFrame(toga.MainWindow):
         self.chats_box.remove(box_to_delete)
 
     def add_new_chat(self, chat):
-        self.create_chat_widget(chat)
+        widget = self.create_chat_widget(chat)
+        self.chats_box.add(widget)

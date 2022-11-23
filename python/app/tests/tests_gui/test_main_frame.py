@@ -90,6 +90,23 @@ def test_new_chat_box_creates_a_widget_for_the_chat():
     chat = ChatFactory().produce()
     mf = MainFrame("", "", [])
 
+    widget = mf.create_chat_widget(chat) 
     with patch.object(mf, "create_chat_widget") as mock_create_widget:
+        mock_create_widget.return_value = widget
         mf.add_new_chat(chat)
         mock_create_widget.assert_called_once_with(chat)
+
+
+def test_new_chat_box_adds_the_widget_to_window():
+    ConfigManager().connection_manager = ConnectionManager()
+    chat = ChatFactory().produce()
+    id_chat = hash_to_string(chat.id_chat)
+
+    mf = MainFrame("", "", [])
+    mf.add_new_chat(chat)
+
+    chat_box = None
+    for box in mf.chats_box.children:
+        if box.id == f"chat_{id_chat}_box":
+            chat_box = box
+    assert chat_box is not None
