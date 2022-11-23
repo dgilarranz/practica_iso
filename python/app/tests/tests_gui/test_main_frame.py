@@ -75,17 +75,6 @@ def test_chat_box_is_removed_after_delete():
         mf.delete_chat(delete_button)
         remove_mock.assert_called_once_with(chat_box)
 
-def test_main_frame_hash_function_for_updating_chats():
+def test_main_frame_hash_function_for_adding_a_new_chat_box():
     mf = MainFrame("", "", [])
-    assert callable(mf.update_chats)
-
-def test_update_chats_resets_chat_view():
-    ConfigManager().connection_manager = ConnectionManager()
-    chat = ChatFactory().produce()
-    id_chat = hash_to_string(chat.id_chat)
-    mf = MainFrame("", "", [chat])
-
-    with patch.object(mf.chats_box, "remove") as mock_remove:
-        mf.update_chats()
-        children = mf.chats_box.children
-        mock_remove.assert_called_once_with(children)
+    assert callable(mf.add_new_chat)

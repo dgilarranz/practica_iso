@@ -112,6 +112,5 @@ class MainFrame(toga.MainWindow):
         box_to_delete = list(filter(lambda child: child.id == f"chat_{id_chat}_box", self.chats_box.children))[0]
         self.chats_box.remove(box_to_delete)
 
-    def update_chats(self) -> None:
-        children = self.chats_box.children
-        self.chats_box.remove(children)
+    def add_new_chat(self):
+        pass
