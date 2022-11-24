@@ -89,21 +89,21 @@ def test_crear_base_de_datos():
     os.remove("resources/pruebaCreacion.db")
 
 @patch("app.crud.RUTA_BBDD", "resources/pruebas.db")  
-def no_test_add_contacto_chat():
+def test_add_contacto_chat():
     createDB()
     conn = sql.connect("resources/pruebaCreacion.db") 
     consulta = f"SELECT "
     cursor = conn.cursor()
     cursor.execute(consulta)
     resultado = cursor.fetchone()
-    ##assert resultado[0] ==
+    #assert 
     os.remove("resources/pruebaCreacion.db")
 
 
 ##TEST CONTACTO
 
 @patch("app.crud.RUTA_BBDD", "resources/pruebas.db")
-def test_insertar_contacto():
+def test_insertar_contacto(): 
     contacto = Contacto(k_pub="kpub_prueba",direccion_ip="IP_prueba",hash="hash_prueba")
     insertar_contacto(contacto)
     conn = sql.connect("resources/pruebas.db") 
