@@ -1,13 +1,15 @@
 import pytest
 from unittest.mock import patch
 from app.gui.new_contact_frame import NewContactFrame
+from app.config_manager import ConfigManager
+from app.sockets import ConnectionManager
 from app.chat import Chat
 from app.contacto import Contacto
 from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.primitives.asymmetric import rsa
 from cryptography.fernet import Fernet
 from app.cyphersuite import hash_to_string, pub_key_to_string
-from app.crud import leer_contacto
+from app.crud import leer_contacto, insertar_contacto
 import sqlite3 as sql
 import os
 
@@ -18,6 +20,7 @@ def crear_base_datos_para_tests():
     conn = sql.connect(TEST_DB)
     cursor = conn.cursor()
     cursor.execute("CREATE TABLE Chat(id_chat text, key text, PRIMARY KEY (id_chat))")
+    cursor.execute("CREATE TABLE Contacto(hash text, pub_key text, ip text, PRIMARY KEY (hash))")
     conn.commit()
     conn.close()
     yield
@@ -26,6 +29,7 @@ def crear_base_datos_para_tests():
 @pytest.fixture
 def crear_chat() -> Chat:
     # Creamos un chat de prueba
+    ConfigManager().connection_manager = ConnectionManager()
     chat_hash = hashes.Hash(hashes.SHA256())
     chat_hash = chat_hash.finalize()
     key = Fernet.generate_key()
@@ -96,3 +100,21 @@ def test_contact_added_to_db(mock_consultar_ip, crear_chat: Chat, crear_contacto
     db_contact = leer_contacto(hash_to_string(contacto.hash))
 
     assert db_contact.hash == contacto.hash
+
+@patch("app.contrato.Contrato.consultar_ip")
+@patch("app.crud.RUTA_BBDD", TEST_DB)
+def test_if_contact_exists_is_not_added(mock_consultar_ip, crear_chat: Chat, crear_contacto: Contacto):
+    chat = crear_chat
+    frame = NewContactFrame(chat)
+
+    mock_consultar_ip.return_value = "1.1.1.1"
+
+    contacto = crear_contacto
+    insertar_contacto(contacto)
+    
+    frame.key_input.value = pub_key_to_string(contacto.k_pub)
+    frame.hash_input.value = hash_to_string(contacto.hash)
+    frame.add_contact_to_chat(None)
+
+    with patch("app.gui.new_contact_frame.insertar_contact") as mock_insertar:
+        mock_insertar.assert_not_called()
