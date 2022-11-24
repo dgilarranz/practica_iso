@@ -122,6 +122,6 @@ def test_if_contact_exists_is_not_added(mock_consultar_ip, crear_chat: Chat, cre
     frame.key_input.value = pub_key_to_string(contacto.k_pub)
     frame.hash_input.value = hash_to_string(contacto.hash)
 
-    with pytest.raises(sql.IntegrityError):
-        frame.add_contact_to_chat(None)
+    # No debe dar excepciones
+    frame.add_contact_to_chat(None)
 

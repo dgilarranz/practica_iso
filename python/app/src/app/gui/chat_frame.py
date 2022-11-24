@@ -96,7 +96,7 @@ class ChatFrame(toga.Window, Observer):
         return text_box
 
     def add_contact(self, widget):
-        frame = NewContactFrame()
+        frame = NewContactFrame(self.chat)
         frame.app = self.app
         frame.show()
 

@@ -5,7 +5,8 @@ from app.chat import Chat
 from app.contacto import Contacto
 from app.contrato import Contrato
 from app.cyphersuite import string_to_hash, string_to_pub_key
-from app.crud import insertar_contacto
+from app.crud import insertar_contacto, leer_contacto
+import sqlite3
 
 class NewContactFrame(toga.Window):
     def __init__(self, chat: Chat) -> None:
@@ -59,6 +60,9 @@ class NewContactFrame(toga.Window):
             string_to_hash(contact_hash)
         )
 
-        insertar_contacto(contacto)
+        try:
+            insertar_contacto(contacto)
+        except sqlite3.IntegrityError as e:
+            pass
 
         self.chat.addMiembro(contacto)
