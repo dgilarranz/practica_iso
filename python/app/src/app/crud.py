@@ -63,13 +63,14 @@ def leer_contacto(hash_contacto): #leer filas
     instruccion = f"SELECT * from Contacto WHERE Contacto.hash = '{hash_contacto}'"
     cursor.execute(instruccion)
     datos = cursor.fetchone() #nos devuelve todos los datos seleccionados
-    return datos
-    #print(datos)
     conn.commit()
     conn.close()
-   # hash_to_string = hash_to_string(datos[0])
-    #k_pub= pub_key_to_string(datos[1])
-   # return Contacto(,direccion_ip=datos[2])
+    
+    hash_contacto = string_to_hash(datos[0])
+    k_pub_contacto = string_to_pub_key(datos[1])
+    ip_contacto = datos[2]
+
+    return Contacto(k_pub_contacto, ip_contacto, hash_contacto)
 
 def actualizar_contacto(contacto: Contacto, ip: str):
     conn = sql.connect(RUTA_BBDD)
