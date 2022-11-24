@@ -31,10 +31,11 @@ from app.cyphersuite import string_to_priv_key
 from app.cyphersuite import pub_key_to_string
 from app.cyphersuite import string_to_pub_key
 from cryptography.hazmat.primitives.asymmetric import rsa
-from cryptography.hazmat.primitives import hashes
+from cryptography.hazmat.primitives import hashes, serialization
 from cryptography.fernet import Fernet
 from app.config_manager import ConfigManager
 from app.sockets import ConnectionManager
+from app.setup import inicializar_usuario
 
 from app.crud import actualizar_chat
 
@@ -76,6 +77,20 @@ def crear_mensaje(crear_chat:Chat) -> Mensaje:
     chat = crear_chat
     return Mensaje('texto_prueba', hash_to_string(chat.id_chat), "sender_prueba")
 
+@pytest.fixture
+def crear_contacto() -> Contacto:
+    priv_key = rsa.generate_private_key(public_exponent=65537, key_size=2048)
+    pub_key = priv_key.public_key()
+    hash = hashes.Hash(hashes.SHA256())
+    hash.update(
+        pub_key.public_bytes(
+            encoding=serialization.Encoding.PEM,
+            format=serialization.PublicFormat.SubjectPublicKeyInfo
+        )
+    )
+    ip = "1.1.1.1"
+    return Contacto(pub_key, ip, hash.finalize())
+
 @patch("app.crud.RUTA_BBDD", "resources/pruebaCreacion.db")
 def test_crear_base_de_datos():
     createDB()
@@ -88,42 +103,46 @@ def test_crear_base_de_datos():
     assert resultado[0] == 4
     os.remove("resources/pruebaCreacion.db")
 
-@patch("app.crud.RUTA_BBDD", "resources/pruebas.db")  
-def test_add_contacto_chat():
+@patch("app.crud.RUTA_BBDD", "resources/pruebas.db")
+# ESTE TEST NO TIENE SENTIDO -> MIRAD A VER QUÉ QUERÍAIS QUE HAGA
+def no_test_add_contacto_chat():
     createDB()
-    conn = sql.connect("resources/pruebaCreacion.db") 
+    conn = sql.connect("resources/pruebas.db") 
     consulta = f"SELECT "
     cursor = conn.cursor()
     cursor.execute(consulta)
     resultado = cursor.fetchone()
     #assert 
-    os.remove("resources/pruebaCreacion.db")
+    os.remove("resources/pruebas.db")
 
 
 ##TEST CONTACTO
 
 @patch("app.crud.RUTA_BBDD", "resources/pruebas.db")
-def test_insertar_contacto(): 
-    contacto = Contacto(k_pub="kpub_prueba",direccion_ip="IP_prueba",hash="hash_prueba")
+def test_insertar_contacto(crear_contacto: Contacto): 
+    contacto = crear_contacto
     insertar_contacto(contacto)
     conn = sql.connect("resources/pruebas.db") 
-    consulta = f"SELECT ip from Contacto WHERE hash = 'hash_prueba';"
+    consulta = f"SELECT ip from Contacto WHERE hash = '{hash_to_string(contacto.hash)}';"
     cursor = conn.cursor()
     cursor.execute(consulta)
     resultado = cursor.fetchone()
     assert resultado[0] == contacto.direccion_ip
 
 @patch("app.crud.RUTA_BBDD", "resources/pruebas.db")
-def test_leer_contacto():
-    contacto = leer_contacto('contacto_prueba')
+def test_leer_contacto(crear_contacto: Contacto):
+    contacto = crear_contacto
+    insertar_contacto(contacto)
+    contacto = leer_contacto(hash_to_string(contacto.hash))
     assert contacto.direccion_ip == '1.1.1.1'
 
 @patch("app.crud.RUTA_BBDD", "resources/pruebas.db")
-def test_actualizar_contacto():
-    contacto = Contacto(k_pub="kpub_prueba",direccion_ip="IP_prueba",hash="contacto_prueba")
+def test_actualizar_contacto(crear_contacto: Contacto):
+    contacto = crear_contacto
+    insertar_contacto(contacto)
     actualizar_contacto(contacto, '2.2.2.2') #definir la funcion en la clase crud
     conn = sql.connect("resources/pruebas.db") 
-    consulta = f"SELECT ip from Contacto WHERE hash = 'contacto_prueba';"
+    consulta = f"SELECT ip from Contacto WHERE hash = '{hash_to_string(contacto.hash)}';"
     cursor = conn.cursor()
     cursor.execute(consulta)
     resultado = cursor.fetchone()
@@ -138,7 +157,7 @@ def test_borrar_contacto():
     cursor = conn.cursor()
     cursor.execute(consulta)
     resultado = cursor.fetchone()
-    assert resultado[0] == []
+    assert resultado is None
 
 ## TEST CHAT
 

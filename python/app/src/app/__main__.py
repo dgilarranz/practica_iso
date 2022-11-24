@@ -9,6 +9,7 @@ from cryptography.fernet import Fernet
 from app.config_manager import ConfigManager
 from app.setup import inicializar_usuario
 import toga
+import asyncio
 
 if __name__ == '__main__':
     app = MessageApp()
