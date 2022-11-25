@@ -66,7 +66,7 @@ class MainFrame(toga.MainWindow):
         window.show()
 
     def open_user_window(self, widget):
-        user = ConfigManager.config["user"]
+        user = ConfigManager().user
         window = UserFrame(hash_to_string(user.hash), pub_key_to_string(user.pub_key))
         window.app = self.app
         window.show()

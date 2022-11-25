@@ -1,4 +1,4 @@
-import web3
+from web3 import Web3
 from eth_account import Account
 from eth_account.signers.local import LocalAccount
 from web3.middleware import construct_sign_and_send_raw_middleware
@@ -16,7 +16,7 @@ class Contrato:
 
     def __conectar_a_testnet(self):
         # Nos conectamos a la TestNet
-        w3 = web3.Web3(web3.HTTPProvider(self.TEST_NET_URL))
+        w3 = Web3(Web3.HTTPProvider(self.TEST_NET_URL))
 
         if not w3.isConnected():
             raise NoWeb3Connection
