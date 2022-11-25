@@ -12,7 +12,7 @@ import pytest
 
 TEST_DB = "resources/test.db"
 
-@pytest.fixture(scope="session", autouse=True)
+@pytest.fixture(scope="function", autouse=True)
 def crear_base_datos_para_tests():
     conn = sql.connect(TEST_DB)
     cursor = conn.cursor()

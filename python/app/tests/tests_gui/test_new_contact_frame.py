@@ -18,14 +18,27 @@ TEST_DB = "resources/test.db"
 
 @pytest.fixture(scope="function", autouse = True)
 def crear_base_datos_para_tests():
-    conn = sql.connect(TEST_DB)
-    cursor = conn.cursor()
-    cursor.execute("CREATE TABLE Chat(id_chat text, key text, PRIMARY KEY (id_chat))")
-    cursor.execute("CREATE TABLE Contacto(hash text, pub_key text, ip text, PRIMARY KEY (hash))")
-    conn.commit()
-    conn.close()
+    try:
+        conn = sql.connect(TEST_DB)
+        cursor = conn.cursor()
+        cursor.execute("CREATE TABLE Chat(id_chat text, key text, PRIMARY KEY (id_chat))")
+        conn.commit()
+        conn.close()
+    except sql.OperationalError:
+        pass
+    try:
+        conn = sql.connect(TEST_DB)
+        cursor = conn.cursor()
+        cursor.execute("CREATE TABLE Contacto(hash text, pub_key text, ip text, PRIMARY KEY (hash))")
+        conn.commit()
+        conn.close()
+    except sql.OperationalError:
+        pass
     yield
-    os.remove(TEST_DB)
+    try:
+        os.remove(TEST_DB)
+    except FileNotFoundError:
+        pass
 
 @pytest.fixture
 def crear_chat() -> Chat:

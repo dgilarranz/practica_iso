@@ -15,14 +15,19 @@ TEST_DB = "resources/test.db"
 @pytest.fixture(scope="function", autouse = True)
 def crear_base_datos_para_tests():
     ConfigManager().connection_manager = ConnectionManager()
-
-    conn = sql.connect(TEST_DB)
-    cursor = conn.cursor()
-    cursor.execute("CREATE TABLE Chat(id_chat text, key text, PRIMARY KEY (id_chat))")
-    conn.commit()
-    conn.close()
+    try:
+        conn = sql.connect(TEST_DB)
+        cursor = conn.cursor()
+        cursor.execute("CREATE TABLE Chat(id_chat text, key text, PRIMARY KEY (id_chat))")
+        conn.commit()
+        conn.close()
+    except sql.OperationalError:
+        pass
     yield
-    os.remove(TEST_DB)
+    try:
+        os.remove(TEST_DB)
+    except FileNotFoundError:
+        pass
 
 @patch("app.crud.RUTA_BBDD", TEST_DB)
 def test_crear_chat_nuevo():
