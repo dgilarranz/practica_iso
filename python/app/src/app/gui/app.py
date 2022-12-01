@@ -53,7 +53,7 @@ class MessageApp(toga.App):
 
     def arrancar_servidor(self):
         cm = ConnectionManager()
-        asyncio.create_task(cm.start_service(), name="servidor")
+        super().add_background_task(self.start_service_handler)
         ConfigManager().connection_manager = cm
 
     def leer_mensajes(self, chats: list[Chat]):
@@ -71,6 +71,9 @@ class MessageApp(toga.App):
         #for msg in mensajes:
         #    if msg not in mensajes_asignados:
         #        borrar_mensaje()
+    
+    async def start_service_handler(self, *args):
+        await ConfigManager().connection_manager.start_service()
 
 
         

@@ -5,6 +5,7 @@ from app.config_manager import ConfigManager
 from app.sockets import ConnectionManager
 from app.cyphersuite import hash_to_string
 from unittest.mock import patch
+from app.gui.app import MessageApp
 import toga
 import sqlite3 as sql
 import os
