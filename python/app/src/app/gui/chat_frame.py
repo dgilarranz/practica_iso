@@ -24,7 +24,7 @@ class ChatFrame(toga.Window, Observer):
     def create_interface(self) -> None:
         """Método que inicializa la interfaz gráfica"""
         self.title = "Chat"
-        main_box = toga.Box(id="main_box", style=Pack(direction=COLUMN, background_color="#155757"))
+        main_box = toga.Box(id="main_box", style=Pack(direction=COLUMN))
         self.content = main_box
 
         info_box = self.create_info_box()
@@ -45,7 +45,7 @@ class ChatFrame(toga.Window, Observer):
         self.content.refresh()
 
     def create_info_box(self)-> toga.Box:
-        info_box = toga.Box(id="main_box", style=Pack(direction=ROW, background_color="#155757", padding=10))
+        info_box = toga.Box(id="main_box", style=Pack(direction=ROW, padding=10))
         
         chat_title_label = toga.Label(text="Chat", style=Pack(padding_right=10, font_weight="bold"))
         chat_id = hash_to_string(self.chat.id_chat)

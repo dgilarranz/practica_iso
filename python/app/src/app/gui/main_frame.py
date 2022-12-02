@@ -18,7 +18,7 @@ class MainFrame(toga.MainWindow):
         self.create_interface()
 
     def create_interface(self):
-        main_box = toga.Box(id="main_box", style=Pack(direction=COLUMN, background_color="#155757"))
+        main_box = toga.Box(id="main_box", style=Pack(direction=COLUMN))
 
         options_box = self.create_options_box()
         chats_scroll_box = self.create_chats_box()

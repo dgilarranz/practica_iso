@@ -7,7 +7,7 @@ from app.cyphersuite import hash_to_string
 class NewChatFrame(toga.Window):
     def __init__(self) -> None:
         super().__init__(title="Nuevo chat")
-        main_box = toga.Box(id="main_box", style=Pack(direction=COLUMN, background_color="#155757"))
+        main_box = toga.Box(id="main_box", style=Pack(direction=COLUMN))
 
         container = toga.OptionContainer()
         create_chat = self.crearChat()

@@ -16,7 +16,7 @@ class NewContactFrame(toga.Window):
         
 
         super().__init__(title="Nuevo contacto")
-        main_box = toga.Box(id="main_box", style=Pack(direction=COLUMN, background_color="#155757"))
+        main_box = toga.Box(id="main_box", style=Pack(direction=COLUMN))
 
         createcont = self.crearContacto()
 
