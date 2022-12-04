@@ -3,6 +3,7 @@ from cryptography.hazmat.primitives.asymmetric import rsa
 from cryptography.hazmat.primitives.asymmetric.padding import OAEP
 from cryptography.hazmat.primitives.asymmetric.padding import MGF1
 from cryptography.hazmat.primitives.hashes import SHA256
+from app.cyphersuite import descifrar_ip
 from app.setup import inicializar_usuario
 from app.setup import obtener_ip
 from app.setup import cifrar_ip
@@ -38,7 +39,8 @@ def test_cifrar_ip():
     ip_cifrada = cifrar_ip(user, ip_prueba)
 
     # Verificamos que al desencriptar la ip, obtenemos la misma
-    assert user.priv_key.decrypt(ip_cifrada, OAEP(mgf=MGF1(SHA256()), algorithm=SHA256(), label=None))
+    user.k_pub = user.priv_key
+    assert descifrar_ip(user, ip_cifrada) == ip_prueba
 
 @patch('socket.socket.getsockname')
 def test_obtener_ip_privada(mock_getsockname):

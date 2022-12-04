@@ -89,7 +89,7 @@ def crear_contacto() -> Contacto:
         )
     )
     ip = "1.1.1.1"
-    return Contacto(pub_key, ip, hash.finalize())
+    return Contacto(priv_key, ip, hash.finalize())
 
 @patch("app.crud.RUTA_BBDD", "resources/pruebaCreacion.db")
 def test_crear_base_de_datos():

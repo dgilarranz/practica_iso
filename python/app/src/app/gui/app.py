@@ -83,7 +83,7 @@ class MessageApp(toga.App):
         ip_cifrada = cifrar_ip(user, ip)
         contrato.actualizar_ip(
             hash_to_string(user.hash),
-            hash_to_string(ip_cifrada)
+            ip_cifrada
         )
 
     
