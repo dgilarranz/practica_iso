@@ -71,3 +71,4 @@ class NewContactFrame(toga.Window):
             pass
 
         self.chat.addMiembro(contacto)
+        self.close()

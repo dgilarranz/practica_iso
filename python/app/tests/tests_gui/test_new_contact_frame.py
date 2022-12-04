@@ -14,6 +14,7 @@ from app.factories.chat_factory import ChatFactory
 import sqlite3 as sql
 import os
 import random
+import toga
 
 TEST_DB = "resources/test.db"
 
@@ -75,7 +76,9 @@ def crear_contacto() -> Contacto:
 @patch("app.crud.RUTA_BBDD", TEST_DB)
 def test_add_new_contact(mock_consultar_ip, crear_chat: Chat, crear_contacto: Contacto):
     chat = crear_chat
+    app = toga.App()
     frame = NewContactFrame(chat)
+    app.windows.add(frame)
 
     mock_consultar_ip.return_value = "1.1.1.1"
 
@@ -95,7 +98,9 @@ def test_add_new_contact(mock_consultar_ip, crear_chat: Chat, crear_contacto: Co
 @patch("app.crud.RUTA_BBDD", TEST_DB)
 def test_add_another_new_contact(mock_consultar_ip, crear_chat: Chat, crear_contacto: Contacto):
     chat = crear_chat
+    app = toga.App()
     frame = NewContactFrame(chat)
+    app.windows.add(frame)
 
     mock_consultar_ip.return_value = "1.1.1.1"
 
@@ -115,7 +120,9 @@ def test_add_another_new_contact(mock_consultar_ip, crear_chat: Chat, crear_cont
 @patch("app.crud.RUTA_BBDD", TEST_DB)
 def test_contact_added_to_db(mock_consultar_ip, crear_chat: Chat, crear_contacto: Contacto):
     chat = crear_chat
+    app = toga.App()
     frame = NewContactFrame(chat)
+    app.windows.add(frame)
 
     mock_consultar_ip.return_value = "1.1.1.1"
 
@@ -132,7 +139,10 @@ def test_contact_added_to_db(mock_consultar_ip, crear_chat: Chat, crear_contacto
 @patch("app.crud.RUTA_BBDD", TEST_DB)
 def test_if_contact_exists_is_not_added(mock_consultar_ip, crear_chat: Chat, crear_contacto: Contacto):
     chat = crear_chat
+
+    app = toga.App()
     frame = NewContactFrame(chat)
+    app.windows.add(frame)
 
     mock_consultar_ip.return_value = "1.1.1.1"
 
@@ -150,8 +160,10 @@ def test_if_contact_exists_is_not_added(mock_consultar_ip, crear_chat: Chat, cre
 def test_entry_added_to_chat_contacto(mock_consultar_ip, crear_chat: Chat, crear_contacto: Contacto):
     ConfigManager().connection_manager = ConnectionManager()
     chat = ChatFactory().produce()
-    frame = NewContactFrame(chat)
 
+    app = toga.App()
+    frame = NewContactFrame(chat)
+    app.windows.add(frame)
     mock_consultar_ip.return_value = "1.1.1.1"
 
     contacto = crear_contacto
@@ -163,3 +175,24 @@ def test_entry_added_to_chat_contacto(mock_consultar_ip, crear_chat: Chat, crear
     member_hashes = map(lambda contacto: contacto.hash, db_chat.getMiembros())
 
     assert contacto.hash in member_hashes
+
+@patch("app.contrato.Contrato.consultar_ip")
+@patch("app.crud.RUTA_BBDD", TEST_DB)
+def test_window_closes_on_method_end(mock_consultar_ip, crear_chat: Chat, crear_contacto: Contacto):
+    ConfigManager().connection_manager = ConnectionManager()
+    chat = ChatFactory().produce()
+
+    app = toga.App()
+    frame = NewContactFrame(chat)
+    app.windows.add(frame)
+
+    mock_consultar_ip.return_value = "1.1.1.1"
+
+    contacto = crear_contacto
+    frame.key_input.value = pub_key_to_string(contacto.k_pub)
+    frame.hash_input.value = hash_to_string(contacto.hash)
+
+    with patch.object(frame, "close") as mock_close:
+        frame.add_contact_to_chat(None)
+        mock_close.assert_called_once()
+    
