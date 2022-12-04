@@ -10,7 +10,7 @@ from app.cyphersuite import priv_key_to_string
 from app.cyphersuite import string_to_priv_key
 from app.cyphersuite import pub_key_to_string
 from app.cyphersuite import string_to_pub_key
-from app.cyphersuite import cifrar_ip
+from app.cyphersuite import cifrar_ip, descifrar_ip
 from app.mensaje import Mensaje
 from cryptography.hazmat.primitives.asymmetric import rsa
 from cryptography.hazmat.primitives import hashes
@@ -24,6 +24,7 @@ from cryptography.fernet import Fernet
 from app.setup import inicializar_usuario
 from app.config_manager import ConfigManager
 from app.sockets import ConnectionManager
+from app.contacto import Contacto
 import pytest
 
 @pytest.fixture
@@ -128,4 +129,13 @@ def test_cifrar_ip():
         )
     ).decode('utf-8')
 
+    assert ip_descifrada == ip_original
+
+def test_descifrar_ip():
+    ip_original = "1.1.1.1"
+    user = inicializar_usuario()
+    contacto = Contacto(user.priv_key, ip_original, user.hash)
+    ip_cifrada = cifrar_ip(user, ip_original)
+
+    ip_descifrada = descifrar_ip(contacto, ip_cifrada)
     assert ip_descifrada == ip_original

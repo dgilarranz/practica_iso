@@ -9,6 +9,7 @@ from cryptography.hazmat.primitives.hashes import SHA256
 from cryptography.hazmat.primitives import serialization 
 from cryptography.fernet import Fernet
 from app.usuario import Usuario
+from app.contacto import Contacto
 
 
 def cifrar_mensaje(mensaje: Mensaje, key: bytes) -> str:
@@ -64,3 +65,6 @@ def cifrar_ip(user: Usuario, ip: str):
         )
     )
     return hash_to_string(ip_cifrada)
+
+def descifrar_ip(contacto: Contacto, ip_cifrada: str):
+    return "1.1.1.1"

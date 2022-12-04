@@ -6,6 +6,7 @@ from cryptography.hazmat.primitives.asymmetric.padding import OAEP
 from cryptography.hazmat.primitives.asymmetric.padding import MGF1
 from cryptography.hazmat.primitives.hashes import SHA256
 from cryptography.fernet import Fernet
+import app.cyphersuite as cyphersuite
 import requests
 import socket
 
@@ -36,14 +37,7 @@ def obtener_ip() -> str:
     return response.text
 
 def cifrar_ip(user: Usuario, ip: str) -> bytes:
-    return user.pub_key.encrypt(
-        str.encode(ip, 'utf-8'),
-        OAEP(
-            mgf=MGF1(SHA256()),
-            algorithm=SHA256(),
-            label=None
-        )
-    )
+    return cyphersuite.cifrar_ip(user, ip)
 
 def obtener_ip_privada() -> str:
     # Abrimos un socket a una IP cualquiera (Interna) y obtenemos la ip local
