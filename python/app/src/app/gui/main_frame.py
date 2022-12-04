@@ -62,13 +62,13 @@ class MainFrame(toga.MainWindow):
     
     def open_add_chat_window(self, widget):
         window = NewChatFrame()
-        window.app = self.app
+        self.app.windows.add(window)
         window.show()
 
     def open_user_window(self, widget):
         user = ConfigManager().user
         window = UserFrame(hash_to_string(user.hash), pub_key_to_string(user.pub_key))
-        window.app = self.app
+        self.app.windows.add(window)
         window.show()
 
     def create_chat_widget(self, chat: Chat) -> toga.Box:
@@ -100,7 +100,7 @@ class MainFrame(toga.MainWindow):
     def open_chat(self, widget) -> None:
         chat = self.open_btn_chat_map[widget.id]
         chat_window = ChatFrame(chat)
-        chat_window.app = self.app
+        self.app.windows.add(chat_window)
         chat_window.show()
 
     def delete_chat(self, widget) -> None:
