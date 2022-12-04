@@ -6,6 +6,7 @@ from app.contacto import Contacto
 from app.contrato import Contrato
 from app.cyphersuite import string_to_hash, string_to_pub_key
 from app.crud import insertar_contacto, insertar_chat_contacto
+from app.config_manager import ConfigManager
 import sqlite3
 
 class NewContactFrame(toga.Window):
@@ -50,7 +51,7 @@ class NewContactFrame(toga.Window):
         return box_createcont
     
     def add_contact_to_chat(self, widget):
-        direccion_ip = Contrato().consultar_ip(self.contact_hash)
+        direccion_ip = ConfigManager().contrato.consultar_ip(self.contact_hash)
 
         pub_key = self.key_input.value
         contact_hash = self.hash_input.value

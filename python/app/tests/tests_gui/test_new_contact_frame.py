@@ -11,6 +11,7 @@ from cryptography.fernet import Fernet
 from app.cyphersuite import hash_to_string, pub_key_to_string
 from app.crud import leer_contacto, insertar_contacto, leer_chats
 from app.factories.chat_factory import ChatFactory
+from app.contrato import Contrato
 import sqlite3 as sql
 import os
 import random
@@ -49,6 +50,10 @@ def crear_base_datos_para_tests():
         os.remove(TEST_DB)
     except FileNotFoundError:
         pass
+
+@pytest.fixture(scope="session", autouse=True)
+def annadir_contrato_a_config_manager():
+    ConfigManager().contrato = Contrato()
 
 @pytest.fixture
 def crear_chat() -> Chat:
@@ -195,4 +200,6 @@ def test_window_closes_on_method_end(mock_consultar_ip, crear_chat: Chat, crear_
     with patch.object(frame, "close") as mock_close:
         frame.add_contact_to_chat(None)
         mock_close.assert_called_once()
+
+    
     
