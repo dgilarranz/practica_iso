@@ -139,3 +139,12 @@ def test_descifrar_ip():
 
     ip_descifrada = descifrar_ip(contacto, ip_cifrada)
     assert ip_descifrada == ip_original
+
+def test_descifrar_otra_ip():
+    ip_original = "2.2.2.2"
+    user = inicializar_usuario()
+    contacto = Contacto(user.priv_key, ip_original, user.hash)
+    ip_cifrada = cifrar_ip(user, ip_original)
+
+    ip_descifrada = descifrar_ip(contacto, ip_cifrada)
+    assert ip_descifrada == ip_original

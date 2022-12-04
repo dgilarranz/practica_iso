@@ -67,4 +67,13 @@ def cifrar_ip(user: Usuario, ip: str):
     return hash_to_string(ip_cifrada)
 
 def descifrar_ip(contacto: Contacto, ip_cifrada: str):
-    return "1.1.1.1"
+    ip_cifrada = string_to_hash(ip_cifrada)
+    ip_descifrada = contacto.k_pub.decrypt(
+        ciphertext=ip_cifrada,
+        padding=OAEP(
+            mgf=MGF1(SHA256()),
+            algorithm=SHA256(),
+            label=None
+        )
+    ).decode('utf-8')
+    return ip_descifrada
