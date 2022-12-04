@@ -10,6 +10,7 @@ from app.cyphersuite import priv_key_to_string
 from app.cyphersuite import string_to_priv_key
 from app.cyphersuite import pub_key_to_string
 from app.cyphersuite import string_to_pub_key
+from app.cyphersuite import cifrar_ip
 from app.mensaje import Mensaje
 from cryptography.hazmat.primitives.asymmetric import rsa
 from cryptography.hazmat.primitives import hashes
@@ -112,3 +113,19 @@ def test_string_to_pub_key():
     ).decode('UTF-8')
     assert user.pub_key.key_size == string_to_pub_key(pub_key_string).key_size
 
+def test_cifrar_ip():
+    ip_original = "1.1.1.1"
+    user = inicializar_usuario()
+
+    ip_cifrada = cifrar_ip(user, ip_original)
+
+    ip_descifrada = user.priv_key.decrypt(
+        ciphertext=string_to_hash(ip_cifrada),
+        padding=OAEP(
+            mgf=MGF1(SHA256()),
+            algorithm=SHA256(),
+            label=None
+        )
+    ).decode('utf-8')
+
+    assert ip_descifrada == ip_original

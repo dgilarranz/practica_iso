@@ -1,6 +1,6 @@
 from app.chat import Chat
 from app.gui.chat_frame import ChatFrame
-from app.cyphersuite import hash_to_string, pub_key_to_string
+from app.cyphersuite import hash_to_string, priv_key_to_string
 from app.gui.new_chat_frame import NewChatFrame
 from app.gui.user_frame import UserFrame
 import toga
@@ -67,7 +67,7 @@ class MainFrame(toga.MainWindow):
 
     def open_user_window(self, widget):
         user = ConfigManager().user
-        window = UserFrame(hash_to_string(user.hash), pub_key_to_string(user.pub_key))
+        window = UserFrame(hash_to_string(user.hash), priv_key_to_string(user.priv_key))
         self.app.windows.add(window)
         window.show()
 

@@ -40,7 +40,7 @@ def insertar_contacto(contacto: Contacto): #meter una fila
     conn = sql.connect(RUTA_BBDD)
     cursor = conn.cursor() #nos proporciona el objeto de la conexión
     string_contacto= hash_to_string(contacto.hash) 
-    k_pub= pub_key_to_string(contacto.k_pub)
+    k_pub= priv_key_to_string(contacto.k_pub)
     instruccion = f"INSERT INTO Contacto VALUES ('{string_contacto}', '{k_pub}', '{contacto.direccion_ip}')"
     cursor.execute(instruccion)
     conn.commit()
@@ -67,7 +67,7 @@ def leer_contacto(hash_contacto): #leer filas
     conn.close()
     
     hash_contacto = string_to_hash(datos[0])
-    k_pub_contacto = string_to_pub_key(datos[1])
+    k_pub_contacto = string_to_priv_key(datos[1])
     ip_contacto = datos[2]
 
     return Contacto(k_pub_contacto, ip_contacto, hash_contacto)

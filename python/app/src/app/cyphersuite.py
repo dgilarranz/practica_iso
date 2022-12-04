@@ -8,6 +8,7 @@ from cryptography.hazmat.primitives.asymmetric.padding import MGF1
 from cryptography.hazmat.primitives.hashes import SHA256
 from cryptography.hazmat.primitives import serialization 
 from cryptography.fernet import Fernet
+from app.usuario import Usuario
 
 
 def cifrar_mensaje(mensaje: Mensaje, key: bytes) -> str:
@@ -52,3 +53,14 @@ def string_to_pub_key(string: str) -> RSAPublicKey:
     return serialization.load_pem_public_key(
         binascii.unhexlify(string.encode('utf-8'))
     )
+
+def cifrar_ip(user: Usuario, ip: str):
+    ip_cifrada = user.pub_key.encrypt(
+        str.encode(ip, 'utf-8'),
+        OAEP(
+            mgf=MGF1(SHA256()),
+            algorithm=SHA256(),
+            label=None
+        )
+    )
+    return hash_to_string(ip_cifrada)
