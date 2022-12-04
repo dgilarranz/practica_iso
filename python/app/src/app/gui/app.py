@@ -25,7 +25,7 @@ class MessageApp(toga.App):
         self.cargar_configuracion()
         self.chats = leer_chats()
         self.leer_mensajes(self.chats)
-        self.subir_ip()
+        self.inicializar_blockchain()
 
         self.main_window = MainFrame("main_window", "App", self.chats)
         self.main_window.show()
@@ -76,7 +76,7 @@ class MessageApp(toga.App):
         #    if msg not in mensajes_asignados:
         #        borrar_mensaje()
     
-    def subir_ip(self):
+    def inicializar_blockchain(self):
         ip = obtener_ip_privada()
         user = ConfigManager().user
         contrato = ConfigManager().contrato

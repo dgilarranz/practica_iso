@@ -111,7 +111,11 @@ def test_ip_subida_a_blochain(mock_obtener_ip_privada):
 
     with patch.object(ConfigManager().contrato, "actualizar_ip") as mock_actualizar_ip:
         app = MessageApp()
-        app.subir_ip()
+        app.inicializar_blockchain()
         ip_cifrada = cifrar_ip(user, ip)
         mock_actualizar_ip.assert_called_once()
-    
+
+def test_contrato_annadido_a_config_manager():
+    app = MessageApp()
+    app.startup()
+    assert ConfigManager().contrato is not None
