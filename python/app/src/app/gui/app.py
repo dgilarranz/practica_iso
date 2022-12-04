@@ -15,6 +15,9 @@ from app.config_manager import ConfigManager
 from app.crud import leer_mensaje, leer_chats, createDB, RUTA_BBDD
 from app.sockets import ConnectionManager
 import asyncio
+from app.setup import cifrar_ip
+from app.contrato import Contrato
+from app.setup import obtener_ip_privada
 
 class MessageApp(toga.App):
 
@@ -22,6 +25,7 @@ class MessageApp(toga.App):
         self.cargar_configuracion()
         self.chats = leer_chats()
         self.leer_mensajes(self.chats)
+        self.subir_ip()
 
         self.main_window = MainFrame("main_window", "App", self.chats)
         self.main_window.show()
@@ -71,6 +75,17 @@ class MessageApp(toga.App):
         #for msg in mensajes:
         #    if msg not in mensajes_asignados:
         #        borrar_mensaje()
+    
+    def subir_ip(self):
+        ip = obtener_ip_privada()
+        user = ConfigManager().user
+        contrato = ConfigManager().contrato
+        ip_cifrada = cifrar_ip(user, ip)
+        contrato.actualizar_ip(
+            hash_to_string(user.hash),
+            hash_to_string(ip_cifrada)
+        )
+
     
     async def start_service_handler(self, *args):
         await ConfigManager().connection_manager.start_service()

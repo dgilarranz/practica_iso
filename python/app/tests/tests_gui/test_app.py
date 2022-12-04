@@ -13,7 +13,10 @@ from app.config_manager import ConfigManager
 from app.sockets import ConnectionManager
 import sqlite3 as sql
 from app.file_manager import leer_usuario
+from app.contrato import Contrato
 import os
+from app.setup import cifrar_ip
+from app.file_manager import leer_usuario
 
 TEST_DB = "resources/tests.db"
 
@@ -78,7 +81,7 @@ def test_cargar_configuracion_carga_cm(mock_create_task):
 
     assert cm is not None and isinstance(cm, ConnectionManager)
 
-@patch("asyncio.create_task")
+@patch("toga.App.add_background_task")
 def test_servidor_arranca(mock_create_task):
     app = MessageApp()
     app.cargar_configuracion()
@@ -97,4 +100,18 @@ def no_test_leer_mensajes_borra_mensajes_si_chat_ya_no_existe():
 
     with pytest.raises(TypeError):
         app.leer_mensajes([])
+
+@patch("app.setup.obtener_ip_privada")
+def test_ip_subida_a_blochain(mock_obtener_ip_privada):
+    ip = "1.1.1.1"
+
+    ConfigManager().contrato = Contrato()
+    mock_obtener_ip_privada.return_value = ip
+    user = leer_usuario()
+
+    with patch.object(ConfigManager().contrato, "actualizar_ip") as mock_actualizar_ip:
+        app = MessageApp()
+        app.subir_ip()
+        ip_cifrada = cifrar_ip(user, ip)
+        mock_actualizar_ip.assert_called_once()
     
