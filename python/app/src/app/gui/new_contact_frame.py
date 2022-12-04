@@ -4,7 +4,7 @@ from toga.style.pack import COLUMN
 from app.chat import Chat
 from app.contacto import Contacto
 from app.contrato import Contrato
-from app.cyphersuite import string_to_hash, string_to_pub_key
+from app.cyphersuite import string_to_hash, string_to_priv_key, descifrar_ip
 from app.crud import insertar_contacto, insertar_chat_contacto
 from app.config_manager import ConfigManager
 import sqlite3
@@ -56,10 +56,12 @@ class NewContactFrame(toga.Window):
         pub_key = self.key_input.value
         contact_hash = self.hash_input.value
         contacto = Contacto(
-            string_to_pub_key(pub_key), 
-            direccion_ip, 
+            string_to_priv_key(pub_key), 
+            "", 
             string_to_hash(contact_hash)
         )
+
+        contacto.direccion_ip = descifrar_ip(contacto, direccion_ip)
 
         try:
             insertar_contacto(contacto)
