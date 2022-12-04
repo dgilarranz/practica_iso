@@ -9,6 +9,7 @@ import pytest
 import sqlite3 as sql
 import os
 import toga
+from app.gui.main_frame import MainFrame
 
 TEST_DB = "resources/test.db"
 
@@ -31,8 +32,13 @@ def crear_base_datos_para_tests():
 
 @patch("app.crud.RUTA_BBDD", TEST_DB)
 def test_crear_chat_nuevo():
+    # Creamos una app con su MainFrame
+    app = toga.App()
+    app.main_window = MainFrame("", "", [])
+
     # Creamos un chat
     frame = NewChatFrame()
+    frame.app = app
     frame.create_new_chat(None)
 
     # Comprobamos que se ha guardado el chat en BBDD y se ha actualizado la ventana
@@ -93,3 +99,18 @@ def test_error_si_no_se_introduce_id():
 
     with pytest.raises(IdNotSuppliedException):
         frame.join_chat(None)
+
+@patch("app.crud.RUTA_BBDD", TEST_DB)
+def test_crear_chat_actualiza_interfaz():
+    # Creamos una app con su MainFrame
+    app = toga.App()
+    app.main_window = MainFrame("", "", [])
+
+    # Creamos un chat
+    frame = NewChatFrame()
+    frame.app = app
+
+    # Comprobamos que se ha actualiza la interfaz
+    with patch.object(app.main_window, "add_new_chat") as mock_add_chat:
+        frame.create_new_chat(None)
+        mock_add_chat.assert_called_once()

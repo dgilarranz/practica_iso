@@ -75,6 +75,7 @@ class NewChatFrame(toga.Window):
         chat = factory.produce()
         self.id_create_input.value = hash_to_string(chat.id_chat)
         self.clave_create_input.value = hash_to_string(chat.key)
+        self.app.main_window.add_new_chat(chat)
 
     def join_chat(self, widget):
         id_chat = self.id_join_input.value
