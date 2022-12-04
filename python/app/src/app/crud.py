@@ -99,17 +99,18 @@ def insertar_chat(chat:Chat): #meter varias filas
     conn = sql.connect(RUTA_BBDD)
     cursor = conn.cursor() #nos proporciona el objeto de la conexión
     instruccion = f"INSERT INTO Chat VALUES ('{hash_to_string(chat.id_chat)}', '{hash_to_string(chat.key)}')"
-    insertar_chat_contacto(chat)
     cursor.execute(instruccion) 
     conn.commit()
     conn.close()
+    
+    for contacto in chat.miembros:
+        insertar_chat_contacto(chat, contacto)
 
-def insertar_chat_contacto(chat:Chat): #por cada 
+def insertar_chat_contacto(chat:Chat, contacto: Contacto): #por cada 
     conn = sql.connect(RUTA_BBDD)
     cursor = conn.cursor()
-    for contacto in chat.miembros:
-        instruccion = f"INSERT INTO ChatContacto VALUES ('{hash_to_string(chat.id_chat)}','{hash_to_string(contacto.hash)}')"
-        cursor.execute(instruccion)
+    instruccion = f"INSERT INTO ChatContacto VALUES ('{hash_to_string(chat.id_chat)}','{hash_to_string(contacto.hash)}')"
+    cursor.execute(instruccion)
     conn.commit()
     conn.close()
 

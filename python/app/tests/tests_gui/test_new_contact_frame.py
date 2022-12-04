@@ -9,7 +9,8 @@ from cryptography.hazmat.primitives import hashes, serialization
 from cryptography.hazmat.primitives.asymmetric import rsa
 from cryptography.fernet import Fernet
 from app.cyphersuite import hash_to_string, pub_key_to_string
-from app.crud import leer_contacto, insertar_contacto
+from app.crud import leer_contacto, insertar_contacto, leer_chats
+from app.factories.chat_factory import ChatFactory
 import sqlite3 as sql
 import os
 import random
@@ -34,6 +35,14 @@ def crear_base_datos_para_tests():
         conn.close()
     except sql.OperationalError:
         pass
+    try:
+        conn = sql.connect(TEST_DB)
+        cursor = conn.cursor()
+        cursor.execute("CREATE TABLE ChatContacto (id_chat text NOT NULL , hash_contacto text NULL,PRIMARY KEY (id_chat,hash_contacto) FOREIGN KEY (id_chat) REFERENCES Chat(id_chat), FOREIGN KEY (hash_contacto) REFERENCES Contacto(hash))")
+        conn.commit()
+        conn.close()
+    except sql.OperationalError:
+        pass
     yield
     try:
         os.remove(TEST_DB)
@@ -44,10 +53,8 @@ def crear_base_datos_para_tests():
 def crear_chat() -> Chat:
     # Creamos un chat de prueba
     ConfigManager().connection_manager = ConnectionManager()
-    chat_hash = hashes.Hash(hashes.SHA256())
-    chat_hash = chat_hash.finalize()
-    key = Fernet.generate_key()
-    return Chat(chat_hash, key)
+    chat = ChatFactory().produce()
+    return chat
 
 @pytest.fixture
 def crear_contacto() -> Contacto:
@@ -138,3 +145,21 @@ def test_if_contact_exists_is_not_added(mock_consultar_ip, crear_chat: Chat, cre
     # No debe dar excepciones
     frame.add_contact_to_chat(None)
 
+@patch("app.contrato.Contrato.consultar_ip")
+@patch("app.crud.RUTA_BBDD", TEST_DB)
+def test_entry_added_to_chat_contacto(mock_consultar_ip, crear_chat: Chat, crear_contacto: Contacto):
+    ConfigManager().connection_manager = ConnectionManager()
+    chat = ChatFactory().produce()
+    frame = NewContactFrame(chat)
+
+    mock_consultar_ip.return_value = "1.1.1.1"
+
+    contacto = crear_contacto
+    frame.key_input.value = pub_key_to_string(contacto.k_pub)
+    frame.hash_input.value = hash_to_string(contacto.hash)
+    frame.add_contact_to_chat(None)
+
+    db_chat = leer_chats()[0]
+    member_hashes = map(lambda contacto: contacto.hash, db_chat.getMiembros())
+
+    assert contacto.hash in member_hashes
