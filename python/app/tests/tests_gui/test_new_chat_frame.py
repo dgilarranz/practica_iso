@@ -38,7 +38,7 @@ def test_crear_chat_nuevo():
 
     # Creamos un chat
     frame = NewChatFrame()
-    frame.app = app
+    app.windows.add(frame)
     frame.create_new_chat(None)
 
     # Comprobamos que se ha guardado el chat en BBDD y se ha actualizado la ventana
@@ -108,9 +108,24 @@ def test_crear_chat_actualiza_interfaz():
 
     # Creamos un chat
     frame = NewChatFrame()
-    frame.app = app
+    app.windows.add(frame)
 
     # Comprobamos que se ha actualiza la interfaz
     with patch.object(app.main_window, "add_new_chat") as mock_add_chat:
         frame.create_new_chat(None)
         mock_add_chat.assert_called_once()
+
+@patch("app.crud.RUTA_BBDD", TEST_DB)
+def test_crear_chat_cierra_la_ventana():
+    # Creamos una app con su MainFrame
+    app = toga.App()
+    app.main_window = MainFrame("", "", [])
+
+    # Creamos un chat
+    frame = NewChatFrame()
+    frame.app = app
+
+    # Comprobamos que se ha actualiza la interfaz
+    with patch.object(frame, "close") as mock_close:
+        frame.create_new_chat(None)
+        mock_close.assert_called_once()
