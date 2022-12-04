@@ -10,3 +10,6 @@ def test_cm_has_user_property():
 
 def test_cm_hash_connection_manager_property():
     assert hasattr(ConfigManager(), "connection_manager")
+
+def test_cm_hash_contract_property():
+    assert hasattr(ConfigManager(), "contrato")

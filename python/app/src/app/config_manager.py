@@ -13,3 +13,4 @@ class Singleton(type):
 class ConfigManager(metaclass=Singleton):  
     user = None
     connection_manager = None
+    contrato = None
