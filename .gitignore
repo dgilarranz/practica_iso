@@ -9,3 +9,7 @@ planificacion/.~lock.planificacion.ods#
 
 # Entorno virtual -> Para evitar dependencias conflictivas en distintas plataformas
 python/app/beeware-env/
+
+# Bases de datos y fichero de configuración de cada usuario
+**/config.json
+**/*.db

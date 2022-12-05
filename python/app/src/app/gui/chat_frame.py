@@ -97,7 +97,7 @@ class ChatFrame(toga.Window, Observer):
 
     def add_contact(self, widget):
         frame = NewContactFrame(self.chat)
-        frame.app = self.app
+        self.app.windows.add(frame)
         frame.show()
 
     def send_crypto(self, widget):

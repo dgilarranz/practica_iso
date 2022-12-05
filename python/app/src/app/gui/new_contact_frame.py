@@ -51,8 +51,6 @@ class NewContactFrame(toga.Window):
         return box_createcont
     
     def add_contact_to_chat(self, widget):
-        direccion_ip = ConfigManager().contrato.consultar_ip(self.contact_hash)
-
         pub_key = self.key_input.value
         contact_hash = self.hash_input.value
         contacto = Contacto(
@@ -61,6 +59,7 @@ class NewContactFrame(toga.Window):
             string_to_hash(contact_hash)
         )
 
+        direccion_ip = ConfigManager().contrato.consultar_ip(contact_hash)
         contacto.direccion_ip = descifrar_ip(contacto, direccion_ip)
 
         try:
