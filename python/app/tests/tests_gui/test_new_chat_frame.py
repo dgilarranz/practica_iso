@@ -116,16 +116,19 @@ def test_crear_chat_actualiza_interfaz():
         mock_add_chat.assert_called_once()
 
 @patch("app.crud.RUTA_BBDD", TEST_DB)
-def test_crear_chat_cierra_la_ventana():
+@patch("app.factories.chat_factory.ChatFactory.produce")
+def test_unirse_a_chat_cierra_la_ventana(mock_produce):
     # Creamos una app con su MainFrame
     app = toga.App()
     app.main_window = MainFrame("", "", [])
 
     # Creamos un chat
     frame = NewChatFrame()
-    frame.app = app
+    app.windows.add(frame)
 
     # Comprobamos que se ha actualiza la interfaz
     with patch.object(frame, "close") as mock_close:
-        frame.create_new_chat(None)
+        frame.id_join_input.value = "asdf"
+        frame.clave_join_input.value = "asdf"
+        frame.join_chat(None)
         mock_close.assert_called_once()
