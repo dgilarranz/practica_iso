@@ -41,6 +41,7 @@ class ConnectionManager(Subject):
 
         contact_hash = data[0]
         message = data[1].strip(self.end_message)
+        print(message)
 
         # Se comprueba si es la primera vez que se recibe un mensaje de este emisor
         if contact_hash not in self.messages:

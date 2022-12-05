@@ -6,7 +6,7 @@ from cryptography.hazmat.primitives.asymmetric.padding import OAEP
 from cryptography.hazmat.primitives.asymmetric.padding import MGF1
 from cryptography.hazmat.primitives.hashes import SHA256
 from cryptography.fernet import Fernet
-from app.cyphersuite import hash_to_string
+from app.cyphersuite import hash_to_string, cifrar_mensaje, descifrar_mensaje
 from app.mensaje import Mensaje
 from app.config_manager import ConfigManager
 from app.observer import Observer, Subject
@@ -36,9 +36,7 @@ class Chat(Observer, Subject):
     # Devuelve el número de mensajes enviados
     async def send_message(self, mensaje: Mensaje) -> int:
         # Ciframos el mensaje
-        mensaje_cifrado = binascii.hexlify(
-            Fernet(self.key).encrypt(mensaje.to_json().encode("utf-8"))
-        ).decode('utf-8')
+        mensaje_cifrado = cifrar_mensaje(mensaje, self.key)
 
         # Enviamos un mensaje a todos los miembros
         cm = ConfigManager().connection_manager
@@ -66,8 +64,7 @@ class Chat(Observer, Subject):
         decrypted_messages = []
 
         for message in encrypted_messages:
-            decrypted_message_str = Fernet(self.key).decrypt(message.encode("utf-8"))
-            message = Mensaje.from_json(decrypted_message_str)
+            message = descifrar_mensaje(message, self.key)
             decrypted_messages.append(message)
 
         return decrypted_messages
