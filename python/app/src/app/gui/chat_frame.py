@@ -105,6 +105,7 @@ class ChatFrame(toga.Window, Observer):
 
     async def send_message(self, widget):
         message_content = self.message_input.value
+        self.message_input.clear()
         message = Mensaje(message_content, hash_to_string(self.chat.id_chat), hash_to_string(ConfigManager().user.hash))
 
         self.chat.messages.append(message)
@@ -122,7 +123,6 @@ class ChatFrame(toga.Window, Observer):
         lines = []
         current_line = " "                          # Las líneas empezarán con un espacio
         for i in range(0, len(message)):
-            print(i)
             if len(current_line) < self.max_chars_per_line - 2:
                 current_line += message[i]
             else:
@@ -130,7 +130,6 @@ class ChatFrame(toga.Window, Observer):
                 current_line = " " + message[i]
         # Añadimos la última línea
         lines.append(current_line + " ")        
-        print(lines)
 
         # Estilo general para todas las líneas
         style = Pack(height=30)

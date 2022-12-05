@@ -6,6 +6,8 @@ from app.sockets import ConnectionManager
 from app.mensaje import Mensaje
 from app.setup import inicializar_usuario
 from unittest.mock import patch
+import pytest
+import pytest_asyncio
 
 def test_chat_frame_is_observer():
     ConfigManager().connection_manager = ConnectionManager()
@@ -81,5 +83,19 @@ def test_chat_frame_adds_errases_previous_content_when_notified():
 
     assert len(chat_frame.message_container.children) == 2
 
-    
-    
+@patch("asyncio.create_task")
+@patch("app.crud.insertar_mensaje")
+@pytest.mark.asyncio
+async def test_chat_frame_clears_input_text_after_send(mock_create_task, mock_insertar_mensaje):
+    ConfigManager().connection_manager = ConnectionManager()
+    ConfigManager().user = inicializar_usuario()
+
+    chat = ChatFactory().create_new_chat()
+    mensaje_1 = Mensaje("Prueba", chat.id_chat, "blabla")
+    chat.messages.append(mensaje_1)
+
+    chat_frame = ChatFrame(chat)
+    chat_frame.message_input.value = "Mensaje Blablabla ... Fin Mensaje"
+    await chat_frame.send_message(None)
+
+    assert chat_frame.message_input.value == ""
