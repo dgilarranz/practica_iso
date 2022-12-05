@@ -1,5 +1,4 @@
 import asyncio
-import json
 from xmlrpc.client import Boolean
 from cryptography.hazmat.primitives.asymmetric import rsa
 from cryptography.hazmat.primitives.asymmetric.padding import OAEP
@@ -10,7 +9,6 @@ from app.cyphersuite import hash_to_string, cifrar_mensaje, descifrar_mensaje
 from app.mensaje import Mensaje
 from app.config_manager import ConfigManager
 from app.observer import Observer, Subject
-import binascii
 
 class Chat(Observer, Subject):
     def __init__(self, id_chat, key: bytes):
@@ -71,6 +69,12 @@ class Chat(Observer, Subject):
     
     def update(self) -> None:
         new_messages = self.read_new_messages()
+
+        for msg in new_messages:
+            msg_cifrado = cifrar_mensaje(mensaje=msg, key=ConfigManager().user.key)
+            from app.crud import insertar_mensaje
+            insertar_mensaje(msg_cifrado)
+
         self.messages.extend(new_messages)
         self.notify()
             

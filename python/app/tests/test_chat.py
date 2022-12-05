@@ -17,7 +17,11 @@ from cryptography.hazmat.primitives.asymmetric.padding import OAEP
 from cryptography.hazmat.primitives.asymmetric.padding import MGF1
 from cryptography.hazmat.primitives.hashes import SHA256
 from cryptography.fernet import Fernet
-from app.cyphersuite import hash_to_string
+from app.cyphersuite import hash_to_string, cifrar_mensaje
+from app.crud import leer_mensaje
+import os
+import sqlite3 as sql
+from app.setup import inicializar_usuario
 
 @pytest.fixture(autouse=True)
 def crear_connection_manager():
@@ -58,6 +62,10 @@ async def crear_chat() -> Chat:
     # Paramos el servidor
     server_task.cancel()
 
+@pytest.fixture(autouse=True)
+def crear_usuario():
+    ConfigManager().user = inicializar_usuario()
+
 @pytest.mark.asyncio
 @patch("app.sockets.ConnectionManager.send_message")
 async def test_send_message(mock_send_message, crear_chat):
@@ -81,11 +89,11 @@ async def test_send_message(mock_send_message, crear_chat):
 @patch("app.sockets.ConnectionManager.get_messages")
 def test_read_messages(mock_get_messages, crear_chat):
     chat = crear_chat
-    chat_hash_str = binascii.hexlify(chat.id_chat).decode('utf-8')
+    chat_hash_str = hash_to_string(chat.id_chat)
     mensaje = Mensaje("Prueba", chat_hash_str,"id_user", ttl=None)
 
     # Creamos un mensaje de prueba y mockeamos la respuesta del CM para que lo devuelva
-    mensaje_cifrado = Fernet(chat.key).encrypt(mensaje.to_json().encode("utf-8")).decode('utf-8')
+    mensaje_cifrado = cifrar_mensaje(mensaje, chat.key)
     mock_get_messages.return_value = [mensaje_cifrado]
 
     # Comprobamos que se lee el mensaje
@@ -118,7 +126,7 @@ def test_chat_updates_message_list_if_there_are_new_messages_not_in_the_list(moc
     mensaje = Mensaje("Prueba", id_chat,"id_user", ttl=None)
 
     # Creamos un mensaje de prueba y mockeamos la respuesta del CM para que lo devuelva
-    mensaje_cifrado = Fernet(chat.key).encrypt(mensaje.to_json().encode("utf-8")).decode('utf-8')
+    mensaje_cifrado = cifrar_mensaje(mensaje, chat.key)
     mock_get_messages.return_value = [mensaje_cifrado]
 
     # Comprobamos que se actualiza la lista de chats
@@ -134,7 +142,7 @@ def test_chat_only_adds_new_messages_on_update(mock_get_messages):
     chat.messages.append(mensaje_1)
 
     # Creamos un mensaje de prueba y mockeamos la respuesta del CM para que lo devuelva
-    mensaje_cifrado = Fernet(chat.key).encrypt(mensaje_2.to_json().encode("utf-8")).decode('utf-8')
+    mensaje_cifrado = cifrar_mensaje(mensaje_2, chat.key)
     mock_get_messages.return_value = [mensaje_cifrado]
 
     chat.update()    
@@ -149,3 +157,38 @@ def test_chat_updates_subscribers_when_notified():
     with patch.object(chat, "notify") as mock_notify:
         chat.update()
         mock_notify.assert_called_once()
+
+TEST_DB = "resources/test.db"
+@pytest.fixture
+def crear_base_datos_para_tests():
+    ConfigManager().connection_manager = ConnectionManager()
+    try:
+        conn = sql.connect(TEST_DB)
+        cursor = conn.cursor()
+        cursor.execute("CREATE TABLE Chat(id_chat text, key text, PRIMARY KEY (id_chat))")
+        cursor.execute("CREATE TABLE Mensaje(mensaje_cifrado text, PRIMARY KEY (mensaje_cifrado))")
+        conn.commit()
+        conn.close()
+    except sql.OperationalError:
+        pass
+    yield
+    try:
+        os.remove(TEST_DB)
+    except FileNotFoundError:
+        pass
+
+@patch("app.crud.RUTA_BBDD", TEST_DB)
+def test_on_update_new_messages_are_added_to_db(crear_base_datos_para_tests):
+    chat = ChatFactory().create_new_chat()
+    new_msg = Mensaje("Soy un mensaje nueva", hash_to_string(chat.id_chat), "Saturno")
+    with patch.object(chat, "read_new_messages") as mock_read:
+        mock_read.return_value = [new_msg]
+        chat.update()
+
+        mensajes = leer_mensaje()
+        ids_mensajes = map(
+            lambda msg: msg.id_mensaje,
+            mensajes
+        )
+
+        assert new_msg.id_mensaje in ids_mensajes
