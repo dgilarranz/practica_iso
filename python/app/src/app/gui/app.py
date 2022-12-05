@@ -77,10 +77,12 @@ class MessageApp(toga.App):
         #        borrar_mensaje()
     
     def inicializar_blockchain(self):
+        ConfigManager().contrato = Contrato()
+
         ip = obtener_ip_privada()
         user = ConfigManager().user
-        ConfigManager().contrato = Contrato()
         ip_cifrada = cifrar_ip(user, ip)
+        
         ConfigManager().contrato.actualizar_ip(
             hash_to_string(user.hash),
             ip_cifrada

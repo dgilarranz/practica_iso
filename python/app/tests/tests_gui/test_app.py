@@ -42,6 +42,7 @@ def crear_chat() -> Chat:
     ConfigManager().connection_manager = ConnectionManager()
     return Chat(chat_hash, key)
 
+@patch("app.crud.RUTA_BBDD", TEST_DB)
 def crear_mensaje(texto:str, chat: Chat) -> Mensaje:
     mensaje = Mensaje(texto, hash_to_string(chat.id_chat), hash_to_string(chat.id_chat), None)
     mensaje_cifrado = cifrar_mensaje(mensaje, chat.key)
@@ -105,11 +106,10 @@ def no_test_leer_mensajes_borra_mensajes_si_chat_ya_no_existe():
 def test_ip_subida_a_blochain(mock_obtener_ip_privada):
     ip = "1.1.1.1"
 
-    ConfigManager().contrato = Contrato()
     mock_obtener_ip_privada.return_value = ip
     user = leer_usuario()
 
-    with patch.object(ConfigManager().contrato, "actualizar_ip") as mock_actualizar_ip:
+    with patch("app.contrato.Contrato.actualizar_ip") as mock_actualizar_ip:
         app = MessageApp()
         app.inicializar_blockchain()
         ip_cifrada = cifrar_ip(user, ip)
@@ -117,5 +117,5 @@ def test_ip_subida_a_blochain(mock_obtener_ip_privada):
 
 def test_contrato_annadido_a_config_manager():
     app = MessageApp()
-    app.startup()
+    app.inicializar_blockchain()
     assert ConfigManager().contrato is not None

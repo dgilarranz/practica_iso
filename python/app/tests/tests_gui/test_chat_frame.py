@@ -4,7 +4,7 @@ from app.factories.chat_factory import ChatFactory
 from app.config_manager import ConfigManager
 from app.sockets import ConnectionManager
 from app.mensaje import Mensaje
-from app.setup import inicializar_usuario
+from app.file_manager import leer_usuario
 from unittest.mock import patch
 import pytest
 import pytest_asyncio
@@ -23,7 +23,7 @@ def test_chat_frame_is_subscribed_to_chat():
 
 def test_chat_frame_adds_message_to_content_when_notified():
     ConfigManager().connection_manager = ConnectionManager()
-    ConfigManager().user = inicializar_usuario()
+    ConfigManager().user = leer_usuario()
     chat = ChatFactory().create_new_chat()
     mensaje = Mensaje("Prueba", chat.id_chat, "blabla")
     chat.messages.append(mensaje)
@@ -35,7 +35,7 @@ def test_chat_frame_adds_message_to_content_when_notified():
 
 def test_chat_frame_adds_message_with_correct_content_when_notified():
     ConfigManager().connection_manager = ConnectionManager()
-    ConfigManager().user = inicializar_usuario()
+    ConfigManager().user = leer_usuario()
     chat = ChatFactory().create_new_chat()
     mensaje = Mensaje("Prueba", chat.id_chat, "blabla")
     chat.messages.append(mensaje)
@@ -47,7 +47,7 @@ def test_chat_frame_adds_message_with_correct_content_when_notified():
 
 def test_chat_frame_adds_all_messages_with_correct_content_when_notified():
     ConfigManager().connection_manager = ConnectionManager()
-    ConfigManager().user = inicializar_usuario()
+    ConfigManager().user = leer_usuario()
     chat = ChatFactory().create_new_chat()
     mensaje_1 = Mensaje("Soy el mensaje 1", chat.id_chat, "A mí me envía Pepe")
     mensaje_2 = Mensaje("Soy el mensaje 2", chat.id_chat, "A mí me envía Pepas")
@@ -61,7 +61,7 @@ def test_chat_frame_adds_all_messages_with_correct_content_when_notified():
 
 def test_chat_frame_adds_refeshes_content_when_notified():
     ConfigManager().connection_manager = ConnectionManager()
-    ConfigManager().user = inicializar_usuario()
+    ConfigManager().user = leer_usuario()
     chat = ChatFactory().create_new_chat()
     chat_frame = ChatFrame(chat)
     
@@ -71,7 +71,7 @@ def test_chat_frame_adds_refeshes_content_when_notified():
 
 def test_chat_frame_adds_errases_previous_content_when_notified():
     ConfigManager().connection_manager = ConnectionManager()
-    ConfigManager().user = inicializar_usuario()
+    ConfigManager().user = leer_usuario()
     chat = ChatFactory().create_new_chat()
     mensaje_1 = Mensaje("Prueba", chat.id_chat, "blabla")
     chat.messages.append(mensaje_1)
@@ -88,7 +88,7 @@ def test_chat_frame_adds_errases_previous_content_when_notified():
 @pytest.mark.asyncio
 async def test_chat_frame_clears_input_text_after_send(mock_create_task, mock_insertar_mensaje):
     ConfigManager().connection_manager = ConnectionManager()
-    ConfigManager().user = inicializar_usuario()
+    ConfigManager().user = leer_usuario()
 
     chat = ChatFactory().create_new_chat()
     mensaje_1 = Mensaje("Prueba", chat.id_chat, "blabla")

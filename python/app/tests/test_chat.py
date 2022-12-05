@@ -21,7 +21,7 @@ from app.cyphersuite import hash_to_string, cifrar_mensaje
 from app.crud import leer_mensaje
 import os
 import sqlite3 as sql
-from app.setup import inicializar_usuario
+from app.file_manager import leer_usuario
 
 @pytest.fixture(autouse=True)
 def crear_connection_manager():
@@ -64,7 +64,7 @@ async def crear_chat() -> Chat:
 
 @pytest.fixture(autouse=True)
 def crear_usuario():
-    ConfigManager().user = inicializar_usuario()
+    ConfigManager().user = leer_usuario()
 
 @pytest.mark.asyncio
 @patch("app.sockets.ConnectionManager.send_message")
@@ -159,7 +159,7 @@ def test_chat_updates_subscribers_when_notified():
         mock_notify.assert_called_once()
 
 TEST_DB = "resources/test.db"
-@pytest.fixture
+@pytest.fixture(autouse=True)
 def crear_base_datos_para_tests():
     ConfigManager().connection_manager = ConnectionManager()
     try:
