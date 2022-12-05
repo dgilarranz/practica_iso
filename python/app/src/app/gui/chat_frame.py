@@ -162,9 +162,10 @@ class ChatFrame(toga.Window, Observer):
         self.content.refresh()
         
     def update(self):
+        self.message_container.children.clear()
         messages = self.chat.messages
         for msg in messages:
-            self.add_message(msg, msg.id_sender)
+            self.add_message(msg.texto, msg.id_sender)
         self.content.refresh()
 
 
