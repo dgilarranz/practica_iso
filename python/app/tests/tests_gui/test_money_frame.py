@@ -66,3 +66,14 @@ def test_init_adds_to_content_private_key_box():
             break
 
     assert key_box is not None
+
+def test_init_adds_to_content_token_address_box():
+    mf = MoneyFrame()
+    
+    token_box = None
+    for box in mf.content.children:
+        if box.children[0].text == "Token Address:":
+            token_box = box
+            break
+
+    assert token_box is not None
