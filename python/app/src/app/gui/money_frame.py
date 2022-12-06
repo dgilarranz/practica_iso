@@ -14,7 +14,7 @@ class MoneyFrame(toga.Window):
         eth_box = self.create_box("Eth Ammount:")
         to_box = self.create_box("To Address:")
 
-        send_button = toga.Button("Send", on_press=None)
+        send_button = toga.Button("Send", on_press=self.send_money)
 
         main_box.add(from_box)
         main_box.add(key_box)
@@ -24,8 +24,6 @@ class MoneyFrame(toga.Window):
         main_box.add(send_button)
         self.content = main_box
 
-
-
     def create_box(self, label_text: str) -> toga.Box:
         label = toga.Label(label_text, style=Pack(padding_left = 5, padding_right = 50))
         input = toga.TextInput(style=Pack(flex=1))
@@ -34,3 +32,6 @@ class MoneyFrame(toga.Window):
         box.add(label)
         box.add(input)
         return box
+
+    def send_money(self, widget):
+        pass
