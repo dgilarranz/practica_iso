@@ -105,3 +105,8 @@ def test_last_children_is_send_button():
     mf = MoneyFrame()
     last_child = mf.content.children[-1]
     assert isinstance(last_child, toga.Button)
+
+def test_button_text_is_send():
+    mf = MoneyFrame()
+    send_button = mf.content.children[-1]
+    assert send_button.text == "Send"
