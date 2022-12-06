@@ -1,6 +1,7 @@
 from app.gui.money_frame import MoneyFrame
 import toga
 from functools import reduce
+from unittest.mock import patch
 
 def test_money_frame_is_toga_window():
     assert isinstance(MoneyFrame(), toga.Window)
@@ -110,3 +111,28 @@ def test_button_text_is_send():
     mf = MoneyFrame()
     send_button = mf.content.children[-1]
     assert send_button.text == "Send"
+
+def test_send_money_calls_contract():
+    from_address = "Sender"
+    private_key = "Key"
+    token_address = "Token"
+    eth_ammount = "5"
+    to_address = "Receiver"
+
+    mf = MoneyFrame()
+    mf.from_box.value = from_address
+    mf.key_box.value = private_key
+    mf.token_box.value = token_address
+    mf.eth_box.value = eth_ammount
+    mf.to_box.value = to_address
+
+    with patch("app.erc20andEthSender.MoneyContract.__init__") as mock_contract:
+        mock_contract.return_value = None
+        mf.send_money(None)
+        mock_contract.assert_called_once_with(
+            from_address,
+            private_key,
+            token_address,
+            eth_ammount,
+            to_address
+        )

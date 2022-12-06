@@ -1,6 +1,7 @@
 import toga
 from toga.style import Pack
 from toga.style.pack import COLUMN
+from app.erc20andEthSender import MoneyContract
 
 class MoneyFrame(toga.Window):
     
@@ -8,19 +9,19 @@ class MoneyFrame(toga.Window):
         super().__init__()
 
         main_box = toga.Box(style=Pack(direction=COLUMN))
-        from_box = self.create_box("From Address:")
-        key_box = self.create_box("Private Key:")
-        token_box = self.create_box("Token Address:")
-        eth_box = self.create_box("Eth Ammount:")
-        to_box = self.create_box("To Address:")
+        self.from_box = self.create_box("From Address:")
+        self.key_box = self.create_box("Private Key:")
+        self.token_box = self.create_box("Token Address:")
+        self.eth_box = self.create_box("Eth Ammount:")
+        self.to_box = self.create_box("To Address:")
 
         send_button = toga.Button("Send", on_press=self.send_money)
 
-        main_box.add(from_box)
-        main_box.add(key_box)
-        main_box.add(token_box)
-        main_box.add(eth_box)
-        main_box.add(to_box)
+        main_box.add(self.from_box)
+        main_box.add(self.key_box)
+        main_box.add(self.token_box)
+        main_box.add(self.eth_box)
+        main_box.add(self.to_box)
         main_box.add(send_button)
         self.content = main_box
 
@@ -34,4 +35,4 @@ class MoneyFrame(toga.Window):
         return box
 
     def send_money(self, widget):
-        pass
+        MoneyContract("Sender", "Key", "Token", "5", "Receiver")
