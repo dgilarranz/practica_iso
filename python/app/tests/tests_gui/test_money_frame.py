@@ -89,3 +89,14 @@ def test_init_adds_to_content_eth_ammount_box():
             break
 
     assert eth_box is not None
+
+def test_init_adds_to_content_to_address_box():
+    mf = MoneyFrame()
+    
+    to_box = None
+    for box in mf.content.children:
+        if box.children[0].text == "To Address:":
+            to_box = box
+            break
+
+    assert to_box is not None

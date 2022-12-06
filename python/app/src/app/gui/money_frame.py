@@ -12,6 +12,7 @@ class MoneyFrame(toga.Window):
         key_box = self.create_box("Private Key:")
         token_box = self.create_box("Token Address:")
         eth_box = self.create_box("Eth Ammount:")
+        to_box = self.create_box("To Address:")
 
         join_button = toga.Button('Unirse al chat', on_press=None)
 
@@ -19,6 +20,7 @@ class MoneyFrame(toga.Window):
         main_box.add(key_box)
         main_box.add(token_box)
         main_box.add(eth_box)
+        main_box.add(to_box)
         self.content = main_box
 
 
