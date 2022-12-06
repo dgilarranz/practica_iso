@@ -14,13 +14,14 @@ class MoneyFrame(toga.Window):
         eth_box = self.create_box("Eth Ammount:")
         to_box = self.create_box("To Address:")
 
-        join_button = toga.Button('Unirse al chat', on_press=None)
+        send_button = toga.Button('Unirse al chat', on_press=None)
 
         main_box.add(from_box)
         main_box.add(key_box)
         main_box.add(token_box)
         main_box.add(eth_box)
         main_box.add(to_box)
+        main_box.add(send_button)
         self.content = main_box
 
 

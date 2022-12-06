@@ -100,3 +100,8 @@ def test_init_adds_to_content_to_address_box():
             break
 
     assert to_box is not None
+
+def test_last_children_is_send_button():
+    mf = MoneyFrame()
+    last_child = mf.content.children[-1]
+    assert isinstance(last_child, toga.Button)
