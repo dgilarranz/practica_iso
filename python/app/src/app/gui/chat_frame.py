@@ -9,6 +9,7 @@ from app.config_manager import ConfigManager
 from app.crud import insertar_mensaje
 from app.gui.new_contact_frame import NewContactFrame
 from app.observer import Observer
+from app.gui.money_frame import MoneyFrame
 import asyncio
 
 class ChatFrame(toga.Window, Observer):
@@ -101,7 +102,9 @@ class ChatFrame(toga.Window, Observer):
         frame.show()
 
     def send_crypto(self, widget):
-        pass
+        frame = MoneyFrame()
+        frame.show()
+
 
     async def send_message(self, widget):
         message_content = self.message_input.value

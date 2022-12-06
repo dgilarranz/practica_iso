@@ -99,3 +99,10 @@ async def test_chat_frame_clears_input_text_after_send(mock_create_task, mock_in
     await chat_frame.send_message(None)
 
     assert chat_frame.message_input.value == ""
+
+def test_send_crypto_opens_money_window():
+    chat = ChatFactory().create_new_chat()
+    chat_frame = ChatFrame(chat)
+    with patch("app.gui.money_frame.MoneyFrame.show") as mock_show:
+        chat_frame.send_crypto(None)
+        mock_show.assert_called_once()
