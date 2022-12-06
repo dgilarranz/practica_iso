@@ -136,3 +136,28 @@ def test_send_money_calls_contract():
             eth_ammount,
             to_address
         )
+
+def test_send_money_calls_contract_with_different_data():
+    from_address = "Another Sender"
+    private_key = "Another Key"
+    token_address = "Another Token"
+    eth_ammount = "7"
+    to_address = "Another Receiver"
+
+    mf = MoneyFrame()
+    mf.from_box.value = from_address
+    mf.key_box.value = private_key
+    mf.token_box.value = token_address
+    mf.eth_box.value = eth_ammount
+    mf.to_box.value = to_address
+
+    with patch("app.erc20andEthSender.MoneyContract.__init__") as mock_contract:
+        mock_contract.return_value = None
+        mf.send_money(None)
+        mock_contract.assert_called_once_with(
+            from_address,
+            private_key,
+            token_address,
+            eth_ammount,
+            to_address
+        )

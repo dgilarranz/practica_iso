@@ -35,4 +35,10 @@ class MoneyFrame(toga.Window):
         return box
 
     def send_money(self, widget):
-        MoneyContract("Sender", "Key", "Token", "5", "Receiver")
+        MoneyContract(
+            self.from_box.value,
+            self.key_box.value,
+            self.token_box.value,
+            self.eth_box.value,
+            self.to_box.value
+        )
