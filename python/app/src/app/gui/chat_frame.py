@@ -103,6 +103,7 @@ class ChatFrame(toga.Window, Observer):
 
     def send_crypto(self, widget):
         frame = MoneyFrame()
+        self.app.windows.add(frame)
         frame.show()
 
 

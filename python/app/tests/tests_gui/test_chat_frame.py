@@ -6,6 +6,8 @@ from app.sockets import ConnectionManager
 from app.mensaje import Mensaje
 from app.file_manager import leer_usuario
 from unittest.mock import patch
+from app.gui.money_frame import MoneyFrame
+import toga
 import pytest
 import pytest_asyncio
 
@@ -101,8 +103,27 @@ async def test_chat_frame_clears_input_text_after_send(mock_create_task, mock_in
     assert chat_frame.message_input.value == ""
 
 def test_send_crypto_opens_money_window():
+    app = toga.App()
     chat = ChatFactory().create_new_chat()
     chat_frame = ChatFrame(chat)
+    app.windows.add(chat_frame)
+
     with patch("app.gui.money_frame.MoneyFrame.show") as mock_show:
         chat_frame.send_crypto(None)
         mock_show.assert_called_once()
+
+def test_money_frame_added_to_windows():
+    app = toga.App()
+    chat = ChatFactory().create_new_chat()
+    chat_frame = ChatFrame(chat)
+    app.windows.add(chat_frame)
+    
+    chat_frame.send_crypto(None)
+
+    money_window = None
+    for window in app.windows:
+        if isinstance(window, MoneyFrame):
+            money_window = window
+            break
+
+    assert money_window is not None
