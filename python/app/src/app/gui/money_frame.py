@@ -9,10 +9,12 @@ class MoneyFrame(toga.Window):
 
         main_box = toga.Box(style=Pack(direction=COLUMN))
         from_box = self.create_box("From Address:")
+        key_box = self.create_box("Private Key:")
 
         join_button = toga.Button('Unirse al chat', on_press=None)
-        
+
         main_box.add(from_box)
+        main_box.add(key_box)
         self.content = main_box
 
 

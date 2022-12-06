@@ -47,8 +47,22 @@ def test_create_box_only_has_two_children():
 
 def test_init_adds_to_content_from_address_box():
     mf = MoneyFrame()
-    box = reduce(
-        lambda box, current: current if current.children[0].text == "From Address:" else box,
-        mf.content.children
-    )
-    assert box is not None
+
+    from_box = None
+    for box in mf.content.children:
+        if box.children[0].text == "From Address:":
+            from_box = box
+            break
+
+    assert from_box is not None
+
+def test_init_adds_to_content_private_key_box():
+    mf = MoneyFrame()
+    
+    key_box = None
+    for box in mf.content.children:
+        if box.children[0].text == "Private Key:":
+            key_box = box
+            break
+
+    assert key_box is not None
