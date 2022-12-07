@@ -133,7 +133,7 @@ def test_send_money_calls_contract():
             from_address,
             private_key,
             token_address,
-            eth_ammount,
+            int(eth_ammount),
             to_address
         )
 
@@ -158,6 +158,6 @@ def test_send_money_calls_contract_with_different_data():
             from_address,
             private_key,
             token_address,
-            eth_ammount,
+            int(eth_ammount),
             to_address
-        )
+        )        
