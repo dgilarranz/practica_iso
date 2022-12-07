@@ -39,6 +39,6 @@ class MoneyFrame(toga.Window):
             self.from_box.children[1].value,
             self.key_box.children[1].value,
             self.token_box.children[1].value,
-            int(self.eth_box.children[1].value),
+            float(self.eth_box.children[1].value),
             self.to_box.children[1].value
         )

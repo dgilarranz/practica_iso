@@ -158,6 +158,6 @@ def test_send_money_calls_contract_with_different_data():
             from_address,
             private_key,
             token_address,
-            int(eth_ammount),
+            float(eth_ammount),
             to_address
         )        
