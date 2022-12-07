@@ -16,7 +16,7 @@ class MoneyContract:
         contract = web3.eth.contract(address=token_address, abi=transfer_abi)
 
         # Introducimos el valor decimal de tokens a transferir y la dirección destino
-        if not eth_amount.isnumeric():
+        if not isinstance(eth_amount, float):
             raise MoneyTransferError("No es un número, idiota")
         wei_amount = web3.toWei(eth_amount, "ether")
 
