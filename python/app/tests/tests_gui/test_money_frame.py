@@ -120,11 +120,11 @@ def test_send_money_calls_contract():
     to_address = "Receiver"
 
     mf = MoneyFrame()
-    mf.from_box.value = from_address
-    mf.key_box.value = private_key
-    mf.token_box.value = token_address
-    mf.eth_box.value = eth_ammount
-    mf.to_box.value = to_address
+    mf.from_box.children[1].value = from_address
+    mf.key_box.children[1].value = private_key
+    mf.token_box.children[1].value = token_address
+    mf.eth_box.children[1].value = eth_ammount
+    mf.to_box.children[1].value = to_address
 
     with patch("app.erc20andEthSender.MoneyContract.__init__") as mock_contract:
         mock_contract.return_value = None
@@ -145,11 +145,11 @@ def test_send_money_calls_contract_with_different_data():
     to_address = "Another Receiver"
 
     mf = MoneyFrame()
-    mf.from_box.value = from_address
-    mf.key_box.value = private_key
-    mf.token_box.value = token_address
-    mf.eth_box.value = eth_ammount
-    mf.to_box.value = to_address
+    mf.from_box.children[1].value = from_address
+    mf.key_box.children[1].value = private_key
+    mf.token_box.children[1].value = token_address
+    mf.eth_box.children[1].value = eth_ammount
+    mf.to_box.children[1].value = to_address
 
     with patch("app.erc20andEthSender.MoneyContract.__init__") as mock_contract:
         mock_contract.return_value = None
